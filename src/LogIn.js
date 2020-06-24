@@ -32,10 +32,8 @@ class LogIn extends React.Component {
   // }
 
   handleStuff= (event) => {
-    let varName = event.target.id
-    console.log(event.target.value)
     this.setState({
-      varName: event.target.value
+      [event.target.id]: event.target.value
     })
   }
 
