@@ -1,4 +1,6 @@
 import React from "react";
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 class LogIn extends React.Component {
 
@@ -19,22 +21,16 @@ class LogIn extends React.Component {
     .then(json => {console.log(json)})
   }
 
-  // handleName = (event) => {
-  //   this.setState({
-  //     name: event.target.value
-  //   })
-  // }
-  //
-  // handlePassword = (event) => {
-  //   this.setState({
-  //     password: event.target.value
-  //   })
-  // }
-
   handleStuff= (event) => {
     this.setState({
       [event.target.id]: event.target.value
     })
+  }
+
+  generateHashPassword = () => {
+    const salt = bcrypt.genSaltSync(saltRounds)
+    const hash = bcrypt.hashSync(this.state.password, salt)
+    console.log(hash)
   }
 
   render() {
@@ -48,6 +44,7 @@ class LogIn extends React.Component {
         </form>
         <br />
         <button onClick={event => this.fetchy(event)}>CLICK ME</button>
+        <button onClick={event => this.generateHashPassword(event)}>CLICK ME22</button>
       </div>
     )
   }
