@@ -19,15 +19,23 @@ class LogIn extends React.Component {
     .then(json => {console.log(json)})
   }
 
-  handleName = (event) => {
-    this.setState({
-      name: event.target.value
-    })
-  }
+  // handleName = (event) => {
+  //   this.setState({
+  //     name: event.target.value
+  //   })
+  // }
+  //
+  // handlePassword = (event) => {
+  //   this.setState({
+  //     password: event.target.value
+  //   })
+  // }
 
-  handlePassword = (event) => {
+  handleStuff= (event) => {
+    let varName = event.target.id
+    console.log(event.target.value)
     this.setState({
-      password: event.target.value
+      varName: event.target.value
     })
   }
 
@@ -35,10 +43,10 @@ class LogIn extends React.Component {
     return(
       <div>
         <form>
-          Account: <input type="text" value={this.state.name} onChange={event => this.handleName(event)}/>
+          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
           <br/>
           <br/>
-          Password: <input type="password" value={this.state.password} onChange={event => this.handlePassword(event)}/>
+          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
         </form>
         <br />
         <button onClick={event => this.fetchy(event)}>CLICK ME</button>
