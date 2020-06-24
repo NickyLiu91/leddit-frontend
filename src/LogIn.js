@@ -1,5 +1,5 @@
 import React from "react";
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const saltRounds = 10
 
 class LogIn extends React.Component {
