@@ -1,6 +1,6 @@
 import React from "react";
-const bcrypt = require('bcryptjs')
-const saltRounds = 10
+// const bcrypt = require('bcryptjs')
+const saltRounds = 12
 
 class LogIn extends React.Component {
 
@@ -18,7 +18,7 @@ class LogIn extends React.Component {
   fetchy = () => {
     fetch("http://localhost:3000/api/v1/accounts")
     .then(res => res.json())
-    .then(json => {console.log(json)})
+    .then(json => {console.log(json[0].password_digest)})
   }
 
   handleStuff= (event) => {
@@ -27,11 +27,11 @@ class LogIn extends React.Component {
     })
   }
 
-  generateHashPassword = () => {
-    const salt = bcrypt.genSaltSync(saltRounds)
-    const hash = bcrypt.hashSync(this.state.password, salt)
-    console.log(hash)
-  }
+  // generateHashPassword = () => {
+  //   const salt = bcrypt.genSaltSync(saltRounds)
+  //   const hash = bcrypt.hashSync(this.state.password, salt)
+  //   console.log(hash)
+  // }
 
   render() {
     return(
