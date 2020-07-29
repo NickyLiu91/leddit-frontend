@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux'
+// import thunk from 'redux-thunk'
 import { BrowserRouter as Router } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 
@@ -11,7 +12,7 @@ import usersReducer from './reducers/usersReducer'
 
 const rootReducer = combineReducers({ usersReducer: usersReducer})
 
-const store = rootReducer
+const store = createStore(rootReducer)
 
 console.log(store.getState())
 
