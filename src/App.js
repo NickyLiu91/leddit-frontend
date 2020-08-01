@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
-import LogIn from './logIn.js';
-import Profile from './profile.js';
-import NotFound from './notFound.js';
+import LogIn from './components/logIn.js';
+import Profile from './components/profile.js';
+import NotFound from './components/notFound.js';
 //
 // function App() {
 //   return (
@@ -20,9 +20,9 @@ import NotFound from './notFound.js';
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/profile" />} />
 
-          <Route exact path="/profile" component={Profile}
-          <Route exact path="/login" component={LogIn}
-          <Route component={NotFound}
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/login" component={LogIn} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     )
