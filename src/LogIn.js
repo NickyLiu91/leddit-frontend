@@ -1,6 +1,4 @@
 import React from "react";
-// const bcrypt = require('bcryptjs')
-const saltRounds = 12
 
 class LogIn extends React.Component {
 
@@ -26,12 +24,6 @@ class LogIn extends React.Component {
       [event.target.id]: event.target.value
     })
   }
-
-  // generateHashPassword = () => {
-  //   const salt = bcrypt.genSaltSync(saltRounds)
-  //   const hash = bcrypt.hashSync(this.state.password, salt)
-  //   console.log(hash)
-  // }
 
   render() {
     return(
