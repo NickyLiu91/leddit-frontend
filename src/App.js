@@ -4,6 +4,7 @@ import './App.css';
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import LogIn from './logIn.js';
 import Profile from './profile.js';
+import NotFound from './notFound.js';
 //
 // function App() {
 //   return (
