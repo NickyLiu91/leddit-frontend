@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
-// import LogIn from './LogIn.js';
+import LogIn from './logIn.js';
+import Profile from './profile.js';
 //
 // function App() {
 //   return (
@@ -19,7 +20,7 @@ import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
           <Route exact path="/" render={() => <Redirect to="/profile" />} />
 
           <Route exact path="/profile" component={Profile}
-          <Route exact path="/login" component={LoginForm}
+          <Route exact path="/login" component={LogIn}
           <Route component={NotFound}
         </Switch>
       </div>
