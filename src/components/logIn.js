@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from 'react-redux'
+import { withRouter, Redirect } from 'react-router'
+// import { loginUser } from '../actions/user'
 
 class LogIn extends React.Component {
 
@@ -7,7 +10,7 @@ class LogIn extends React.Component {
     password: ''
   }
 
-  logIN = () => {
+  logIn = () => {
     fetch(`http://localhost:3000/api/v1/accounts`)
     .then(res => res.json())
     .then(json => {console.log(json)})
@@ -34,19 +37,28 @@ class LogIn extends React.Component {
   }
 
   render() {
-    return(
-      <div>
-        <form>
-          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
-          <br/>
-          <br/>
-          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
-        </form>
-        <br />
-        <button onClick={event => this.fetchy(event)}>CLICK ME</button>
-        <button onClick={event => this.generateHashPassword(event)}>CLICK ME22</button>
-      </div>
-    )
+    if (this.props.loggedIn) {
+      return <Redirect to="/profile" />
+    } else {
+      return(
+        <div>
+          <form
+            onSubmit={this.handleLoginSubmit}
+            loading={this.props.authenticatingUser}
+            error={this.props.failedLogin}
+          >
+            Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+            <br/>
+            <br/>
+            Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+            <br/>
+            <br/>
+            <button type="submit">Login</button>
+          </form>
+
+        </div>
+      )
+    }
   }
 }
 
