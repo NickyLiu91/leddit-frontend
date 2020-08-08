@@ -5,16 +5,9 @@ import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import LogIn from './components/logIn.js';
 import Profile from './components/profile.js';
 import NotFound from './components/notFound.js';
-//
-// function App() {
-//   return (
-//     <div className="App">
-//       <LogIn />
-//     </div>
-//   );
-// }
 
   const App = props => {
+    console.log(props)
     return(
       <div>
         <Switch>
@@ -28,4 +21,4 @@ import NotFound from './components/notFound.js';
     )
   }
 
-export default App;
+export default withRouter(App);
