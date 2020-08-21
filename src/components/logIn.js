@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
-import { loginUser } from '../actions/user'
+// import { loginUser } from '../actions/user'
 
 class LogIn extends React.Component {
 
@@ -34,6 +34,26 @@ class LogIn extends React.Component {
       name: '',
       password: ''
     })
+  }
+
+  loginUser = (username, password) => {
+    dispatch({type: 'AUTHENTICATING_USER'})
+
+    fetch("http://localhost:3000/api/v1/accounts/login",
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify){
+        user: {
+          account: {
+            name: username,
+            password: password
+          }
+        }
+      }
+    )
   }
 
   render() {
