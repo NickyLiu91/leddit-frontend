@@ -28,8 +28,9 @@ class LogIn extends React.Component {
     })
   }
 
-  handleLoginSubmit = () => {
-    this.props.loginUser(this.state.name, this.state.password)
+  handleLoginSubmit = (event) => {
+    event.preventDefault()
+    this.loginUser(this.state.name, this.state.password)
     this.setState({
       name: '',
       password: ''
@@ -55,6 +56,14 @@ class LogIn extends React.Component {
           }
         })
       })
+      .then(res => {
+        if(res.ok) {
+          console.log("??????????")
+          return res.json()
+        } else {
+          throw res
+        }
+      })
     }
   }
 
@@ -65,7 +74,7 @@ class LogIn extends React.Component {
       return(
         <div>
           <form
-            onSubmit={this.handleLoginSubmit}
+            // onSubmit={this.handleLoginSubmit}
             loading={this.props.authenticatingUser}
             error={this.props.failedLogin}
           >
@@ -75,8 +84,9 @@ class LogIn extends React.Component {
             Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
             <br/>
             <br/>
-            <button type="submit">Login</button>
+            <button onClick={(event) => {this.handleLoginSubmit(event)}}>Login</button>
           </form>
+          <button onClick={event => {console.log(this.state)}}>CLICK</button>
 
         </div>
       )
@@ -95,7 +105,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: (username, password) => dispatch(loginUser(username, password))
+    loginUser: (username, password) => dispatch(this.loginUser(username, password))
   }
 }
 
