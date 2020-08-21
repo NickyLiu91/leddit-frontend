@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
-// import { loginUser } from '../actions/user'
+import { loginUser } from '../actions/user'
 
 class LogIn extends React.Component {
 
@@ -59,6 +59,21 @@ class LogIn extends React.Component {
         </div>
       )
     }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    authenticatingUser: state.usersReducer.authenticatingUser,
+    failedLogin: state.usersReducer.failedLogin,
+    error: state.usersReducer.error,
+    loggedIn: state.usersReducer.loggedIn
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginUser: (username, password) => dispatch(loginUser(username, password))
   }
 }
 
