@@ -37,23 +37,25 @@ class LogIn extends React.Component {
   }
 
   loginUser = (username, password) => {
-    dispatch({type: 'AUTHENTICATING_USER'})
+    return (dispatch) => {
+      dispatch({type: 'AUTHENTICATING_USER'})
 
-    fetch("http://localhost:3000/api/v1/accounts/login",
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify){
-        user: {
-          account: {
-            name: username,
-            password: password
+      fetch("http://localhost:3000/api/v1/accounts/login", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            account: {
+              name: username,
+              password: password
+            }
           }
-        }
-      }
-    )
+        })
+      })
+    }
   }
 
   render() {
