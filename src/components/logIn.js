@@ -31,10 +31,10 @@ class LogIn extends React.Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
     this.loginUser(this.state.name, this.state.password)
-    this.setState({
-      name: '',
-      password: ''
-    })
+    // this.setState({
+    //   name: '',
+    //   password: ''
+    // })
   }
 
   loginUser = (username, password) => {
@@ -74,7 +74,7 @@ class LogIn extends React.Component {
       return(
         <div>
           <form
-            // onSubmit={this.handleLoginSubmit}
+            onSubmit={this.handleLoginSubmit}
             loading={this.props.authenticatingUser}
             error={this.props.failedLogin}
           >
@@ -84,7 +84,7 @@ class LogIn extends React.Component {
             Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
             <br/>
             <br/>
-            <button onClick={(event) => {this.handleLoginSubmit(event)}}>Login</button>
+            <button type="submit">Login</button>
           </form>
           <button onClick={event => {console.log(this.state)}}>CLICK</button>
 
