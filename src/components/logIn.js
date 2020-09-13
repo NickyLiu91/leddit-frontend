@@ -31,7 +31,6 @@ class LogIn extends React.Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
     this.loginUser(this.state.name, this.state.password)
-    console.log("????????")
     // this.setState({
     //   name: '',
     //   password: ''
@@ -39,8 +38,8 @@ class LogIn extends React.Component {
   }
 
   loginUser = (username, password) => {
-    return (dispatch) => {
-      dispatch({type: 'AUTHENTICATING_USER'})
+    // return (dispatch) => {
+      // dispatch({type: 'AUTHENTICATING_USER'})
 
     //   fetch("http://localhost:3000/api/v1/accounts/login", {
     //     method: "POST",
@@ -66,6 +65,23 @@ class LogIn extends React.Component {
     //     }
     //   })
     // }
+    console.log(username)
+    console.log(password)
+    // fetch('http://localhost:3000/api/v1/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //     Authorization: 'Bearer <token>'
+    //   },
+    //   body: JSON.stringify({
+    //     name: username,
+    //     password_digest: password
+    //   })
+    // })
+    // .then(r => r.json())
+    // .then(console.log)
+
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -80,7 +96,7 @@ class LogIn extends React.Component {
     })
     .then(r => r.json())
     .then(console.log)
-    }
+
   }
 
   render() {
