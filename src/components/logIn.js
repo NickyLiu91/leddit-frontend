@@ -31,6 +31,7 @@ class LogIn extends React.Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
     this.loginUser(this.state.name, this.state.password)
+    console.log("????????")
     // this.setState({
     //   name: '',
     //   password: ''
@@ -41,29 +42,44 @@ class LogIn extends React.Component {
     return (dispatch) => {
       dispatch({type: 'AUTHENTICATING_USER'})
 
-      fetch("http://localhost:3000/api/v1/accounts/login", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            account: {
-              name: username,
-              password: password
-            }
-          }
-        })
+    //   fetch("http://localhost:3000/api/v1/accounts/login", {
+    //     method: "POST",
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       Accept: 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       user: {
+    //         account: {
+    //           name: username,
+    //           password: password
+    //         }
+    //       }
+    //     })
+    //   })
+    //   .then(res => {
+    //     if(res.ok) {
+    //       console.log("??????????")
+    //       return res.json()
+    //     } else {
+    //       throw res
+    //     }
+    //   })
+    // }
+    fetch('http://localhost:3000/api/v1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer <token>'
+      },
+      body: JSON.stringify({
+          name: username,
+          password_digest: password
       })
-      .then(res => {
-        if(res.ok) {
-          console.log("??????????")
-          return res.json()
-        } else {
-          throw res
-        }
-      })
+    })
+    .then(r => r.json())
+    .then(console.log)
     }
   }
 
