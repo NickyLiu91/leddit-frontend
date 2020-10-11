@@ -38,49 +38,6 @@ class LogIn extends React.Component {
   }
 
   loginUser = (username, password) => {
-    // return (dispatch) => {
-      // dispatch({type: 'AUTHENTICATING_USER'})
-
-    //   fetch("http://localhost:3000/api/v1/accounts/login", {
-    //     method: "POST",
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Accept: 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       user: {
-    //         account: {
-    //           name: username,
-    //           password: password
-    //         }
-    //       }
-    //     })
-    //   })
-    //   .then(res => {
-    //     if(res.ok) {
-    //       console.log("??????????")
-    //       return res.json()
-    //     } else {
-    //       throw res
-    //     }
-    //   })
-    // }
-    console.log(username)
-    console.log(password)
-    // fetch('http://localhost:3000/api/v1/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //     Authorization: 'Bearer <token>'
-    //   },
-    //   body: JSON.stringify({
-    //     name: username,
-    //     password_digest: password
-    //   })
-    // })
-    // .then(r => r.json())
-    // .then(console.log)
 
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
@@ -100,15 +57,10 @@ class LogIn extends React.Component {
   }
 
   render() {
-    if (this.props.loggedIn) {
-      return <Redirect to="/profile" />
-    } else {
-      return(
+      return (
         <div>
           <form
             onSubmit={this.handleLoginSubmit}
-            loading={this.props.authenticatingUser}
-            error={this.props.failedLogin}
           >
             Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
             <br/>
@@ -119,26 +71,51 @@ class LogIn extends React.Component {
             <button type="submit">Login</button>
           </form>
           <button onClick={event => {console.log(this.state)}}>CLICK</button>
-
         </div>
       )
     }
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    authenticatingUser: state.usersReducer.authenticatingUser,
-    failedLogin: state.usersReducer.failedLogin,
-    error: state.usersReducer.error,
-    loggedIn: state.usersReducer.loggedIn
-  }
-}
+//   render() {
+//     if (this.props.loggedIn) {
+//       return <Redirect to="/profile" />
+//     } else {
+//       return(
+//         <div>
+//           <form
+//             onSubmit={this.handleLoginSubmit}
+//             loading={this.props.authenticatingUser}
+//             error={this.props.failedLogin}
+//           >
+//             Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+//             <br/>
+//             <br/>
+//             Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+//             <br/>
+//             <br/>
+//             <button type="submit">Login</button>
+//           </form>
+//           <button onClick={event => {console.log(this.state)}}>CLICK</button>
+//
+//         </div>
+//       )
+//     }
+//   }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginUser: (username, password) => dispatch(this.loginUser(username, password))
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     authenticatingUser: state.usersReducer.authenticatingUser,
+//     failedLogin: state.usersReducer.failedLogin,
+//     error: state.usersReducer.error,
+//     loggedIn: state.usersReducer.loggedIn
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     loginUser: (username, password) => dispatch(this.loginUser(username, password))
+//   }
+// }
 
 export default LogIn
