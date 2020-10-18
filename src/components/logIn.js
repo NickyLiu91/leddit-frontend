@@ -60,6 +60,8 @@ class LogIn extends React.Component {
       this.setState({
         account: json
       })
+      this.props.changeAccount(json)
+
     })
     // .then(console.log)
 
@@ -77,7 +79,7 @@ class LogIn extends React.Component {
             <br/>
             <button type="submit">Login</button>
           </form>
-          <button onClick={event => {console.log(this.state)}}>CLICK</button>
+          <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
         </div>
       )
     }

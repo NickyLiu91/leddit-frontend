@@ -1,29 +1,19 @@
-const defaultState = {
-  user: null,
-  loggedIn: false,
-  authenticatingUser: false,
-  failedLogin: false,
-  error: null
-}
+import {combineReducers} from 'redux'
 
-const usersReducer = (state=defaultState, action) => {
-  switch (action.type) {
-    case 'SET_CURRENT_USER':
-      return {...state, user: action.payload, loggedIn: true, authenticatingUser: false}
-    case 'AUTHENTICATING_USER':
-      return {...state, authenticatingUser: true}
-    case 'AUTHENTICATED_USER':
-      return {...state, authenticatingUser: false}
-    case 'FAILED_LOGIN':
-      return {
-        ...state,
-        failedLogin: true,
-        error: action.payload,
-        authenticatingUser: false
-      }
-    default:
-      return state
+  // const defaultState = {
+  //   account: {}
+  // }
+
+  function accountChanger(state = {account: {}}, action) {
+    switch (action.type) {
+      case 'CHANGE_ACCOUNT':
+        // console.log(state);
+        return {account: action.newAccount}
+      default:
+        return state;
+    }
   }
-}
 
-export default usersReducer
+export default combineReducers({
+  accountChanger
+})
