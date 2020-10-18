@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux'
+import {compose} from 'redux';
 import { withRouter, Redirect } from 'react-router'
+
 // import { loginUser } from '../actions/user'
 
 class LogIn extends React.Component {
@@ -123,4 +125,20 @@ class LogIn extends React.Component {
 //   }
 // }
 
-export default LogIn
+  const mapStateToProps = state => {
+    return {
+      account: state.accountChanger.account,
+    }
+  }
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    }
+  }
+
+  export default compose(
+    withRouter,
+    connect(mapStateToProps,
+    mapDispatchToProps)
+  )(LogIn);
