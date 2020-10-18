@@ -7,7 +7,8 @@ class LogIn extends React.Component {
 
   state = {
     name: '',
-    password: ''
+    password: '',
+    account: {}
   }
 
   logIn = () => {
@@ -31,6 +32,7 @@ class LogIn extends React.Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
     this.loginUser(this.state.name, this.state.password)
+    // console.log("hi")
     // this.setState({
     //   name: '',
     //   password: ''
@@ -52,16 +54,19 @@ class LogIn extends React.Component {
       })
     })
     .then(r => r.json())
-    .then(console.log)
+    .then(json => {
+      this.setState({
+        account: json
+      })
+    })
+    // .then(console.log)
 
   }
 
   render() {
       return (
         <div>
-          <form
-            onSubmit={this.handleLoginSubmit}
-          >
+          <form onSubmit={this.handleLoginSubmit}>
             Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
             <br/>
             <br/>
