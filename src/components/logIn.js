@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
-import { withRouter, Redirect } from 'react-router'
+import { Route, Link, withRouter } from 'react-router-dom'
 
 // import { loginUser } from '../actions/user'
 
@@ -79,7 +79,7 @@ class LogIn extends React.Component {
             <br/>
             <button type="submit">Login</button>
           </form>
-          <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
+          <button onClick={event => {console.log(this.props)}}>CLICK</button>
         </div>
       )
     }
@@ -141,6 +141,8 @@ class LogIn extends React.Component {
 
   export default compose(
     withRouter,
-    connect(mapStateToProps,
+    connect(
+      mapStateToProps,
     mapDispatchToProps)
   )(LogIn);
+  // export default LogIn

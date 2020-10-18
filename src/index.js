@@ -8,9 +8,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
-import usersReducer from './reducers/usersReducer'
+import rootReducer from './reducers/rootReducers'
 
-const rootReducer = combineReducers({ usersReducer: usersReducer})
+// const rootReducer = combineReducers({ rootReducer: rootReducer})
 
 const store = createStore(rootReducer)
 
