@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import {compose} from 'redux';
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import Nav from './components/nav.js';
 import LogIn from './components/logIn.js';
@@ -24,4 +26,21 @@ import NotFound from './components/notFound.js';
     )
   }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    posts: state.postsChanger.posts,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(
+  mapStateToProps,
+  mapDispatchToProps)
+)(App);

@@ -19,12 +19,6 @@ class LogIn extends React.Component {
     .then(json => {console.log(json)})
   }
 
-  fetchy = () => {
-    fetch("http://localhost:3000/api/v1/accounts")
-    .then(res => res.json())
-    .then(json => {console.log(json[0].password_digest)})
-  }
-
   handleStuff= (event) => {
     this.setState({
       [event.target.id]: event.target.value
@@ -79,7 +73,7 @@ class LogIn extends React.Component {
             <br/>
             <button type="submit">Login</button>
           </form>
-          <button onClick={event => {console.log(this.props)}}>CLICK</button>
+          <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
         </div>
       )
     }
@@ -127,22 +121,22 @@ class LogIn extends React.Component {
 //   }
 // }
 
-  const mapStateToProps = state => {
-    return {
-      account: state.accountChanger.account,
-    }
+const mapStateToProps = state => {
+  return {
+    account: state.accountChanger.account,
   }
+}
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    }
+const mapDispatchToProps = dispatch => {
+  return {
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
   }
+}
 
-  export default compose(
-    withRouter,
-    connect(
-      mapStateToProps,
-    mapDispatchToProps)
-  )(LogIn);
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+  mapDispatchToProps)
+)(LogIn);
   // export default LogIn
