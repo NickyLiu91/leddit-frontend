@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
-import Nav from './components/nav.js';
 
 class Posts extends React.Component {
 
@@ -24,7 +23,6 @@ class Posts extends React.Component {
   render(){
     return (
       <div>
-        <Nav />
         <div id="posts-list">
         {this.generatePosts}
         </div>
