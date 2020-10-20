@@ -14,6 +14,17 @@ import {combineReducers} from 'redux'
     }
   }
 
+  function postsChanger(state = {posts: {}}, action) {
+    switch (action.type) {
+      case 'CHANGE_POSTS':
+        // console.log(state);
+        return {posts: action.newPosts}
+      default:
+        return state;
+    }
+  }
+
 export default combineReducers({
-  accountChanger
+  accountChanger,
+  postsChanger
 })
