@@ -13,19 +13,19 @@ class Posts extends React.Component {
     .then(json => {this.props.changePosts(json)})
   }
 
-  // generatePosts = () => {
-  //   let list = this.props.posts
-  //   console.log(this.props.posts)
-  //
-  //   // list.map(
-  //   //   post => <Post />
-  //   // )
-  // }
+  generatePosts = () => {
+    let list = this.props.posts
+    // console.log(this.props.posts)
+
+    list.map(
+      post => <Post />
+    )
+  }
 
   render() {
     return (
       <div>
-        hihihi
+        {this.generatePosts()}
       </div>
     )
   }
