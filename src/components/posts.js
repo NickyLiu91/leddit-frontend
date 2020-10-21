@@ -26,6 +26,7 @@ class Posts extends React.Component {
     return (
       <div>
         {this.generatePosts()}
+        postspostsposts
       </div>
     )
   }
