@@ -25,11 +25,9 @@ class App extends React.Component {
         <Nav />
         <br/>
         <Switch>
-          // <Route exact path="/" render={() => <Redirect to="/login" />} />
-
-          <Route exact path={"/"} component={Home} />
-          <Route path={"/posts"} component={Posts} />
-          <Route path={"/login"} component={LogIn} />
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/posts" component={Posts} />
 
         </Switch>
       </div>
