@@ -11,17 +11,11 @@ class Nav extends React.Component {
         <ul>
         <li className="home" onClick={() => {this.props.history.push("/")}}>Home</li>
         <li className="login" onClick={() => {this.props.history.push("/login")}}>LogIn</li>
-        <li className="posts" onClick={this.props.history.push("/posts")}}>Posts</li>
+        <li className="posts" onClick={() => {this.props.history.push("/posts")}}>Posts</li>
         </ul>
       </nav>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    deckCards: state.deckCardsChanger.deckCards
-  }
-}
-
-export default Nav
+export default withRouter(Nav)

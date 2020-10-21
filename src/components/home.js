@@ -2,30 +2,13 @@ import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
-import Post from './post.js'
 
-class Posts extends React.Component {
-
-  componentDidMount() {
-    fetch(`http://localhost:3000/api/v1/posts`)
-    .then(res => res.json())
-    // .then(json => console.log(this.props.changePosts))
-    .then(json => {this.props.changePosts(json)})
-  }
-
-  generatePosts = () => {
-    let list = this.props.posts
-    // console.log(this.props.posts)
-
-    list.map(
-      post => <Post />
-    )
-  }
+class Home extends React.Component {
 
   render() {
     return (
       <div>
-        {this.generatePosts()}
+        HOME PAGE
       </div>
     )
   }
@@ -48,4 +31,4 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps)
-)(Posts);
+)(Home);
