@@ -5,6 +5,7 @@ import { Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import Nav from './components/nav.js';
+import Home from './components/home.js';
 import LogIn from './components/logIn.js';
 import Posts from './components/posts.js';
 // import NotFound from './components/notFound.js';
@@ -26,6 +27,7 @@ class App extends React.Component {
         <Switch>
           // <Route exact path="/" render={() => <Redirect to="/login" />} />
 
+          <Route exact path="/home" component={Home} />
           <Route exact path="/posts" component={Posts} />
           <Route exact path="/login" component={LogIn} />
 

@@ -1,15 +1,26 @@
 import React from "react";
+import {connect} from 'react-redux';
+import {compose} from 'redux';
+import {Route, Link, withRouter, NavLink} from 'react-router-dom';
 
 class Nav extends React.Component {
 
   render() {
     return(
-      <div>
-        <div>NAV1</div>
-        <div>NAV2</div>
-        <div>NAV3</div>
-      </div>
+      <nav>
+        <ul>
+        <li className="home" onClick={() => {this.props.history.push("/")}}>Home</li>
+        <li className="login" onClick={() => {this.props.history.push("/login")}}>LogIn</li>
+        <li className="posts" onClick={this.props.history.push("/posts")}}>Posts</li>
+        </ul>
+      </nav>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    deckCards: state.deckCardsChanger.deckCards
   }
 }
 
