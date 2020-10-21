@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
+import Post from './post.js'
 
 class Posts extends React.Component {
 
@@ -14,18 +15,17 @@ class Posts extends React.Component {
 
   generatePosts = () => {
     let list = this.props.posts
+    console.log(list)
 
-    return list.map(
-      post => post
-    )
+    // return list.map(
+    //   post => <Post />
+    // )
   }
 
-  render(){
+  render() {
     return (
       <div>
-        <div id="posts-list">
-        {this.generatePosts}
-        </div>
+        {this.generatePosts()}
       </div>
     )
   }
