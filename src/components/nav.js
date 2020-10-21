@@ -9,9 +9,9 @@ class Nav extends React.Component {
     return(
       <nav>
         <ul>
-        <li className="home" onClick={() => {this.props.history.push("/")}}>Home</li>
-        <li className="login" onClick={() => {this.props.history.push("/login")}}>LogIn</li>
-        <li className="posts" onClick={() => {this.props.history.push("/posts")}}>Posts</li>
+        <li onClick={() => {this.props.history.push("/")}}>Home</li>
+        <li onClick={() => {this.props.history.push("/login")}}>LogIn</li>
+        <li onClick={() => {this.props.history.push("/posts")}}>Posts</li>
         </ul>
       </nav>
     )
