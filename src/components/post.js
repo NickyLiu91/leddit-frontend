@@ -2,7 +2,7 @@ import React from "react";
 
 const Post = (props) => {
   return(
-    <div>
+    <div className="post">
       <ul>
         <li>
           <h1>{props.post.title}</h1>
