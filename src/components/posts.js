@@ -15,18 +15,17 @@ class Posts extends React.Component {
 
   generatePosts = () => {
     let list = this.props.posts
-    console.log(this.props.posts)
+    console.log(list)
 
-    // list.map(
-    //   post => <Post />
-    // )
+    return list.map(
+      post => <Post post={post}/>
+    )
   }
 
   render() {
     return (
       <div>
         {this.generatePosts()}
-        postspostsposts
       </div>
     )
   }
