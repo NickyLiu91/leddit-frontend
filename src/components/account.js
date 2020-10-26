@@ -8,7 +8,8 @@ class Account extends React.Component {
   render() {
     return (
       <div>
-        Account Info
+        {console.log(this.props.account.name)}
+        Name: {this.props.account.name}
       </div>
     )
   }

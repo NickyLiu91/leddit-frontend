@@ -55,7 +55,6 @@ class LogIn extends React.Component {
         account: json
       })
       this.props.changeAccount(json)
-
     })
     // .then(console.log)
 
