@@ -12,6 +12,7 @@ class Nav extends React.Component {
         <li onClick={() => {this.props.history.push("/")}}>Home</li>
         <li onClick={() => {this.props.history.push("/login")}}>LogIn</li>
         <li onClick={() => {this.props.history.push("/posts")}}>Posts</li>
+        <li onClick={() => {this.props.history.push("/account")}}>Account</li>
         </ul>
       </nav>
     )
