@@ -4,8 +4,6 @@ import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Account from './account.js';
 
-// import { loginUser } from '../actions/user'
-
 class LogIn extends React.Component {
 
   state = {
@@ -52,33 +50,23 @@ class LogIn extends React.Component {
       })
       this.props.changeAccount(json)
     })
-    // .then(console.log)
-
   }
 
   render() {
-    if (Object.keys(this.props.account).length == 0) {
-      return (
-        <div>
-          <form onSubmit={this.handleLoginSubmit}>
-            Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
-            <br/>
-            <br/>
-            Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
-            <br/>
-            <br/>
-            <button type="submit">Login</button>
-          </form>
-          <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <Account account={this.props.account}/>
-        </div>
-      )
-    }
+    return (
+      <div>
+        <form onSubmit={this.handleLoginSubmit}>
+          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          <button type="submit">Login</button>
+        </form>
+        <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
+      </div>
+    )
   }
 }
 
@@ -100,4 +88,3 @@ export default compose(
     mapStateToProps,
   mapDispatchToProps)
 )(LogIn);
-  // export default LogIn

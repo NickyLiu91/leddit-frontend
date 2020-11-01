@@ -7,6 +7,7 @@ import {compose} from 'redux';
 import Nav from './components/nav.js';
 import Home from './components/home.js';
 import LogIn from './components/logIn.js';
+import LogInPage from './components/logInPage.js';
 import Posts from './components/posts.js';
 import Account from './components/account.js';
 // import NotFound from './components/notFound.js';
@@ -27,9 +28,8 @@ class App extends React.Component {
         <br/>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={LogIn} />
+          <Route path="/loginpage" component={LogInPage} />
           <Route path="/posts" component={Posts} />
-          <Route path="/account" component={Account} />
         </Switch>
       </div>
     )
