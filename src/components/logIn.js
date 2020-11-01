@@ -75,7 +75,7 @@ class LogIn extends React.Component {
     } else {
       return (
         <div>
-          <Account />
+          <Account account={this.props.account}/>
         </div>
       )
     }
