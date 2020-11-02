@@ -5,7 +5,7 @@ const Comment = (props) => {
     <div className="post">
       <ul>
         <li>
-          <h1>Comment</h1>
+          <h1>{props.comment.content}</h1>
         </li>
       </ul>
     </div>
