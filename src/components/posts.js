@@ -8,7 +8,6 @@ class Posts extends React.Component {
 
   generatePosts = () => {
     let list = this.props.posts
-    console.log(list)
 
     return list.map(
       post => <Post post={post} seeBigPost={this.seeBigPost}/>
@@ -31,12 +30,13 @@ class Posts extends React.Component {
 const mapStateToProps = state => {
   return {
     posts: state.postsChanger.posts,
+    selectedPost: state.selectedPostChanger.selectedPost
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
   }
 }
 
