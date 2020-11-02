@@ -9,7 +9,7 @@ import Home from './components/home.js';
 import LogIn from './components/logIn.js';
 import LogInPage from './components/logInPage.js';
 import Posts from './components/posts.js';
-import BigPosts from './components/bigPosts.js';
+import BigPost from './components/bigPost.js';
 import Account from './components/account.js';
 // import NotFound from './components/notFound.js';
 
@@ -31,7 +31,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/loginpage" component={LogInPage} />
           <Route path="/posts" component={Posts} />
-          <Route path="/bigposts" component={BigPosts} />
+          <Route path="/bigpost" component={BigPost} />
         </Switch>
       </div>
     )
