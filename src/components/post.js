@@ -6,7 +6,7 @@ const Post = (props) => {
   return(
     <div className="post">
       <ul>
-        <li onClick={() => {history.push("bigpost")}}>
+        <li onClick={props.seeBigPost}>
           <h1>{props.post.title}</h1>
           <p>{props.post.content}</p>
         </li>

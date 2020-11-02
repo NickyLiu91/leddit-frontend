@@ -11,7 +11,7 @@ class Posts extends React.Component {
     console.log(list)
 
     return list.map(
-      post => <Post post={post} />
+      post => <Post post={post} seeBigPost={this.seeBigPost}/>
     )
   }
 
