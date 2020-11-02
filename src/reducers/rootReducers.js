@@ -27,7 +27,7 @@ import {combineReducers} from 'redux'
   function selectedPostChanger(state = {selectedPost: {}}, action) {
     switch (action.type) {
       case 'CHANGE_SELECTEDPOST':
-        // console.log(state);
+        console.log(state);
         return {selectedPost: action.selectedPost}
       default:
         return state;

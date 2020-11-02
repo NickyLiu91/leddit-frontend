@@ -6,6 +6,7 @@ import { Route, Link, withRouter } from 'react-router-dom'
 class BigPost extends React.Component {
 
   render() {
+
     return (
       <div>
         BigPost
@@ -14,4 +15,14 @@ class BigPost extends React.Component {
   }
 }
 
-export default BigPost;
+const mapStateToProps = state => {
+  return {
+    selectedPost: state.selectedPostChanger.selectedPost
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps)
+)(BigPost);

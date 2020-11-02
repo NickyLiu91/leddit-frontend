@@ -14,7 +14,8 @@ class Posts extends React.Component {
     )
   }
 
-  seeBigPost = () => {
+  seeBigPost = (post) => {
+    this.props.changeSelectedPost(post)
     this.props.history.push("bigpost")
   }
 

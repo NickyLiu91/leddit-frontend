@@ -6,7 +6,7 @@ const Post = (props) => {
   return(
     <div className="post">
       <ul>
-        <li onClick={props.seeBigPost}>
+        <li onClick={() => {props.seeBigPost(props.post)}}>
           <h1>{props.post.title}</h1>
           <p>{props.post.content}</p>
         </li>
