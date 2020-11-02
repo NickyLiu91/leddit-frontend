@@ -6,7 +6,7 @@ import { Route, Link, withRouter } from 'react-router-dom'
 class BigPost extends React.Component {
 
   render() {
-    if (Object.keys(this.props.selectedPost).length == 0) {
+    if (Object.keys(this.props.selectedPost).length != 0) {
       console.log(this.props.selectedPost)
       return (
         <div>
@@ -17,7 +17,6 @@ class BigPost extends React.Component {
       return(
         <div>
         TEST
-        <button onClick={() => {console.log(this.props.selectedPost)}}></button>
         </div>
       )
     }
