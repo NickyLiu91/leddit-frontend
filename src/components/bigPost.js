@@ -15,33 +15,27 @@ class BigPost extends React.Component {
   }
 
   render() {
-    <div>
-      <form onSubmit={this.createPost}>
-        Title: <input id="title" type="text" value={this.state.title} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        Body: <textarea id="body" value={this.state.body} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        <button type="submit">Post</button>
-      </form>
-    </div>
+    if (Object.keys(this.props.selectedPost).length != 0) {
+      console.log(this.props.selectedPost)
+      return (
+        <div>
+          <h1>{this.props.selectedPost.title}</h1>
+          <p>{this.props.selectedPost.content}</p>
+          {this.displayComments()}
+        </div>
+      )
+    }
   }
 }
 
 const mapStateToProps = state => {
   return {
-    posts: state.postsChanger.posts,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
+    selectedPost: state.selectedPostChanger.selectedPost
   }
 }
 
 export default compose(
   withRouter,
-  connect(mapStateToProps)
+  connect(
+    mapStateToProps)
 )(BigPost);
