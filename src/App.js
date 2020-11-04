@@ -11,6 +11,7 @@ import LogInPage from './components/logInPage.js';
 import Posts from './components/posts.js';
 import BigPost from './components/bigPost.js';
 import Account from './components/account.js';
+import CreatePost from './components/createPost.js';
 // import NotFound from './components/notFound.js';
 
 class App extends React.Component {
@@ -32,6 +33,7 @@ class App extends React.Component {
           <Route path="/loginpage" component={LogInPage} />
           <Route path="/posts" component={Posts} />
           <Route path="/bigpost" component={BigPost} />
+          <Route path="/createpost" component={CreatePost} />
         </Switch>
       </div>
     )

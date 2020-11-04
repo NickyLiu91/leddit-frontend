@@ -4,28 +4,37 @@ import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Comment from './comment.js';
 
-class BigPost extends React.Component {
+class CreatePost extends React.Component {
 
-  displayComments = () => {
-    let list = this.props.selectedPost.comments
+  state = {
+    title: '',
+    body: ''
+  }
 
-    return list.map(
-      comment => <Comment comment={comment} />
-    )
+  handleStuff= (event) => {
+    this.setState({
+      [event.target.id]: event.target.value
+    })
+  }
+
+  createPost = (event) => {
+    event.preventDefault()
   }
 
   render() {
-    <div>
-      <form onSubmit={this.createPost}>
-        Title: <input id="title" type="text" value={this.state.title} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        Body: <textarea id="body" value={this.state.body} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        <button type="submit">Post</button>
+    return(
+      <div>
+      <form >
+      Title: <input id="title" type="text" value={this.state.title} onChange={event => this.handleStuff(event)}/>
+      <br/>
+      <br/>
+      Body: <textarea id="body" value={this.state.body} onChange={event => this.handleStuff(event)}/>
+      <br/>
+      <br/>
+      <button type="submit">Post</button>
       </form>
-    </div>
+      </div>
+    )
   }
 }
 
@@ -44,4 +53,4 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   withRouter,
   connect(mapStateToProps)
-)(BigPost);
+)(CreatePost);
