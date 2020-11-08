@@ -17,37 +17,36 @@ class CreatePost extends React.Component {
     })
   }
 
-  createPost = (event) => {
-    event.preventDefault()
-    fetch("http://localhost:3000/api/v1/posts", {
+  createPost = () => {
+    fetch(`http://localhost:3000/api/v1/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        Accept: 'application/json',
+        Authorization: 'Bearer <token>'
       },
       body: JSON.stringify(
-          {
-            title: this.state.title,
-            content: this.state.content,
-            account_id: this.props.account.id
-          }
+        {
+          title: this.state.title,
+          content: this.state.content,
+          account_id: this.props.account.id
+        }
       )})
+      .then(res => res.json())
     }
-  }
 
   render() {
     return(
       <div>
-      <form>
-        Title: <input id="title" type="text" value={this.state.title} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        Content: <textarea id="content" value={this.state.content} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        <button type="submit">Post</button>
-      </form>
-      <button onClick={console.log(this.state)}>BUTTON<button/>
+        <div>
+          Title: <input id="title" type="text" value={this.state.title} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          Content: <textarea id="content" value={this.state.content} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+        </div>
+        <button onClick={this.createPost}>BUTTON</button>
       </div>
     )
   }
@@ -56,7 +55,7 @@ class CreatePost extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
-    posts: state.postsChanger.posts,
+    posts: state.postsChanger.posts
   }
 }
 

@@ -19,7 +19,6 @@ class App extends React.Component {
   componentDidMount() {
     fetch(`http://localhost:3000/api/v1/posts`)
     .then(res => res.json())
-    // .then(json => console.log(this.props.changePosts))
     .then(json => {this.props.changePosts(json)})
   }
 
