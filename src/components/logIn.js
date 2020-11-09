@@ -9,7 +9,8 @@ class LogIn extends React.Component {
   state = {
     name: '',
     password: '',
-    account: {}
+    account: {},
+    token: {}
   }
 
   logIn = () => {
@@ -45,10 +46,13 @@ class LogIn extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
+      console.log(json.jwt)
       this.setState({
-        account: json
+        account: json,
+        token: json.jwt
       })
       this.props.changeAccount(json)
+      this.props.changeToken(json.jwt)
     })
   }
 
@@ -64,7 +68,7 @@ class LogIn extends React.Component {
           <br/>
           <button type="submit">Login</button>
         </form>
-        <button onClick={event => {console.log(this.props.account)}}>CLICK</button>
+        <button onClick={event => {console.log(this.state)}}>CLICK</button>
       </div>
     )
   }
@@ -79,6 +83,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', newAccount: event}),
   }
 }
 

@@ -16,6 +16,7 @@ class LogInPage extends React.Component {
         </div>
       )
     } else {
+      console.log(this.props.account)
       return (
         <div>
           <Account account={this.props.account}/>

@@ -55,7 +55,7 @@ class CreatePost extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
-    posts: state.postsChanger.posts
+    posts: state.postsChanger.posts,
   }
 }
 
