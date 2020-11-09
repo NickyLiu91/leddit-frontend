@@ -25,8 +25,7 @@ class LogIn extends React.Component {
     })
   }
 
-  handleLoginSubmit = (event) => {
-    event.preventDefault()
+  handleLoginSubmit = () => {
     this.loginUser(this.state.name, this.state.password)
   }
 
@@ -64,8 +63,7 @@ class LogIn extends React.Component {
         Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
         <br/>
         <br/>
-        <button type="submit">Login</button>
-        <button onClick={event => {this.handleLoginSubmit}}>CLICK</button>
+        <button onClick={this.handleLoginSubmit}>CLICK</button>
       </div>
     )
   }
@@ -74,6 +72,7 @@ class LogIn extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
+    token: state.tokenChanger.token,
   }
 }
 
