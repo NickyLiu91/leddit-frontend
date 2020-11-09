@@ -34,8 +34,19 @@ import {combineReducers} from 'redux'
     }
   }
 
+  function tokenChanger(state = {token: {}}, action) {
+    switch (action.type) {
+      case 'CHANGE_TOKEN':
+        console.log(state);
+        return {token: action.token}
+      default:
+        return state;
+    }
+  }
+
 export default combineReducers({
   accountChanger,
   postsChanger,
   selectedPostChanger,
+  tokenChanger
 })

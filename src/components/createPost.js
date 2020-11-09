@@ -46,7 +46,7 @@ class CreatePost extends React.Component {
           <br/>
           <br/>
         </div>
-        <button onClick={this.createPost}>BUTTON</button>
+        <button onClick={this.createPost}>Post</button>
       </div>
     )
   }
