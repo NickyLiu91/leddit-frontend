@@ -3,7 +3,7 @@ import React from "react";
 const Account = (props) => {
   return(
     <div>
-      Name: {props.account.account.name}
+      Name: {props.account.name}
     </div>
   )
 }

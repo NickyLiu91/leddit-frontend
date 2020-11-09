@@ -13,12 +13,6 @@ class LogIn extends React.Component {
     token: {}
   }
 
-  logIn = () => {
-    fetch(`http://localhost:3000/api/v1/accounts`)
-    .then(res => res.json())
-    .then(json => {console.log(json)})
-  }
-
   handleStuff= (event) => {
     this.setState({
       [event.target.id]: event.target.value
@@ -45,11 +39,13 @@ class LogIn extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
+      console.log(json)
+      console.log(json.account)
+      console.log(json.jwt)
       this.setState({
-        account: json,
-        token: json.jwt
+        account: json
       })
-      this.props.changeAccount(json)
+      this.props.changeAccount(json.account)
       this.props.changeToken(json.jwt)
     })
   }
@@ -79,7 +75,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', newToken: event}),
+    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', token: event}),
   }
 }
 
