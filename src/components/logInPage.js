@@ -9,14 +9,14 @@ class LogInPage extends React.Component {
 
 
   render() {
-    if (Object.keys(this.props.account).length == 0) {
+    if (Object.keys(this.props.account).length == 0 || Object.keys(this.props.token).length == 0 ) {
       return (
         <div>
           <LogIn />
         </div>
       )
     } else {
-      console.log(this.props.account)
+      console.log(this.props)
       return (
         <div>
           <Account account={this.props.account}/>
@@ -29,12 +29,13 @@ class LogInPage extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
+    token: state.tokenChanger.token,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
   }
 }
 

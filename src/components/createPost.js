@@ -23,7 +23,7 @@ class CreatePost extends React.Component {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: 'Bearer <token>'
+        Authorization: this.props.token
       },
       body: JSON.stringify(
         {
@@ -56,6 +56,7 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     posts: state.postsChanger.posts,
+    token: state.tokenChanger.token,
   }
 }
 

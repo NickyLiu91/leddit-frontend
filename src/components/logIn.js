@@ -46,7 +46,6 @@ class LogIn extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      console.log(json.jwt)
       this.setState({
         account: json,
         token: json.jwt
@@ -59,16 +58,14 @@ class LogIn extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleLoginSubmit}>
-          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
-          <br/>
-          <br/>
-          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
-          <br/>
-          <br/>
-          <button type="submit">Login</button>
-        </form>
-        <button onClick={event => {console.log(this.state)}}>CLICK</button>
+        Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+        <br/>
+        <br/>
+        Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+        <br/>
+        <br/>
+        <button type="submit">Login</button>
+        <button onClick={event => {this.handleLoginSubmit}}>CLICK</button>
       </div>
     )
   }
@@ -83,7 +80,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', newAccount: event}),
+    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', newToken: event}),
   }
 }
 
