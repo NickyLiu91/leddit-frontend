@@ -9,7 +9,7 @@ class LogInPage extends React.Component {
 
 
   render() {
-    if (Object.keys(this.props.account).length == 0 ) {
+    if (Object.keys(this.props.account).length == 0 || Object.keys(this.props.account).length == 0) {
       return (
         <div>
           <LogIn />
@@ -20,7 +20,7 @@ class LogInPage extends React.Component {
       return (
         <div>
           <Account account={this.props.account}/>
-          <button onClick={console.log(this.props.token)}>CLICK2222</button>
+          <button onClick={() => {console.log(this.props)}}>CLICK2222</button>
         </div>
       )
     }

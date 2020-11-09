@@ -8,9 +8,7 @@ class LogIn extends React.Component {
 
   state = {
     name: '',
-    password: '',
-    account: {},
-    token: {}
+    password: ''
   }
 
   handleStuff= (event) => {
@@ -42,9 +40,6 @@ class LogIn extends React.Component {
       console.log(json)
       console.log(json.account)
       console.log(json.jwt)
-      this.setState({
-        account: json
-      })
       this.props.changeAccount(json.account)
       this.props.changeToken(json.jwt)
     })
