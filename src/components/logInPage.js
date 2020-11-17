@@ -7,6 +7,22 @@ import LogIn from './logIn.js';
 
 class LogInPage extends React.Component {
 
+  componentDidMount() {
+    if (localStorage.getItem('jwt')) {
+      this.fetchCurrentUser()
+    }
+  }
+
+  fetchCurrentUser = () => {
+    fetch('http://localhost:3000/api/v1/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+    .then(r => r.json())
+    .then(json => {this.props.changeAccount(json)})
+  }
 
   render() {
     if (localStorage.getItem('jwt')) {
