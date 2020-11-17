@@ -21,17 +21,20 @@ class LogInPage extends React.Component {
       }
     })
     .then(r => r.json())
-    .then(json => {this.props.changeAccount(json)})
+    .then(json => {
+      console.log(json)
+      this.props.changeAccount(json.account)
+    })
   }
 
   render() {
-    if (localStorage.getItem('jwt')) {
+    if (Object.keys(this.props.account).length == 0) {
       return (
         <div>
           <LogIn />
         </div>
       )
-    } else {
+    } else if (Object.keys(this.props.account).length != 0) {
       console.log(this.props)
       return (
         <div>
