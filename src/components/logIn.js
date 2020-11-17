@@ -37,9 +37,7 @@ class LogIn extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      console.log(json)
-      console.log(json.account)
-      console.log(json.jwt)
+      localStorage.setItem('jwt', json.jwt)
       this.props.changeAccount(json.account)
       this.props.changeToken(json.jwt)
     })

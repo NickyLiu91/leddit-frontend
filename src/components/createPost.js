@@ -22,8 +22,8 @@ class CreatePost extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: this.props.token
+        'Accept': 'application/json',
+        'Authorization': this.props.token
       },
       body: JSON.stringify(
         {
@@ -33,6 +33,7 @@ class CreatePost extends React.Component {
         }
       )})
       .then(res => res.json())
+      console.log(this.props.token)
     }
 
   render() {
