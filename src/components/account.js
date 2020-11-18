@@ -8,11 +8,7 @@ class Account extends React.Component {
 
   generateMyPosts = () => {
     let accountId = this.props.account.id
-    let list = this.props.posts.filter(obj => obj.id == accountId)
-    console.log(this.props.posts)
-    // console.log(this.props.posts[0].account.id == accountId)
-    // console.log(this.props.posts[4].account.id == accountId)
-    // console.log(list)
+    let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
       post => <Post post={post} seeBigPost={this.seeBigPost}/>
