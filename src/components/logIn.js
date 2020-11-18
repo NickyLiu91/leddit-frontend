@@ -39,7 +39,6 @@ class LogIn extends React.Component {
     .then(json => {
       localStorage.setItem('jwt', json.jwt)
       this.props.changeAccount(json.account)
-      this.props.changeToken(json.jwt)
     })
   }
 
@@ -60,15 +59,13 @@ class LogIn extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.accountChanger.account,
-    token: state.tokenChanger.token,
+    account: state.accountChanger.account
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeToken: (event) => dispatch({type: 'CHANGE_TOKEN', token: event}),
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
   }
 }
 
@@ -76,5 +73,5 @@ export default compose(
   withRouter,
   connect(
     mapStateToProps,
-  mapDispatchToProps)
+    mapDispatchToProps)
 )(LogIn);
