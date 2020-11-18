@@ -7,15 +7,24 @@ import Post from './post.js'
 class Account extends React.Component {
 
   generateMyPosts = () => {
-    let list = this.props.account.posts
+    let accountId = this.props.account.id
+    let list = this.props.posts.filter(obj => obj.id == accountId)
+    console.log(this.props.posts)
+    // console.log(this.props.posts[0].account.id == accountId)
+    // console.log(this.props.posts[4].account.id == accountId)
+    // console.log(list)
 
     return list.map(
       post => <Post post={post} seeBigPost={this.seeBigPost}/>
     )
   }
 
+  seeBigPost = (post) => {
+    this.props.changeSelectedPost(post)
+    this.props.history.push("bigpost")
+  }
+
   render() {
-    console.log(this.props.account)
     return(
       <div>
         <div>
@@ -32,13 +41,16 @@ class Account extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.accountChanger.account
+    account: state.accountChanger.account,
+    posts: state.postsChanger.posts,
+    selectedPost: state.selectedPostChanger.selectedPost
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
   }
 }
 
