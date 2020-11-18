@@ -2,13 +2,29 @@ import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
+import Post from './post.js'
 
 class Account extends React.Component {
 
+  generateMyPosts = () => {
+    let list = this.props.account.posts
+
+    return list.map(
+      post => <Post post={post} seeBigPost={this.seeBigPost}/>
+    )
+  }
+
   render() {
+    console.log(this.props.account)
     return(
       <div>
-      Name: {this.props.account.name}
+        <div>
+          Name: {this.props.account.name}
+        </div>
+        <br />
+        <div>
+          {this.generateMyPosts()}
+        </div>
       </div>
     )
   }
