@@ -14,7 +14,7 @@ import {combineReducers} from 'redux'
     }
   }
 
-  function postsChanger(state = {posts: {}}, action) {
+  function postsChanger(state = {posts: []}, action) {
     switch (action.type) {
       case 'CHANGE_POSTS':
         // console.log(state);

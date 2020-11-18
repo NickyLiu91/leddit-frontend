@@ -18,6 +18,9 @@ class CreatePost extends React.Component {
   }
 
   createPost = () => {
+
+    let currentPosts = this.props.posts
+
     fetch(`http://localhost:3000/api/v1/posts`, {
       method: 'POST',
       headers: {
@@ -33,7 +36,9 @@ class CreatePost extends React.Component {
         }
       )})
       .then(res => res.json())
-      console.log(this.props.token)
+      .then(json => {
+        this.props.changePosts([...currentPosts, json])
+      })
     }
 
   render() {
