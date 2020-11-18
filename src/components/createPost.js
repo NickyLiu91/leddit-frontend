@@ -18,7 +18,6 @@ class CreatePost extends React.Component {
   }
 
   createPost = () => {
-
     let currentPosts = this.props.posts
 
     fetch(`http://localhost:3000/api/v1/posts`, {
@@ -74,5 +73,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
-  connect(mapStateToProps)
+  connect(mapStateToProps,
+  mapDispatchToProps)
 )(CreatePost);
