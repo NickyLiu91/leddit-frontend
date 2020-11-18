@@ -20,6 +20,23 @@ class App extends React.Component {
     fetch(`http://localhost:3000/api/v1/posts`)
     .then(res => res.json())
     .then(json => {this.props.changePosts(json)})
+
+    if (localStorage.getItem('jwt')) {
+      this.fetchCurrentUser()
+    }
+  }
+
+  fetchCurrentUser = () => {
+    fetch('http://localhost:3000/api/v1/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+    .then(r => r.json())
+    .then(json => {
+      this.props.changeAccount(json.account)
+    })
   }
 
   render() {
@@ -42,12 +59,14 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     posts: state.postsChanger.posts,
+    account: state.accountChanger.account
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
   }
 }
 
