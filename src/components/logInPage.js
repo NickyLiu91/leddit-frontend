@@ -15,10 +15,9 @@ class LogInPage extends React.Component {
         </div>
       )
     } else if (Object.keys(this.props.account).length != 0) {
-      console.log(this.props)
       return (
         <div>
-          <Account account={this.props.account}/>
+          <Account />
         </div>
       )
     }
@@ -27,8 +26,7 @@ class LogInPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.accountChanger.account,
-    token: state.tokenChanger.token,
+    account: state.accountChanger.account
   }
 }
 
