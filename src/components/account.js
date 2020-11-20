@@ -20,6 +20,11 @@ class Account extends React.Component {
     this.props.history.push("bigpost")
   }
 
+  logOut = () => {
+    localStorage.removeItem('jwt');
+    this.props.changeAccount({})
+  }
+
   render() {
     return(
       <div>
@@ -30,6 +35,8 @@ class Account extends React.Component {
         <div>
           {this.generateMyPosts()}
         </div>
+        <br />
+        <button onClick={this.logOut}>Log Out</button>
       </div>
     )
   }
