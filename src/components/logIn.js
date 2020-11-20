@@ -53,19 +53,16 @@ class LogIn extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: 'Bearer <token>'
+        Accept: 'application/json'
       },
       body: JSON.stringify({
           name: username,
-          password_digest: password
+          password: password
       })
     })
     .then(r => r.json())
     .then(json => {
-      console.log("????")
-      localStorage.setItem('jwt', json.jwt)
-      this.props.changeAccount(json.account)
+      this.loginUser(username, password)
     })
   }
 

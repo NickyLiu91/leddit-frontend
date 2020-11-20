@@ -8,13 +8,14 @@ import LogIn from './logIn.js';
 class LogInPage extends React.Component {
 
   render() {
-    if (Object.keys(this.props.account).length == 0) {
+    console.log(this.props)
+    if (localStorage.getItem('jwt') == 'undefined') {
       return (
         <div>
           <LogIn />
         </div>
       )
-    } else if (Object.keys(this.props.account).length != 0) {
+    } else if (localStorage.getItem('jwt')) {
       return (
         <div>
           <Account />
