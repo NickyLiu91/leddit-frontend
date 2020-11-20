@@ -7,11 +7,10 @@ import Post from './post.js'
 class Posts extends React.Component {
 
   generatePosts = () => {
-    console.log(this.props.posts)
     let list = this.props.posts
 
     return list.map(
-      post => <Post post={post} seeBigPost={this.seeBigPost}/>
+      post => <Post post={post} key={post.id} seeBigPost={this.seeBigPost}/>
     )
   }
 
