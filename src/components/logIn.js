@@ -19,12 +19,37 @@ class LogIn extends React.Component {
   }
 
   handleLoginSubmit = () => {
-    this.loginUser(this.state.name, this.state.password)
+    if (this.state.status == 'login') {
+      this.loginUser(this.state.name, this.state.password)
+    } else {
+      this.createUser(this.state.name, this.state.password)
+    }
   }
 
   loginUser = (username, password) => {
 
     fetch('http://localhost:3000/api/v1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer <token>'
+      },
+      body: JSON.stringify({
+          name: username,
+          password_digest: password
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      localStorage.setItem('jwt', json.jwt)
+      this.props.changeAccount(json.account)
+    })
+  }
+
+  createUser = (username, password) => {
+
+    fetch('http://localhost:3000/api/v1/accounts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,8 +91,9 @@ class LogIn extends React.Component {
           Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
           <br/>
           <br/>
-          <button onClick={this.handleLoginSubmit}>CLICK</button>
-          <button onClick={this.changeLogInAndCreate}>Create Account</button>
+          <button onClick={this.handleLoginSubmit}>Log In</button>
+          <br/>
+          <button onClick={this.changeLogInAndCreate}>Create Account Instead</button>
         </div>
       )
     } else {
@@ -79,8 +105,9 @@ class LogIn extends React.Component {
           Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
           <br/>
           <br/>
-          <button onClick={this.handleLoginSubmit}>CLICK</button>
-          <button onClick={this.changeLogInAndCreate}>Log In</button>
+          <button onClick={this.handleLoginSubmit}>Create Account</button>
+          <br/>
+          <button onClick={this.changeLogInAndCreate}>Log In Instead</button>
         </div>
       )
     }
