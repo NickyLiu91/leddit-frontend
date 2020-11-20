@@ -8,7 +8,8 @@ class LogIn extends React.Component {
 
   state = {
     name: '',
-    password: ''
+    password: '',
+    status: 'login'
   }
 
   handleStuff= (event) => {
@@ -42,18 +43,47 @@ class LogIn extends React.Component {
     })
   }
 
+  changeLogInAndCreate = () => {
+    if (this.state.status == 'login') {
+      this.setState({
+        status: 'create'
+      })
+    } else {
+      this.setState({
+        status: 'login'
+      })
+    }
+  }
+
   render() {
-    return (
-      <div>
-        Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
-        <br/>
-        <br/>
-        <button onClick={this.handleLoginSubmit}>CLICK</button>
-      </div>
-    )
+
+    if (this.state.status == 'login') {
+      return (
+        <div>
+          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          <button onClick={this.handleLoginSubmit}>CLICK</button>
+          <button onClick={this.changeLogInAndCreate}>Create Account</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          Account: <input id="name" type="text" value={this.state.name} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          Password: <input id="password" type="password" value={this.state.password} onChange={event => this.handleStuff(event)}/>
+          <br/>
+          <br/>
+          <button onClick={this.handleLoginSubmit}>CLICK</button>
+          <button onClick={this.changeLogInAndCreate}>Log In</button>
+        </div>
+      )
+    }
   }
 }
 
