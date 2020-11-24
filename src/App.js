@@ -50,6 +50,7 @@ class App extends React.Component {
           <Route path="/posts" component={Posts} />
           <Route path="/bigpost" component={BigPost} />
           <Route path="/createpost" component={CreatePost} />
+          <Route path="/account" component={Account} />
         </Switch>
       </div>
     )

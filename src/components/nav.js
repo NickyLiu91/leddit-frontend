@@ -6,16 +6,29 @@ import {Route, Link, withRouter, NavLink} from 'react-router-dom';
 class Nav extends React.Component {
 
   render() {
-    return(
-      <nav>
+    if (localStorage.getItem('jwt') == 'undefined') {
+      return(
+        <nav>
         <ul>
         <li onClick={() => {this.props.history.push("/")}}>Home</li>
         <li onClick={() => {this.props.history.push("/posts")}}>Posts</li>
         <li onClick={() => {this.props.history.push("/loginpage")}}>LogIn</li>
         <li onClick={() => {this.props.history.push("/createPost")}}>Create</li>
         </ul>
-      </nav>
-    )
+        </nav>
+      )
+    } else {
+      return(
+        <nav>
+          <ul>
+          <li onClick={() => {this.props.history.push("/")}}>Home</li>
+          <li onClick={() => {this.props.history.push("/posts")}}>Posts</li>
+          <li onClick={() => {this.props.history.push("/account")}}>Account</li>
+          <li onClick={() => {this.props.history.push("/createPost")}}>Create</li>
+          </ul>
+        </nav>
+      )
+    }
   }
 }
 
