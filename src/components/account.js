@@ -23,6 +23,7 @@ class Account extends React.Component {
   logOut = () => {
     localStorage.removeItem('jwt');
     this.props.changeAccount({})
+    this.props.history.push("/login")
   }
 
   render() {
