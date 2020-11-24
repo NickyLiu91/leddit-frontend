@@ -7,12 +7,11 @@ import LogIn from './logIn.js';
 class LogInPage extends React.Component {
 
   render() {
-
-      return (
-        <div>
-          <LogIn />
-        </div>
-      )
+    return (
+      <div>
+        <LogIn />
+      </div>
+    )
   }
 }
 

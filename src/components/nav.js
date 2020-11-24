@@ -6,7 +6,7 @@ import {Route, Link, withRouter, NavLink} from 'react-router-dom';
 class Nav extends React.Component {
 
   render() {
-    if (localStorage.getItem('jwt') == 'undefined') {
+    if (!localStorage.getItem('jwt')) {
       return(
         <nav>
         <ul>
