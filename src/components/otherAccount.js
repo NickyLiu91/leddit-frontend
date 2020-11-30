@@ -15,13 +15,21 @@ class OtherAccount extends React.Component {
     )
   }
 
+  generateOtherAccountComments = () => {
+    let accountId = this.props.selectedAccount.id
+    let list = this.props.posts.filter(obj => obj.account.id == accountId)
+
+    return list.map(
+      post => <Post post={post} seeBigPost={this.seeBigPost}/>
+    )
+  }
+
   seeBigPost = (post) => {
     this.props.changeSelectedPost(post)
     this.props.history.push("bigpost")
   }
 
   render() {
-    console.log(this.props)
     return(
       <div>
         <div>
@@ -45,8 +53,16 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
+  }
+}
+
 export default compose(
   withRouter,
   connect(
-    mapStateToProps)
+    mapStateToProps,
+    mapDispatchToProps)
 )(OtherAccount);

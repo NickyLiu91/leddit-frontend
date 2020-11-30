@@ -21,6 +21,10 @@ class App extends React.Component {
     .then(res => res.json())
     .then(json => {this.props.changePosts(json)})
 
+    fetch(`http://localhost:3000/api/v1/comments`)
+    .then(res => res.json())
+    .then(json => {this.props.changeComments(json)})
+
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
     }
@@ -63,14 +67,16 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     posts: state.postsChanger.posts,
-    account: state.accountChanger.account
+    account: state.accountChanger.account,
+    comments: state.commentsChanger.comments,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 
