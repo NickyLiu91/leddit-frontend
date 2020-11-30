@@ -45,14 +45,8 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
-}
-
 export default compose(
   withRouter,
   connect(
-    mapStateToProps,
-    mapDispatchToProps)
+    mapStateToProps)
 )(OtherAccount);
