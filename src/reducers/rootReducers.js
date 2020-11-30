@@ -20,7 +20,6 @@ import {combineReducers} from 'redux'
     }
   }
 
-
     function commentsChanger(state = {comments: []}, action) {
       switch (action.type) {
         case 'CHANGE_COMMENTS':
@@ -54,7 +53,7 @@ import {combineReducers} from 'redux'
 export default combineReducers({
   accountChanger,
   postsChanger,
+  commentsChanger,
   selectedPostChanger,
-  selectedAccountChanger,
-  commentsChanger
+  selectedAccountChanger
 })
