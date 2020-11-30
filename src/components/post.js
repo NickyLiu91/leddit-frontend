@@ -9,6 +9,7 @@ const Post = (props) => {
         <li onClick={() => {props.seeBigPost(props.post)}}>
           <h1>{props.post.title}</h1>
           <p>{props.post.content}</p>
+          <p> - {props.post.account.name}</p>
         </li>
       </ul>
     </div>
