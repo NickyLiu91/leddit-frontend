@@ -19,6 +19,11 @@ class Posts extends React.Component {
     this.props.history.push("bigpost")
   }
 
+  seeOtherAccount = (account) => {
+    this.props.changeSelectedAccount(account)
+    this.props.history.push("otheraccount")
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +43,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
   }
 }
 

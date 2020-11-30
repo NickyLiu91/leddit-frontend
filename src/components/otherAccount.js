@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
-import Posts from './posts.js'
+import Post from './post.js'
 
 class OtherAccount extends React.Component {
 
-  generateMyPosts = () => {
-    let accountId = this.props.account.id
+  generateOtherAccountPosts = () => {
+    let accountId = this.props.selectedAccount.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
@@ -20,25 +20,17 @@ class OtherAccount extends React.Component {
     this.props.history.push("bigpost")
   }
 
-  logOut = () => {
-    localStorage.removeItem('jwt');
-    this.props.changeAccount({})
-    this.props.history.push("/login")
-  }
-
   render() {
     console.log(this.props)
     return(
       <div>
         <div>
-          Name: {this.props.account.name}
+          Name: {this.props.selectedAccount.name}
         </div>
         <br />
         <div>
-          {this.generateMyPosts()}
+          {this.generateOtherAccountPosts()}
         </div>
-        <br />
-        <button onClick={this.logOut}>Log Out</button>
       </div>
     )
   }
@@ -55,9 +47,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDAccount', selectedAccount: event}),
-  }
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
 }
 
 export default compose(

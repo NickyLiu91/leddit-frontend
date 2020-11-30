@@ -10,6 +10,7 @@ import LogInPage from './components/logInPage.js';
 import Posts from './components/posts.js';
 import BigPost from './components/bigPost.js';
 import Account from './components/account.js';
+import OtherAccount from './components/otherAccount.js';
 import CreatePost from './components/createPost.js';
 // import NotFound from './components/notFound.js';
 
@@ -52,6 +53,7 @@ class App extends React.Component {
           <Route path="/bigpost" component={BigPost} />
           <Route path="/createpost" component={CreatePost} />
           <Route path="/account" component={Account} />
+          <Route path="/otheraccount" component={OtherAccount} />
         </Switch>
       </div>
     )
