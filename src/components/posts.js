@@ -10,7 +10,7 @@ class Posts extends React.Component {
     let list = this.props.posts
 
     return list.map(
-      post => <Post post={post} key={post.id} seeBigPost={this.seeBigPost} seeOtherAccount={this.seeOtherAccount} location={this.props.location}/>
+      post => <Post post={post} key={post.id} seeBigPost={this.seeBigPost} seeOtherAccount={this.seeOtherAccount}/>
     )
   }
 

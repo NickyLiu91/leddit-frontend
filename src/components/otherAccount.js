@@ -11,7 +11,7 @@ class OtherAccount extends React.Component {
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      post => <Post post={post} seeBigPost={this.seeBigPost} seeOtherAccount={this.seeOtherAccount} location={"otherAccount"}/>
+      post => <Post key={post.id} post={post} seeBigPost={this.seeBigPost} seeOtherAccount={this.seeOtherAccount} />
     )
   }
 

@@ -4,7 +4,8 @@ import { useHistory } from "react-router"
 const Post = (props) => {
   const history = useHistory();
 
-  if (props.location == "account") {
+  console.log(props.post.account.id)
+  if (props.post.account.id == "account") {
     return(
       <div className="post">
         <ul>
