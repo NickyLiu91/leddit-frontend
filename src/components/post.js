@@ -1,34 +1,47 @@
 import React from "react";
-import { useHistory } from "react-router"
+import { connect } from 'react-redux'
+import {compose} from 'redux';
+import { Route, Link, withRouter } from 'react-router-dom'
 
-const Post = (props) => {
-  const history = useHistory();
+class Post extends React.Component {
 
-  console.log(props.post.account.id)
-  if (props.post.account.id == "account") {
-    return(
-      <div className="post">
-        <ul>
-          <li>
-            <h1 onClick={() => {props.seeBigPost(props.post)}}>{props.post.title}</h1>
-            <p>{props.post.content}</p>
-          </li>
-        </ul>
-      </div>
-    )
-  } else {
-    return(
-      <div className="post">
-        <ul>
-          <li>
-            <h1 onClick={() => {props.seeBigPost(props.post)}}>{props.post.title}</h1>
-            <p>{props.post.content}</p>
-            <p onClick={() => {props.seeOtherAccount(props.post.account)}}> - {props.post.account.name}</p>
-          </li>
-        </ul>
-      </div>
-    )
+  render() {
+    if (this.props.post.account.id == this.props.account.id) {
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <h1 onClick={() => {this.props.seeBigPost(this.props.post)}}>{this.props.post.title}</h1>
+              <p>{this.props.post.content}</p>
+            </li>
+          </ul>
+        </div>
+      )
+    } else {
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <h1 onClick={() => {this.props.seeBigPost(this.props.post)}}>{this.props.post.title}</h1>
+              <p>{this.props.post.content}</p>
+              <p onClick={() => {this.props.seeOtherAccount(this.props.post.account)}}> - {this.props.post.account.name}</p>
+            </li>
+          </ul>
+        </div>
+      )
+    }
   }
 }
 
-export default Post;
+const mapStateToProps = state => {
+  return {
+    account: state.accountChanger.account,
+  }
+}
+
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps)
+)(Post);
