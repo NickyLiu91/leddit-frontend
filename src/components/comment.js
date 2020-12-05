@@ -5,7 +5,20 @@ import Post from './post.js'
 class Comment extends React.Component {
 
   state = {
-    reply: false
+    reply: false,
+    text: ''
+  }
+
+  handleText = (event) => {
+    this.setState({
+      text: event.target.value
+    }, () => {console.log(this.state.text)})
+  }
+
+  handleSubmit = (event) => {
+    this.setState({
+      reply: !this.state.reply
+    })
   }
 
   render() {
@@ -26,9 +39,9 @@ class Comment extends React.Component {
           <ul>
             <li>
               <p>{this.props.comment.content}</p>
-              <textarea></textarea>
+              <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
-              <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+              <button onClick={(event) => {this.handleSubmit(event)}}>Reply</button>
             </li>
           </ul>
         </div>
