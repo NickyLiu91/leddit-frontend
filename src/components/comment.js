@@ -21,6 +21,12 @@ class Comment extends React.Component {
     })
   }
 
+  cancel = (event) => {
+    this.setState({
+      reply: !this.state.reply
+    })
+  }
+
   render() {
     if (!this.state.reply){
       return(
@@ -42,6 +48,7 @@ class Comment extends React.Component {
               <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
               <button onClick={(event) => {this.handleSubmit(event)}}>Reply</button>
+              <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
             </li>
           </ul>
         </div>
