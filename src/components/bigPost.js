@@ -31,6 +31,32 @@ class BigPost extends React.Component {
     })
   }
 
+  postComment = (event) => {
+
+    let currentComments = this.props.comments
+    let currentPost = this.props.selectedPost
+
+    fetch('http://localhost:3000/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+          content: this.state.text,
+          account_id: this.props.account.id,
+          post_id: this.props.selectedPost.id
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      currentPost.comments.push(json)
+      this.props.changeComments([...currentComments, json])
+      this.setState({comment: !this.state.comment})
+    })
+  }
+
   render() {
     if (!this.state.comment) {
       return (
@@ -54,7 +80,7 @@ class BigPost extends React.Component {
             <p>{this.props.selectedPost.content}</p>
             <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
-            <button >Comment</button>
+            <button onClick={(event) => {this.postComment(event)}}>Comment</button>
             <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
           </div>
           <br/>
