@@ -28,7 +28,6 @@ class App extends React.Component {
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
     }
-    console.log(localStorage.getItem('jwt'))
   }
 
   fetchCurrentUser = () => {
@@ -40,7 +39,6 @@ class App extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      console.log(json)
       this.props.changeAccount(json.account)
     })
   }

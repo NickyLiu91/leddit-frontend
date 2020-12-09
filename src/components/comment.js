@@ -30,7 +30,7 @@ class Comment extends React.Component {
     })
   }
 
-  postComment = (event) => {
+  replyComment = (event) => {
 
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
@@ -43,13 +43,12 @@ class Comment extends React.Component {
           content: this.state.text,
           account_id: this.props.account.id,
           post_id: this.props.selectedPost.id,
+          parent_id: this.props.comment.id
       })
     })
     .then(r => r.json())
     .then(json => {
-      localStorage.setItem('jwt', json.jwt)
-      this.props.changeAccount(json.account)
-      this.props.history.push("/account")
+      console.log(json)
     })
   }
 

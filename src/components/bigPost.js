@@ -10,7 +10,7 @@ class BigPost extends React.Component {
     let list = this.props.selectedPost.comments
 
     return list.map(
-      comment => <Comment comment={comment} />
+      comment => <Comment key={comment.id} comment={comment} />
     )
   }
 
