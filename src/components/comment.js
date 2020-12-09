@@ -18,10 +18,10 @@ class Comment extends React.Component {
   }
 
   handleSubmit = (event) => {
-    this.setState({
-      reply: !this.state.reply
-    })
-    console.log(this.props)
+    this.replyComment()
+    // this.setState({
+    //   reply: !this.state.reply
+    // })
   }
 
   cancel = (event) => {
@@ -36,8 +36,8 @@ class Comment extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: 'Bearer <token>'
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
           content: this.state.text,
