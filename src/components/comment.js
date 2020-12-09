@@ -17,13 +17,6 @@ class Comment extends React.Component {
     }, () => {console.log(this.state.text)})
   }
 
-  handleSubmit = (event) => {
-    this.replyComment()
-    // this.setState({
-    //   reply: !this.state.reply
-    // })
-  }
-
   cancel = (event) => {
     this.setState({
       reply: !this.state.reply
@@ -53,7 +46,7 @@ class Comment extends React.Component {
     .then(json => {
       currentPost.comments.push(json)
       this.props.changeComments([...currentComments, json])
-      this.props.changeComments([...currentComments, json])
+      this.setState({reply: !this.state.reply})
     })
   }
 
@@ -77,7 +70,7 @@ class Comment extends React.Component {
               <p>{this.props.comment.content}</p>
               <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
-              <button onClick={(event) => {this.handleSubmit(event)}}>Reply</button>
+              <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
               <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
             </li>
           </ul>
