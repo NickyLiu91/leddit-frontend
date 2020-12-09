@@ -32,6 +32,9 @@ class Comment extends React.Component {
 
   replyComment = (event) => {
 
+    let currentComments = this.props.comments
+    let currentPost = this.props.selectedPost
+
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
       headers: {
@@ -48,7 +51,9 @@ class Comment extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      console.log(json)
+      currentPost.comments.push(json)
+      this.props.changeComments([...currentComments, json])
+      this.props.changeComments([...currentComments, json])
     })
   }
 
@@ -85,12 +90,21 @@ class Comment extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
-    selectedPost: state.selectedPostChanger.selectedPost
+    selectedPost: state.selectedPostChanger.selectedPost,
+    comments: state.commentsChanger.comments,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 
 export default compose(
   withRouter,
   connect(
-    mapStateToProps)
+    mapStateToProps,
+    mapDispatchToProps)
 )(Comment);
