@@ -14,7 +14,7 @@ class Comment extends React.Component {
   handleText = (event) => {
     this.setState({
       text: event.target.value
-    }, () => {console.log(this.state.text)})
+    })
   }
 
   cancel = (event) => {
