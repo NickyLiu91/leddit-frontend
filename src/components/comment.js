@@ -90,7 +90,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }

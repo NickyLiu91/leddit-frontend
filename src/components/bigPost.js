@@ -95,12 +95,21 @@ class BigPost extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    selectedPost: state.selectedPostChanger.selectedPost
+    account: state.accountChanger.account,
+    selectedPost: state.selectedPostChanger.selectedPost,
+    comments: state.commentsChanger.comments,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 
 export default compose(
   withRouter,
   connect(
-    mapStateToProps)
+    mapStateToProps,
+    mapDispatchToProps)
 )(BigPost);
