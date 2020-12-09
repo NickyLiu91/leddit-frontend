@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux'
+import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Post from './post.js'
 
@@ -19,11 +21,35 @@ class Comment extends React.Component {
     this.setState({
       reply: !this.state.reply
     })
+    console.log(this.props)
   }
 
   cancel = (event) => {
     this.setState({
       reply: !this.state.reply
+    })
+  }
+
+  postComment = (event) => {
+
+    fetch('http://localhost:3000/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer <token>'
+      },
+      body: JSON.stringify({
+          content: this.state.text,
+          account_id: this.props.account.id,
+          post_id: this.props.selectedPost.id,
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      localStorage.setItem('jwt', json.jwt)
+      this.props.changeAccount(json.account)
+      this.props.history.push("/account")
     })
   }
 
@@ -57,4 +83,15 @@ class Comment extends React.Component {
   }
 }
 
-export default Comment;
+const mapStateToProps = state => {
+  return {
+    account: state.accountChanger.account,
+    selectedPost: state.selectedPostChanger.selectedPost
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps)
+)(Comment);
