@@ -23,7 +23,7 @@ import {combineReducers} from 'redux'
     function commentsChanger(state = {comments: []}, action) {
       switch (action.type) {
         case 'CHANGE_COMMENTS':
-          // console.log(state);
+          // console.log(action.newComments);
           return {comments: action.newComments}
         default:
           return state;
@@ -33,7 +33,7 @@ import {combineReducers} from 'redux'
   function selectedPostChanger(state = {selectedPost: {}}, action) {
     switch (action.type) {
       case 'CHANGE_SELECTEDPOST':
-        console.log(state);
+        // console.log(state);
         return {selectedPost: action.selectedPost}
       default:
         return state;

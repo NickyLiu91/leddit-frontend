@@ -11,7 +11,7 @@ class Post extends React.Component {
         <div className="post">
           <ul>
             <li>
-              <h1 onClick={() => {this.props.seeBigPost(this.props.post)}}>{this.props.post.title}</h1>
+              <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
               <p>{this.props.post.content}</p>
             </li>
           </ul>
@@ -22,7 +22,7 @@ class Post extends React.Component {
         <div className="post">
           <ul>
             <li>
-              <h1 onClick={() => {this.props.seeBigPost(this.props.post)}}>{this.props.post.title}</h1>
+              <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
               <p>{this.props.post.content}</p>
               <p onClick={() => {this.props.seeOtherAccount(this.props.post.account)}}> - {this.props.post.account.name}</p>
             </li>
