@@ -23,6 +23,11 @@ class Comment extends React.Component {
     })
   }
 
+  seeOtherAccount = (account) => {
+    this.props.changeSelectedAccount(account)
+    this.props.history.push("otheraccount")
+  }
+
   replyComment = (event) => {
 
     let currentComments = this.props.comments
@@ -58,7 +63,7 @@ class Comment extends React.Component {
             <ul>
               <li>
                 <p>{this.props.comment.content}</p>
-                <p>- {this.props.comment.account.name}</p>
+                <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
                 <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
               </li>
             </ul>
@@ -83,6 +88,7 @@ class Comment extends React.Component {
             <ul>
               <li>
                 <p>{this.props.comment.content}</p>
+                <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
                 <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
@@ -97,7 +103,6 @@ class Comment extends React.Component {
             <ul>
               <li>
                 <p>{this.props.comment.content}</p>
-                <p>- {this.props.comment.account.name}</p>
                 <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
@@ -121,7 +126,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
 

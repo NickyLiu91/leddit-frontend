@@ -21,7 +21,6 @@ class OtherAccount extends React.Component {
   }
 
   seeOtherAccount = (account) => {
-    console.log(account)
     this.props.changeSelectedAccount(account)
     this.props.history.push("otheraccount")
   }
