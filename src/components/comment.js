@@ -52,32 +52,61 @@ class Comment extends React.Component {
 
   render() {
     if (!this.state.reply){
-      return(
-        <div className="post">
-          <ul>
-            <li>
-              <p>{this.props.comment.content}</p>
-              <p>- {this.props.comment.account.name}</p>
-              <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-            </li>
-          </ul>
-        </div>
-      )
+      if (this.props.comment.account.id != this.props.account.id) {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <p>{this.props.comment.content}</p>
+                <p>- {this.props.comment.account.name}</p>
+                <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+              </li>
+            </ul>
+          </div>
+        )
+      } else {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <p>{this.props.comment.content}</p>
+                <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+              </li>
+            </ul>
+          </div>
+        )
+      }
     } else {
-      return(
-        <div className="post">
-          <ul>
-            <li>
-              <p>{this.props.comment.content}</p>
-              <p>- {this.props.comment.account.name}</p>
-              <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-              <br/>
-              <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
-              <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-            </li>
-          </ul>
-        </div>
-      )
+      if (this.props.comment.account.id != this.props.account.id) {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <p>{this.props.comment.content}</p>
+                <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+                <br/>
+                <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+              </li>
+            </ul>
+          </div>
+        )
+      } else {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <p>{this.props.comment.content}</p>
+                <p>- {this.props.comment.account.name}</p>
+                <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+                <br/>
+                <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+              </li>
+            </ul>
+          </div>
+        )
+      }
     }
   }
 }
