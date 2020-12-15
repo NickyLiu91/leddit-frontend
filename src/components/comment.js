@@ -59,77 +59,111 @@ class Comment extends React.Component {
     return <Comment key={this.props.comment.id} comment={comment} type="child"/>
   })
 
-  render() {
-  //
-    if (!this.state.reply){
-      if (this.props.comment.account.id != this.props.account.id) {
+  // render() {
+  //   if (!this.state.reply){
+  //     if (this.props.comment.account.id != this.props.account.id) {
+  //       return(
+  //         <div className="post">
+  //           <ul>
+  //             <li>
+  //               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+  //                 <p>{this.props.comment.content}</p>
+  //                 <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
+  //                 <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+  //                 {this.nestedComments}
+  //               </div>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       )
+  //     } else {
+  //       return(
+  //         <div className="post">
+  //           <ul>
+  //             <li>
+  //               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+  //                 <p>{this.props.comment.content}</p>
+  //                 <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+  //                 {this.nestedComments}
+  //               </div>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       )
+  //     }
+  //   } else {
+  //     if (this.props.comment.account.id != this.props.account.id) {
+  //       return(
+  //         <div className="post">
+  //           <ul>
+  //             <li>
+  //               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+  //                 <p>{this.props.comment.content}</p>
+  //                 <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
+  //                 <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+  //                 <br/>
+  //                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+  //                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+  //                 {this.nestedComments}
+  //               </div>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       )
+  //     } else {
+  //       return(
+  //         <div className="post">
+  //           <ul>
+  //             <li>
+  //                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+  //                 <p>{this.props.comment.content}</p>
+  //                 <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+  //                 <br/>
+  //                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+  //                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+  //                 {this.nestedComments}
+  //               </div>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       )
+  //     }
+  //   }
+  // }
 
-        return(
-          <div className="post">
-            <ul>
-              <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                  <p>{this.props.comment.content}</p>
-                  <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
-                  <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-                  {this.nestedComments}
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      } else {
-        return(
-          <div className="post">
-            <ul>
-              <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                  <p>{this.props.comment.content}</p>
-                  <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-                  {this.nestedComments}
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      }
+  render() {
+    if (!this.state.reply){
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.props.comment.content}</p>
+
+                <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+                {this.nestedComments}
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
     } else {
-      if (this.props.comment.account.id != this.props.account.id) {
-        return(
-          <div className="post">
-            <ul>
-              <li>
+      return(
+        <div className="post">
+          <ul>
+            <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                  <p>{this.props.comment.content}</p>
-                  <p onClick={() => {this.seeOtherAccount(this.props.comment.account)}}>- {this.props.comment.account.name}</p>
-                  <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-                  <br/>
-                  <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
-                  <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                  {this.nestedComments}
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      } else {
-        return(
-          <div className="post">
-            <ul>
-              <li>
-                  <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                  <p>{this.props.comment.content}</p>
-                  <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-                  <br/>
-                  <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
-                  <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                  {this.nestedComments}
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      }
+                <p>{this.props.comment.content}</p>
+                <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+                <br/>
+                <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                {this.nestedComments}
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
     }
 
     // return(
