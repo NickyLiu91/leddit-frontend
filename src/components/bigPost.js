@@ -12,7 +12,7 @@ class BigPost extends React.Component {
   }
 
   displayComments = () => {
-    let list = this.props.selectedPost.comments
+    let list = this.props.selectedPost.comments.filter(comment => !comment.parent)
 
     return list.map(
       comment => <Comment key={comment.id} comment={comment} />
