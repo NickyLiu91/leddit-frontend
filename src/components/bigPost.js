@@ -31,6 +31,41 @@ class BigPost extends React.Component {
   //   list.forEach(comment => {displayComments2(comment)})
   // }
 
+  // render() {
+  //   if (!this.state.comment) {
+  //     return (
+  //       <div>
+  //         <div>
+  //           <h1>{this.props.selectedPost.title}</h1>
+  //           <p>{this.props.selectedPost.content}</p>
+  //           <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+  //         </div>
+  //         <br/>
+  //         <div>
+  //           {this.displayComments()}
+  //         </div>
+  //       </div>
+  //     )
+  //   } else {
+  //     return (
+  //       <div>
+  //         <div>
+  //           <h1>{this.props.selectedPost.title}</h1>
+  //           <p>{this.props.selectedPost.content}</p>
+  //           <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+  //           <br/>
+  //           <button onClick={(event) => {this.postComment(event)}}>Comment</button>
+  //           <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+  //         </div>
+  //         <br/>
+  //         <div>
+  //           {this.displayComments()}
+  //         </div>
+  //       </div>
+  //     )
+  //   }
+  // }
+
   handleText = (event) => {
     this.setState({
       text: event.target.value
@@ -70,6 +105,7 @@ class BigPost extends React.Component {
   }
 
   render() {
+    console.log(this.props.selectedPost.comments)
     return (
       <div>
         {

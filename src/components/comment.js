@@ -1,8 +1,8 @@
 import React from "react";
-// import { connect } from 'react-redux'
-// import {compose} from 'redux';
-// import { Route, Link, withRouter } from 'react-router-dom'
-// import Post from './post.js'
+import { connect } from 'react-redux'
+import {compose} from 'redux';
+import { Route, Link, withRouter } from 'react-router-dom'
+import Post from './post.js'
 //
 // class Comment extends React.Component {
 //
@@ -138,17 +138,20 @@ import React from "react";
 //     mapDispatchToProps)
 // )(Comment);
 
-function Comment ({comment}) {
-  const nestedComments = (comment.children || []).map(comment => {
-    return <Comment key={comment.id} comment={comment} type="child"/>
+
+class Comment extends React.Component {
+  nestedComments = (this.props.comment.children || []).map(comment => {
+    return <Comment key={this.props.comment.id} comment={comment} type="child"/>
   })
 
-  return(
-    <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-      <div>{comment.content}</div>
-      {nestedComments}
+  render() {
+    return(
+      <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+        <div>{this.props.comment.content}</div>
+        {this.nestedComments}
       </div>
-  )
+    )
+  }
 }
 
 export default Comment
