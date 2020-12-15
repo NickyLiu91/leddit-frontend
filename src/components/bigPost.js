@@ -11,20 +11,25 @@ class BigPost extends React.Component {
     text: ''
   }
 
-  displayComments = () => {
-    let list = this.props.selectedPost.comments
-
-    return list.map(
-      comment => {
-        if (!comment.parent){
-          if (comment.children.length != 0){
-            console.log(comment.children)
-          }
-          return <Comment key={comment.id} comment={comment} />
-        }
-      }
-    )
-  }
+  // displayComments = () => {
+  //   let list = this.props.selectedPost.comments
+  //
+  //   // return list.map(
+  //   //   comment => {
+  //   //     if (!comment.parent){
+  //   //       if (comment.children.length != 0){
+  //   //         console.log(comment.children)
+  //   //         // return comment.children.filter(
+  //   //         //   comment => {return <Comment key={comment.id} comment={comment} />}
+  //   //         // )
+  //   //       }
+  //   //       return <Comment key={comment.id} comment={comment} />
+  //   //     }
+  //   //   }
+  //   // )
+  //
+  //   list.forEach(comment => {displayComments2(comment)})
+  // }
 
   handleText = (event) => {
     this.setState({
@@ -65,38 +70,17 @@ class BigPost extends React.Component {
   }
 
   render() {
-    if (!this.state.comment) {
-      return (
-        <div>
-          <div>
-            <h1>{this.props.selectedPost.title}</h1>
-            <p>{this.props.selectedPost.content}</p>
-            <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
-          </div>
-          <br/>
-          <div>
-            {this.displayComments()}
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <div>
-            <h1>{this.props.selectedPost.title}</h1>
-            <p>{this.props.selectedPost.content}</p>
-            <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-            <br/>
-            <button onClick={(event) => {this.postComment(event)}}>Comment</button>
-            <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-          </div>
-          <br/>
-          <div>
-            {this.displayComments()}
-          </div>
-        </div>
-      )
-    }
+    return (
+      <div>
+        {
+          this.props.selectedPost.comments.map(comment => {
+            return(
+              <Comment key={comment.id} comment={comment} type="child"/>
+            )
+          })
+        }
+      </div>
+    )
   }
 }
 
