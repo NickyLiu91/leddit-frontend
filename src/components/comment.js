@@ -142,38 +142,19 @@ class Comment extends React.Component {
   render() {
     if (!this.state.reply ){
       console.log(this.props.comment)
-      if (this.props.comment.children.length != 0) {
-        return(
-          <div className="post">
-            <ul>
-              <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.content}</p>
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+              <p>{this.props.comment.content}</p>
 
-                <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-                {this.nestedComments(this.props.comment.children)}
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      } else {
-        return(
-          <div className="post">
-            <ul>
-              <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.content}</p>
-                <p>????????????????</p>
-
-                <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        )
-      }
-
+              <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
     } else {
       return(
         <div className="post">
