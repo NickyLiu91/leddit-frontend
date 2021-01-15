@@ -9,10 +9,10 @@ class Nav extends React.Component {
     if (!localStorage.getItem('jwt')) {
       return(
         <nav>
-        <ul>
-        <li onClick={() => {this.props.history.push("/")}}>Home</li>
-        <li onClick={() => {this.props.history.push("/login")}}>LogIn</li>
-        </ul>
+          <ul>
+          <li onClick={() => {this.props.history.push("/")}}>Home</li>
+          <li onClick={() => {this.props.history.push("/login")}}>LogIn</li>
+          </ul>
         </nav>
       )
     } else {

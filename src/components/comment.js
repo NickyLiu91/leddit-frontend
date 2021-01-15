@@ -55,9 +55,18 @@ class Comment extends React.Component {
       })
     }
 
-  nestedComments = (this.props.comment.children || []).map(comment => {
-    return <Comment key={this.props.comment.id} comment={comment} type="child"/>
-  })
+  // nestedComments = (this.props.comment.children || []).map(comment => {
+  //   console.log(comment)
+  //   return <Comment key={this.props.comment.id} comment={comment} type="child"/>
+  // })
+
+  nestedComments = (children) => {
+    if (children.length != 0) {
+      return children.map(comment => {
+        return <Comment key={comment.id} comment={comment} type="child"/>
+      })
+    }
+  }
 
   // render() {
   //   if (!this.state.reply){
@@ -133,6 +142,7 @@ class Comment extends React.Component {
 
   render() {
     if (!this.state.reply){
+      console.log(this.props.comment)
       return(
         <div className="post">
           <ul>
@@ -141,7 +151,7 @@ class Comment extends React.Component {
                 <p>{this.props.comment.content}</p>
 
                 <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-                {this.nestedComments}
+                {this.nestedComments(this.props.comment.children)}
               </div>
             </li>
           </ul>
@@ -158,7 +168,7 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.nestedComments}
+                {this.nestedComments(this.props.comment.children)}
               </div>
             </li>
           </ul>
