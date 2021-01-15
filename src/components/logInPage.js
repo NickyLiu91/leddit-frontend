@@ -110,18 +110,18 @@ class LogInPage extends React.Component {
       )
     }
   }
-  }
+}
 
   const mapStateToProps = state => {
-  return {
-    account: state.accountChanger.account
-  }
+    return {
+      account: state.accountChanger.account
+    }
   }
 
   const mapDispatchToProps = dispatch => {
-  return {
-    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
-  }
+    return {
+      changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
+    }
   }
 
 export default compose(
