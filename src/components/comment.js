@@ -62,8 +62,12 @@ class Comment extends React.Component {
   // })
 
   nestedComments = (children) => {
+    console.log(children)
     return children.map(comment => {
-      return <Comment key={comment.id} comment={comment} type="child"/>
+      console.log(comment)
+      if (comment.children) {
+        return <Comment key={comment.id} comment={comment} type="child"/>
+      }
     })
   }
 
@@ -150,6 +154,7 @@ class Comment extends React.Component {
               <p>{this.props.comment.content}</p>
 
               <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
+              {this.nestedComments(this.props.comment.children)}
               </div>
             </li>
           </ul>
