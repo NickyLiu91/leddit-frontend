@@ -108,7 +108,7 @@ class BigPost extends React.Component {
     return (
       <div>
         {
-          this.props.selectedPost.comments.map(comment => {
+          this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
             if (!comment.parent) {
               return(
                 <Comment key={comment.id} comment={comment} type="child"/>
