@@ -61,12 +61,16 @@ class Comment extends React.Component {
   //   return <Comment key={this.props.comment.id} comment={comment} type="child"/>
   // })
 
-  nestedComments = (comment) => {
-    if (comment.children) {
-      return comment.children.map(comment2 => {
-        return <Comment key={comment2.id} comment={comment2} type="child"/>
+  nestedComments = (comment, comments) => {
+    // let childComments = this.props.comments.filter(comment2 => comment2.parent.id == comment.id)
+    console.log(comment)
+    console.log(comments)
+  let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
+    // if (comment.children) {
+      return childComments.map(comment2 => {
+        return <ConnectedComment key={comment2.id} comment={comment2} type="child"/>
       })
-    }
+    // }
   }
 
   // render() {
@@ -143,6 +147,7 @@ class Comment extends React.Component {
 
   render() {
     if (!this.state.reply ){
+
       return(
         <div className="post">
           <ul>
@@ -151,7 +156,7 @@ class Comment extends React.Component {
               <p>{this.props.comment.content}</p>
 
               <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
-              {this.nestedComments(this.props.comment)}
+              {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
           </ul>
@@ -168,7 +173,7 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.nestedComments(this.props.comment.children)}
+                {this.nestedComments(this.props.comment)}
               </div>
             </li>
           </ul>
@@ -199,6 +204,8 @@ const mapDispatchToProps = dispatch => {
     changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
+
+const ConnectedComment = connect(mapStateToProps, mapDispatchToProps)(Comment)
 
 export default compose(
   withRouter,
