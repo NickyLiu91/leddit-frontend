@@ -38,6 +38,7 @@ class CreatePost extends React.Component {
       .then(json => {
         this.props.changePosts([...currentPosts, json])
       })
+      .then(res => {this.props.history.push("/")})
     }
 
   render() {
