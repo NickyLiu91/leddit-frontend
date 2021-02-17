@@ -154,6 +154,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.props.comment.content}</p>
+              <p>{this.props.comment.account.name}</p>
 
               <button onClick={() => {this.setState({reply: !this.state.reply})}}>Reply</button>
               {this.nestedComments(this.props.comment, this.props.comments)}
@@ -169,6 +170,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.props.comment.content}</p>
+                <p>{this.props.comment.account.name}</p>
                 <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
