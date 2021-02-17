@@ -173,7 +173,7 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.nestedComments(this.props.comment)}
+                {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
           </ul>
