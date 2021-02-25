@@ -11,61 +11,6 @@ class BigPost extends React.Component {
     text: ''
   }
 
-  // displayComments = () => {
-  //   let list = this.props.selectedPost.comments
-  //
-  //   // return list.map(
-  //   //   comment => {
-  //   //     if (!comment.parent){
-  //   //       if (comment.children.length != 0){
-  //   //         console.log(comment.children)
-  //   //         // return comment.children.filter(
-  //   //         //   comment => {return <Comment key={comment.id} comment={comment} />}
-  //   //         // )
-  //   //       }
-  //   //       return <Comment key={comment.id} comment={comment} />
-  //   //     }
-  //   //   }
-  //   // )
-  //
-  //   list.forEach(comment => {displayComments2(comment)})
-  // }
-
-  // render() {
-  //   if (!this.state.comment) {
-  //     return (
-  //       <div>
-  //         <div>
-  //           <h1>{this.props.selectedPost.title}</h1>
-  //           <p>{this.props.selectedPost.content}</p>
-  //           <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
-  //         </div>
-  //         <br/>
-  //         <div>
-  //           {this.displayComments()}
-  //         </div>
-  //       </div>
-  //     )
-  //   } else {
-  //     return (
-  //       <div>
-  //         <div>
-  //           <h1>{this.props.selectedPost.title}</h1>
-  //           <p>{this.props.selectedPost.content}</p>
-  //           <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-  //           <br/>
-  //           <button onClick={(event) => {this.postComment(event)}}>Comment</button>
-  //           <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-  //         </div>
-  //         <br/>
-  //         <div>
-  //           {this.displayComments()}
-  //         </div>
-  //       </div>
-  //     )
-  //   }
-  // }
-
   handleText = (event) => {
     this.setState({
       text: event.target.value
@@ -111,20 +56,19 @@ class BigPost extends React.Component {
   newComment
 
   render() {
-    if (!this.state.comment) {
+    if (Object.keys(this.props.account).length == 0) {
       return (
         <div>
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+            <p>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
             {
               this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                 if (!comment.parent) {
-                  console.log(comment)
                   return(
                     <Comment key={comment.id} comment={comment} type="child"/>
                   )
@@ -135,30 +79,56 @@ class BigPost extends React.Component {
         </div>
       )
     } else {
-      return (
-        <div>
+      if (!this.state.comment) {
+        return (
           <div>
-            <h1>{this.props.selectedPost.title}</h1>
-            <p>{this.props.selectedPost.content}</p>
-            <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+            <div>
+              <h1>{this.props.selectedPost.title}</h1>
+              <p>{this.props.selectedPost.content}</p>
+              <p>{this.props.selectedPost.account.name}</p>
+              <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+            </div>
             <br/>
-            <button onClick={(event) => {this.postComment(event)}}>Comment</button>
-            <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+            <div>
+              {
+                this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                  if (!comment.parent) {
+                    return(
+                      <Comment key={comment.id} comment={comment} type="child"/>
+                    )
+                  }
+                })
+              }
+            </div>
           </div>
-          <br/>
+        )
+      } else {
+        return (
           <div>
-            {
-              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
-                if (!comment.parent) {
-                  return(
-                    <Comment key={comment.id} comment={comment} type="child"/>
-                  )
-                }
-              })
-            }
+            <div>
+              <h1>{this.props.selectedPost.title}</h1>
+              <p>{this.props.selectedPost.content}</p>
+              <p>{this.props.selectedPost.account.name}</p>
+              <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+              <br/>
+              <button onClick={(event) => {this.postComment(event)}}>Comment</button>
+              <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+            </div>
+            <br/>
+            <div>
+              {
+                this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                  if (!comment.parent) {
+                    return(
+                      <Comment key={comment.id} comment={comment} type="child"/>
+                    )
+                  }
+                })
+              }
+            </div>
           </div>
-        </div>
-      )
+        )
+      }
     }
   }
 }
