@@ -108,21 +108,58 @@ class BigPost extends React.Component {
     console.log(this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id))
   }
 
+  newComment
+
   render() {
-    return (
-      <div>
-        {
-          this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
-            if (!comment.parent) {
-              console.log(comment)
-              return(
-                <Comment key={comment.id} comment={comment} type="child"/>
-              )
+    if (!this.state.comment) {
+      return (
+        <div>
+          <div>
+            <h1>{this.props.selectedPost.title}</h1>
+            <p>{this.props.selectedPost.content}</p>
+            <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+          </div>
+          <br/>
+          <div>
+            {
+              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                if (!comment.parent) {
+                  console.log(comment)
+                  return(
+                    <Comment key={comment.id} comment={comment} type="child"/>
+                  )
+                }
+              })
             }
-          })
-        }
-      </div>
-    )
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <div>
+            <h1>{this.props.selectedPost.title}</h1>
+            <p>{this.props.selectedPost.content}</p>
+            <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+            <br/>
+            <button onClick={(event) => {this.postComment(event)}}>Comment</button>
+            <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+          </div>
+          <br/>
+          <div>
+            {
+              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                if (!comment.parent) {
+                  return(
+                    <Comment key={comment.id} comment={comment} type="child"/>
+                  )
+                }
+              })
+            }
+          </div>
+        </div>
+      )
+    }
   }
 }
 
