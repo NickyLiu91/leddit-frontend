@@ -69,26 +69,7 @@ class Comment extends React.Component {
   }
 
   render() {
-    if (this.state.reply.id == this.props.comment.id){
-
-      return(
-        <div className="post">
-          <ul>
-            <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.content}</p>
-                <p>{this.props.comment.account.name}</p>
-                <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
-                <br/>
-                <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
-                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.nestedComments(this.props.comment, this.props.comments)}
-              </div>
-            </li>
-          </ul>
-        </div>
-      )
-    } else {
+    if (Object.keys(this.props.account).length == 0) {
       return(
         <div className="post">
           <ul>
@@ -97,21 +78,49 @@ class Comment extends React.Component {
               <p>{this.props.comment.content}</p>
               <p>{this.props.comment.account.name}</p>
 
-              <button onClick={() => {this.setState({reply: this.props.comment})}}>Reply</button>
               {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
           </ul>
         </div>
       )
-    }
+    } else {
+      if (this.state.reply.id == this.props.comment.id){
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                  <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                  <p>{this.props.comment.content}</p>
+                  <p>{this.props.comment.account.name}</p>
+                  <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+                  <br/>
+                  <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+                  <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                  {this.nestedComments(this.props.comment, this.props.comments)}
+                </div>
+              </li>
+            </ul>
+          </div>
+        )
+      } else {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.props.comment.content}</p>
+                <p>{this.props.comment.account.name}</p>
 
-    // return(
-    //   <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-    //     <div>{this.props.comment.content}</div>
-    //     {this.nestedComments}
-    //   </div>
-    // )
+                <button onClick={() => {this.setState({reply: this.props.comment})}}>Reply</button>
+                {this.nestedComments(this.props.comment, this.props.comments)}
+                </div>
+              </li>
+            </ul>
+          </div>
+        )
+      }
+    }
   }
 }
 
