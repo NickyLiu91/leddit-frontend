@@ -53,9 +53,13 @@ class BigPost extends React.Component {
     console.log(this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id))
   }
 
-  seeOtherAccount = (account) => {
-    this.props.changeSelectedAccount(account)
-    this.props.history.push("otheraccount")
+  seeAccount = (account) => {
+    if (account.id == this.props.account.id) {
+      this.props.history.push("/account")
+    } else {
+      this.props.changeSelectedAccount(account)
+      this.props.history.push("otheraccount")
+    }
   }
 
   render() {
@@ -65,7 +69,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.props.seeOtherAccount(this.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
@@ -88,7 +92,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.seeOtherAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
             </div>
             <br/>
@@ -111,7 +115,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
               <button onClick={(event) => {this.postComment(event)}}>Comment</button>
