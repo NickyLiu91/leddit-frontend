@@ -53,7 +53,10 @@ class BigPost extends React.Component {
     console.log(this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id))
   }
 
-  newComment
+  seeOtherAccount = (account) => {
+    this.props.changeSelectedAccount(account)
+    this.props.history.push("otheraccount")
+  }
 
   render() {
     if (Object.keys(this.props.account).length == 0) {
@@ -62,7 +65,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p>{this.props.selectedPost.account.name}</p>
+            <p onClick={() => {this.props.seeOtherAccount(this.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
@@ -85,7 +88,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.seeOtherAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
             </div>
             <br/>
@@ -137,13 +140,14 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     selectedPost: state.selectedPostChanger.selectedPost,
-    comments: state.commentsChanger.comments,
+    comments: state.commentsChanger.comments
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
 
