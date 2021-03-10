@@ -8,8 +8,7 @@ const commentIDs = []
 class Comment extends React.Component {
 
     state = {
-      text: '',
-      selectedComment: {}
+      text: ''
     }
 
     handleText = (event) => {
@@ -61,7 +60,7 @@ class Comment extends React.Component {
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
-        return <ConnectedComment key={comment2.id} comment={comment2} type="child"/>
+        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment}/>
       })
     // }
   }
@@ -93,7 +92,7 @@ class Comment extends React.Component {
         </div>
       )
     } else {
-
+      if (this.props.comment.id == this.props.selectComment.id) {
         return(
           <div className="post">
             <ul>
@@ -103,7 +102,7 @@ class Comment extends React.Component {
                   <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
                   <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                   <br/>
-                  <button onClick={(event) => {this.selectComment(this.props.comment)}}>Reply</button>
+                  <button onClick={(event) => {this.props.selectComment(this.props.comment)}}>Reply</button>
                   <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
                   {this.nestedComments(this.props.comment, this.props.comments)}
                 </div>
@@ -111,7 +110,7 @@ class Comment extends React.Component {
             </ul>
           </div>
         )
-
+      } else {
         return(
           <div className="post">
             <ul>
@@ -127,7 +126,7 @@ class Comment extends React.Component {
             </ul>
           </div>
         )
-
+      }
     }
   }
 }
