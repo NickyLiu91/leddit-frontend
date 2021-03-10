@@ -8,7 +8,15 @@ class BigPost extends React.Component {
 
   state = {
     comment: false,
-    text: ''
+    text: '',
+    selectedComment: {}
+  }
+
+  selectComment = (comment) => {
+    console.log("hi")
+    this.setState({
+      selectedComment: comment
+    })
   }
 
   handleText = (event) => {
@@ -101,7 +109,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child"/>
+                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedCommeent={this.state.selectComment}/>
                     )
                   }
                 })

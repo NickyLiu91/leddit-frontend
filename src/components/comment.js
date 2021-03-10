@@ -8,8 +8,8 @@ const commentIDs = []
 class Comment extends React.Component {
 
     state = {
-      reply: {},
-      text: ''
+      text: '',
+      selectedComment: {}
     }
 
     handleText = (event) => {
@@ -29,43 +29,50 @@ class Comment extends React.Component {
       this.props.history.push("otheraccount")
     }
 
-    replyComment = (event) => {
-
-      let currentComments = this.props.comments
-      let currentPost = this.props.selectedPost
-
-      fetch('http://localhost:3000/api/v1/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-        },
-        body: JSON.stringify({
-            content: this.state.text,
-            account_id: this.props.account.id,
-            post_id: this.props.selectedPost.id,
-            parent_id: this.props.comment.id
-        })
-      })
-      .then(r => r.json())
-      .then(json => {
-        currentPost.comments.push(json)
-        this.props.changeComments([...currentComments, json])
-        this.setState({reply: json})
-      })
-    }
+    // replyComment = (event) => {
+    //
+    //   let currentComments = this.props.comments
+    //   let currentPost = this.props.selectedPost
+    //
+    //   fetch('http://localhost:3000/api/v1/comments', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json',
+    //       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    //     },
+    //     body: JSON.stringify({
+    //         content: this.state.text,
+    //         account_id: this.props.account.id,
+    //         post_id: this.props.selectedPost.id,
+    //         parent_id: this.props.comment.id
+    //     })
+    //   })
+    //   .then(r => r.json())
+    //   .then(json => {
+    //     currentPost.comments.push(json)
+    //     this.props.changeComments([...currentComments, json])
+    //     this.setState({reply: json})
+    //   })
+    // }
 
   nestedComments = (comment, comments) => {
     // let childComments = this.props.comments.filter(comment2 => comment2.parent.id == comment.id)
-    console.log(comment)
-    console.log(comments)
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
         return <ConnectedComment key={comment2.id} comment={comment2} type="child"/>
       })
     // }
+  }
+
+  seeAccount = (account) => {
+    if (account.id == this.props.account.id) {
+      this.props.history.push("/account")
+    } else {
+      this.props.changeSelectedAccount(account)
+      this.props.history.push("otheraccount")
+    }
   }
 
   render() {
@@ -77,6 +84,7 @@ class Comment extends React.Component {
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.props.comment.content}</p>
               <p>{this.props.comment.account.name}</p>
+              <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
 
               {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
@@ -85,17 +93,17 @@ class Comment extends React.Component {
         </div>
       )
     } else {
-      if (this.state.reply.id == this.props.comment.id){
+
         return(
           <div className="post">
             <ul>
               <li>
                   <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                   <p>{this.props.comment.content}</p>
-                  <p>{this.props.comment.account.name}</p>
+                  <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
                   <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                   <br/>
-                  <button onClick={(event) => {this.replyComment(event)}}>Reply</button>
+                  <button onClick={(event) => {this.selectComment(this.props.comment)}}>Reply</button>
                   <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
                   {this.nestedComments(this.props.comment, this.props.comments)}
                 </div>
@@ -103,14 +111,14 @@ class Comment extends React.Component {
             </ul>
           </div>
         )
-      } else {
+
         return(
           <div className="post">
             <ul>
               <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.props.comment.content}</p>
-                <p>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
 
                 <button onClick={() => {this.setState({reply: this.props.comment})}}>Reply</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
@@ -119,7 +127,7 @@ class Comment extends React.Component {
             </ul>
           </div>
         )
-      }
+
     }
   }
 }
