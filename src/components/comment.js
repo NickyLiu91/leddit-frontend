@@ -92,7 +92,7 @@ class Comment extends React.Component {
         </div>
       )
     } else {
-      if (this.props.comment.id == this.props.selectComment.id) {
+      if (this.props.comment.id == this.props.selectedComment.id) {
         return(
           <div className="post">
             <ul>
@@ -119,7 +119,7 @@ class Comment extends React.Component {
                 <p>{this.props.comment.content}</p>
                 <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
 
-                <button onClick={() => {this.setState({reply: this.props.comment})}}>Reply</button>
+                <button onClick={() => {this.props.selectComment(this.props.comment)}}>Reply</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
                 </div>
               </li>

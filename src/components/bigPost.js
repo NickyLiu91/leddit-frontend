@@ -13,6 +13,7 @@ class BigPost extends React.Component {
   }
 
   selectComment = (comment) => {
+    console.log('???')
     this.setState({
       selectedComment: comment
     })
