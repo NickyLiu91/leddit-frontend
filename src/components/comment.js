@@ -98,7 +98,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.props.comment.content}</p>
-              <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
+              <p>Posted in: {this.props.comment.post.title}</p>
               </div>
             </li>
           </ul>
