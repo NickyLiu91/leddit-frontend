@@ -55,12 +55,12 @@ class Comment extends React.Component {
     //   })
     // }
 
-  nestedComments = (comment, comments) => {
+  nestedComments = (comment, comments, source="comments") => {
     // let childComments = this.props.comments.filter(comment2 => comment2.parent.id == comment.id)
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
-        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment}/>
+        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment} source={source}/>
       })
     // }
   }
@@ -86,6 +86,19 @@ class Comment extends React.Component {
               <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
 
               {this.nestedComments(this.props.comment, this.props.comments)}
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
+    } else if (this.props.source == "account") {
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+              <p>{this.props.comment.content}</p>
+              <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
               </div>
             </li>
           </ul>

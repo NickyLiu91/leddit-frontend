@@ -21,7 +21,7 @@ class Account extends React.Component {
     let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      comment => <Comment key={comment.id} comment={comment} selectedComment={{}}/>
+      comment => <Comment key={comment.id} comment={comment} selectedComment={{}} source="account"/>
     )
   }
 
