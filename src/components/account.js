@@ -17,10 +17,11 @@ class Account extends React.Component {
   }
 
   displayComments = () => {
-    let list = this.props.comments
+    let accountId = this.props.account.id
+    let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      comment => <Comment comment={comment} selectedComment={{}}/>
+      comment => <Comment key={comment.id} comment={comment} selectedComment={{}}/>
     )
   }
 
