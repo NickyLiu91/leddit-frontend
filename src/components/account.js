@@ -20,7 +20,7 @@ class Account extends React.Component {
     let list = this.props.comments
 
     return list.map(
-      comment => <Comment comment={comment} />
+      comment => <Comment comment={comment} selectedComment={{}}/>
     )
   }
 
