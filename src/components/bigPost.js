@@ -77,7 +77,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.props.seeAccount(this.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
@@ -85,7 +85,7 @@ class BigPost extends React.Component {
               this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                 if (!comment.parent) {
                   return(
-                    <Comment key={comment.id} comment={comment} type="child" />
+                    <Comment key={comment.id} comment={comment} type="child" selectedComment={this.state.selectedComment} />
                   )
                 }
               })
@@ -109,7 +109,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment}/>
+                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
                     )
                   }
                 })
@@ -135,7 +135,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectedComment={this.state.selectedComment}/>
+                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectedComment={this.state.selectedComment} />
                     )
                   }
                 })
