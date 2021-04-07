@@ -13,6 +13,7 @@ class BigPost extends React.Component {
   }
 
   selectComment = (comment) => {
+    console.log(comment)
     this.setState({
       selectedComment: comment
     })
@@ -25,7 +26,6 @@ class BigPost extends React.Component {
   }
 
   cancel = (event) => {
-    console.log("?????????")
     this.setState({
       selectedComment: {}
     })
@@ -135,7 +135,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel}/>
+                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectedComment={this.state.selectedComment}/>
                     )
                   }
                 })

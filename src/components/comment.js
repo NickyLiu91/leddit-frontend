@@ -103,6 +103,7 @@ class Comment extends React.Component {
         </div>
       )
     } else {
+      console.log(this.props.selectedComment)
       if (this.props.comment.id == this.props.selectedComment.id) {
         return(
           <div className="post">
