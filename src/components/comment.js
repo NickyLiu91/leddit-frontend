@@ -17,12 +17,6 @@ class Comment extends React.Component {
       })
     }
 
-    cancel = (event) => {
-      this.setState({
-        reply: {}
-      })
-    }
-
     seeOtherAccount = (account) => {
       this.props.changeSelectedAccount(account)
       this.props.history.push("otheraccount")
@@ -60,7 +54,7 @@ class Comment extends React.Component {
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
-        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment} source={source}/>
+        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment} cancel={this.props.cancel} source={source}/>
       })
     // }
   }
@@ -72,6 +66,10 @@ class Comment extends React.Component {
       this.props.changeSelectedAccount(account)
       this.props.history.push("otheraccount")
     }
+  }
+
+  editComment = () => {
+    console.log("edit comment!")
   }
 
   render() {
@@ -116,7 +114,7 @@ class Comment extends React.Component {
                   <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
                   <br/>
                   <button onClick={(event) => {this.props.selectComment(this.props.comment)}}>Reply</button>
-                  <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                  <button onClick={(event) => {this.props.cancel(event)}}>Cancel</button>
                   {this.nestedComments(this.props.comment, this.props.comments)}
                 </div>
               </li>

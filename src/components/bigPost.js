@@ -13,7 +13,6 @@ class BigPost extends React.Component {
   }
 
   selectComment = (comment) => {
-    console.log('???')
     this.setState({
       selectedComment: comment
     })
@@ -26,8 +25,9 @@ class BigPost extends React.Component {
   }
 
   cancel = (event) => {
+    console.log("?????????")
     this.setState({
-      comment: !this.state.comment
+      selectedComment: {}
     })
   }
 
@@ -85,7 +85,7 @@ class BigPost extends React.Component {
               this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                 if (!comment.parent) {
                   return(
-                    <Comment key={comment.id} comment={comment} type="child"/>
+                    <Comment key={comment.id} comment={comment} type="child" />
                   )
                 }
               })
@@ -94,14 +94,14 @@ class BigPost extends React.Component {
         </div>
       )
     } else {
-      if (!this.state.comment) {
+      if (Object.keys(this.state.selectedComment).length == 0) {
         return (
           <div>
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
               <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
-              <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+              <button onClick={() => {this.selectedComment(this.props.selectedPost)}}>Comment</button>
             </div>
             <br/>
             <div>
@@ -135,7 +135,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" />
+                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel}/>
                     )
                   }
                 })
