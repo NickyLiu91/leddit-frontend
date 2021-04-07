@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Post from './post.js'
+import Comment from './comment.js'
 
 class OtherAccount extends React.Component {
 
@@ -12,6 +13,16 @@ class OtherAccount extends React.Component {
 
     return list.map(
       post => <Post key={post.id} post={post} seeBigPost={this.seeBigPost} seeOtherAccount={this.seeOtherAccount} selectBigPost={this.selectBigPost}/>
+    )
+  }
+
+  displayComments = () => {
+    let accountId = this.props.selectedAccount.id
+    console.log(this.props)
+    let list = this.props.comments.filter(obj => obj.account.id == accountId)
+
+    return list.map(
+      comment => <Comment key={comment.id} comment={comment} selectedComment={{}} source="account"/>
     )
   }
 
@@ -40,6 +51,11 @@ class OtherAccount extends React.Component {
         <div>
           {this.generateOtherAccountPosts()}
         </div>
+        <br />
+        <h1>Comments</h1>
+        <div>
+          {this.displayComments()}
+        </div>
       </div>
     )
   }
@@ -49,6 +65,7 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     posts: state.postsChanger.posts,
+    comments: state.commentsChanger.comments,
     selectedPost: state.selectedPostChanger.selectedPost,
     selectedAccount: state.selectedAccountChanger.selectedAccount
   }
