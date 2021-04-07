@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Post from './post.js'
-const commentIDs = []
 
 class Comment extends React.Component {
 
@@ -15,11 +14,6 @@ class Comment extends React.Component {
       this.setState({
         text: event.target.value
       })
-    }
-
-    seeOtherAccount = (account) => {
-      this.props.changeSelectedAccount(account)
-      this.props.history.push("otheraccount")
     }
 
     // replyComment = (event) => {
@@ -54,7 +48,7 @@ class Comment extends React.Component {
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
-        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment} cancel={this.props.cancel} source={source}/>
+        return <ConnectedComment key={comment2.id} comment={comment2} type="child" selectComment={this.props.selectComment} selectedComment={this.props.selectedComment} cancel={this.props.cancel} seeAccount={this.seeAccount} source={source}/>
       })
     // }
   }
@@ -65,6 +59,8 @@ class Comment extends React.Component {
     } else {
       this.props.changeSelectedAccount(account)
       this.props.history.push("otheraccount")
+      console.log(account)
+      console.log(this.props.account)
     }
   }
 
@@ -156,7 +152,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const ConnectedComment = connect(mapStateToProps, mapDispatchToProps)(Comment)
+const ConnectedComment = compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(Comment)
 
 export default compose(
   withRouter,
