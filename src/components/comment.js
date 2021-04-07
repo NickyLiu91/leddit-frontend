@@ -59,8 +59,6 @@ class Comment extends React.Component {
     } else {
       this.props.changeSelectedAccount(account)
       this.props.history.push("otheraccount")
-      console.log(account)
-      console.log(this.props.account)
     }
   }
 
