@@ -18,7 +18,6 @@ class OtherAccount extends React.Component {
 
   displayComments = () => {
     let accountId = this.props.selectedAccount.id
-    console.log(this.props)
     let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(

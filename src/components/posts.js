@@ -21,6 +21,9 @@ class Posts extends React.Component {
 
   seeOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
+    localStorage.setItem('otherAccount', JSON.stringify(account))
+    console.log(account)
+    let otherAccount = JSON.parse(localStorage.getItem('otherAccount'))
     this.props.history.push("otheraccount")
   }
 

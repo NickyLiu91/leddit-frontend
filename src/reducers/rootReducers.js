@@ -43,7 +43,6 @@ import {combineReducers} from 'redux'
   function selectedAccountChanger(state = {selectedAccount: {}}, action) {
     switch (action.type) {
       case 'CHANGE_SELECTEDACCOUNT':
-        console.log(state);
         return {selectedAccount: action.selectedAccount}
       default:
         return state;

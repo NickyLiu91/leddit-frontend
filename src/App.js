@@ -20,7 +20,6 @@ class App extends React.Component {
     fetch(`http://localhost:3000/api/v1/posts`)
     .then(res => res.json())
     .then(json => {
-      console.log(json)
       this.props.changePosts(json)
     })
 
@@ -31,6 +30,9 @@ class App extends React.Component {
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
     }
+
+    let otherAccount = JSON.parse(localStorage.getItem('otherAccount'))
+    this.props.changeSelectedAccount(otherAccount)
   }
 
   fetchCurrentUser = () => {
@@ -70,6 +72,8 @@ const mapStateToProps = state => {
     posts: state.postsChanger.posts,
     account: state.accountChanger.account,
     comments: state.commentsChanger.comments,
+    selectedPost: state.selectedPostChanger.selectedPost,
+    selectedAccount: state.selectedAccountChanger.selectedAccount
   }
 }
 
@@ -77,7 +81,9 @@ const mapDispatchToProps = dispatch => {
   return {
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
 

@@ -13,7 +13,6 @@ class BigPost extends React.Component {
   }
 
   selectComment = (comment) => {
-    console.log(comment)
     this.setState({
       selectedComment: comment
     })
@@ -66,7 +65,6 @@ class BigPost extends React.Component {
       this.props.history.push("/account")
     } else {
       this.props.changeSelectedAccount(account)
-      this.props.history.push("otheraccount")
     }
   }
 
