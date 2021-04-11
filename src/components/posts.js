@@ -16,14 +16,13 @@ class Posts extends React.Component {
 
   selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
+    localStorage.setItem('selectedPost', JSON.stringify(post))
     this.props.history.push("bigpost")
   }
 
   seeOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
     localStorage.setItem('otherAccount', JSON.stringify(account))
-    console.log(account)
-    let otherAccount = JSON.parse(localStorage.getItem('otherAccount'))
     this.props.history.push("otheraccount")
   }
 

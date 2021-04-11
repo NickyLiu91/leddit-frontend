@@ -33,6 +33,10 @@ class App extends React.Component {
 
     let otherAccount = JSON.parse(localStorage.getItem('otherAccount'))
     this.props.changeSelectedAccount(otherAccount)
+
+    let selectedPost = JSON.parse(localStorage.getItem('selectedPost'))
+    console.log(selectedPost)
+    this.props.changeSelectedPost(selectedPost)
   }
 
   fetchCurrentUser = () => {
@@ -73,7 +77,6 @@ const mapStateToProps = state => {
     account: state.accountChanger.account,
     comments: state.commentsChanger.comments,
     selectedPost: state.selectedPostChanger.selectedPost,
-    selectedAccount: state.selectedAccountChanger.selectedAccount
   }
 }
 

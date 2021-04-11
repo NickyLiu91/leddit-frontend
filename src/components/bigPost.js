@@ -56,10 +56,6 @@ class BigPost extends React.Component {
     })
   }
 
-  componentDidMount() {
-    console.log(this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id))
-  }
-
   seeAccount = (account) => {
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
@@ -75,7 +71,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>this.props.selectedPost.account.name</p>
           </div>
           <br/>
           <div>
