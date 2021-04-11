@@ -13,6 +13,7 @@ class BigPost extends React.Component {
   }
 
   selectComment = (comment) => {
+    console.log(comment)
     this.setState({
       selectedComment: comment
     })
@@ -61,6 +62,7 @@ class BigPost extends React.Component {
       this.props.history.push("/account")
     } else {
       this.props.changeSelectedAccount(account)
+      this.props.history.push("otheraccount")
     }
   }
 
@@ -88,14 +90,14 @@ class BigPost extends React.Component {
         </div>
       )
     } else {
-      if (Object.keys(this.state.selectedComment).length == 0) {
+      if (Object.keys(this.state.selectedComment).length == 0 && this.state.comment == false) {
         return (
           <div>
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
               <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
-              <button onClick={() => {this.selectedComment(this.props.selectedPost)}}>Comment</button>
+              <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
             </div>
             <br/>
             <div>
@@ -104,6 +106,29 @@ class BigPost extends React.Component {
                   if (!comment.parent) {
                     return(
                       <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
+                    )
+                  }
+                })
+              }
+            </div>
+          </div>
+        )
+      } else if (Object.keys(this.state.selectedComment).length != 0) {
+        return (
+          <div>
+            <div>
+              <h1>{this.props.selectedPost.title}</h1>
+              <p>{this.props.selectedPost.content}</p>
+              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
+            </div>
+            <br/>
+            <div>
+              {
+                this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                  if (!comment.parent) {
+                    return(
+                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
                     )
                   }
                 })
@@ -121,7 +146,7 @@ class BigPost extends React.Component {
               <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
               <button onClick={(event) => {this.postComment(event)}}>Comment</button>
-              <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+              <button onClick={(event) => {this.setState({comment: !this.state.comment})}}>Cancel</button>
             </div>
             <br/>
             <div>
@@ -129,7 +154,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectedComment={this.state.selectedComment} />
+                      <Comment key={comment.id} comment={comment} type="child"/>
                     )
                   }
                 })
