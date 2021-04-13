@@ -57,6 +57,7 @@ class BigPost extends React.Component {
     })
   }
 
+
   seeAccount = (account) => {
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
@@ -154,7 +155,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child"/>
+                      <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} type="child"/>
                     )
                   }
                 })

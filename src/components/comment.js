@@ -27,7 +27,7 @@ class Comment extends React.Component {
   }
 
   seeAccount = (account) => {
-    console.log("????????")
+    console.log(account)
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
@@ -91,7 +91,7 @@ class Comment extends React.Component {
               <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.props.comment.content}</p>
-                <p onClick={() => {console.log("??")}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
                 <button onClick={() => {this.props.selectComment(this.props.comment)}}>Reply</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
