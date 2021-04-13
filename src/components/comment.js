@@ -27,13 +27,17 @@ class Comment extends React.Component {
   }
 
   seeAccount = (account) => {
-    console.log(account)
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
       this.props.changeSelectedAccount(account)
       this.props.history.push("otheraccount")
     }
+  }
+
+  seeBigPost = (post) => {
+    this.props.changeSelectedPost(post)
+    this.props.history.push("bigpost")
   }
 
   render() {
@@ -59,7 +63,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.props.comment.content}</p>
-              <p>Posted in: {this.props.comment.post.title}</p>
+              <p onClick={() => {this.seeBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
               </div>
             </li>
           </ul>
@@ -116,6 +120,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
     changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
