@@ -11,7 +11,8 @@ class BigPost extends React.Component {
     text: '',
     selectedComment: {},
     edit: false,
-    editText: ''
+    editText: '',
+    editTitle: ''
   }
 
   selectComment = (comment) => {
@@ -74,13 +75,20 @@ class BigPost extends React.Component {
   edit = () => {
     this.setState({
       edit: !this.state.edit,
-      editText: this.props.selectedPost.content
+      editText: this.props.selectedPost.content,
+      editTitle: this.props.selectedPost.title
     })
   }
 
   handleEditText = (event) => {
     this.setState({
       editText: event.target.value
+    })
+  }
+
+  handleEditTitle = (event) => {
+    this.setState({
+      editTitle: event.target.value
     })
   }
 
@@ -96,6 +104,7 @@ class BigPost extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
+        title: this.state.editTitle,
         content: this.state.editText
       })
     })
@@ -104,8 +113,7 @@ class BigPost extends React.Component {
       localStorage.setItem('selectedPost', JSON.stringify(json))
       this.props.changeSelectedPost(json)
       this.setState({
-        edit: !this.state.edit,
-        editText: ''
+        edit: !this.state.edit
       })
     })
   }
@@ -163,7 +171,8 @@ class BigPost extends React.Component {
         return (
           <div>
             <div>
-              <h1>{this.props.selectedPost.title}</h1>
+              <input type="text" value={this.state.editTitle} onChange={event => this.handleEditTitle(event)}/>
+              <br/>
               <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}>{this.state.editText}</textarea>
               <p>{this.props.selectedPost.account.name}</p>
               <br/>
