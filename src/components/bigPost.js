@@ -84,6 +84,32 @@ class BigPost extends React.Component {
     })
   }
 
+  submitBigPostEdit = (event) => {
+
+    let currentPost = this.props.selectedPost
+
+    fetch(`http://localhost:3000/api/v1/posts/${currentPost.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+        content: this.state.editText
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      localStorage.setItem('selectedPost', JSON.stringify(json))
+      this.props.changeSelectedPost(json)
+      this.setState({
+        edit: !this.state.edit,
+        editText: ''
+      })
+    })
+  }
+
   render() {
     if (Object.keys(this.props.account).length == 0) {
       return (
@@ -141,7 +167,7 @@ class BigPost extends React.Component {
               <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}>{this.state.editText}</textarea>
               <p>{this.props.selectedPost.account.name}</p>
               <br/>
-              <button onClick={(event) => {this.edit(event)}}>Edit</button>
+              <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
               <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.props.selectedPost.content})}}>Cancel</button>
             </div>
             <br/>
@@ -248,7 +274,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }
 
