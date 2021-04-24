@@ -12,13 +12,21 @@ class BigPost extends React.Component {
     selectedComment: {},
     edit: false,
     editText: '',
-    editTitle: ''
+    editTitle: '',
+    selectedCommentReason: ''
   }
 
-  selectComment = (comment) => {
-    console.log(comment)
+  replyComment = (comment) => {
     this.setState({
-      selectedComment: comment
+      selectedComment: comment,
+      selectedCommentReason: 'reply'
+    })
+  }
+
+  editComment = (comment) => {
+    this.setState({
+      selectedComment: comment,
+      selectedCommentReason: 'edit'
     })
   }
 
@@ -159,7 +167,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
+                      <Comment key={comment.id} comment={comment} type="child" replyComment={this.replyComment} editComment={this.editComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}/>
                     )
                   }
                 })
@@ -185,7 +193,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
+                      <Comment key={comment.id} comment={comment} type="child" replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}/>
                     )
                   }
                 })
@@ -210,7 +218,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
+                      <Comment key={comment.id} comment={comment} type="child" replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}/>
                     )
                   }
                 })
@@ -233,7 +241,7 @@ class BigPost extends React.Component {
                 this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                   if (!comment.parent) {
                     return(
-                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} selectComment={this.selectComment} selectedComment={this.state.selectedComment} />
+                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}/>
                     )
                   }
                 })
