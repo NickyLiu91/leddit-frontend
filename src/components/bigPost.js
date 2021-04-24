@@ -38,7 +38,8 @@ class BigPost extends React.Component {
 
   cancel = (event) => {
     this.setState({
-      selectedComment: {}
+      selectedComment: {},
+      selectedCommentReason: ''
     })
   }
 
