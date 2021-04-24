@@ -7,13 +7,27 @@ import Post from './post.js'
 class Comment extends React.Component {
 
     state = {
-      text: ''
+      replyText: '',
+      editText: this.props.comment.content
     }
 
-    handleText = (event) => {
+    handleReplyText = (event) => {
       this.setState({
-        text: event.target.value
+        replyText: event.target.value
       })
+    }
+
+    handleEditText = (event) => {
+      this.setState({
+        editText: event.target.value
+      })
+    }
+
+    cancel = () => {
+      this.setState({
+        replyText: '',
+        editText: this.props.comment.content
+      }, () => {this.props.cancel()})
     }
 
   nestedComments = (comment, comments, source="comments") => {
@@ -23,7 +37,8 @@ class Comment extends React.Component {
       return childComments.map(comment2 => {
         return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account} type="child"
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
-        cancel={this.props.cancel} seeAccount={this.seeAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}/>
+        cancel={this.cancel} seeAccount={this.seeAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
+        submitCommentEdit={this.submitCommentEdit}/>
       })
     // }
   }
@@ -42,6 +57,29 @@ class Comment extends React.Component {
     this.props.history.push("bigpost")
   }
 
+  submitCommentEdit = (comment) => {
+
+    let currentComment = comment
+
+    fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+        content: this.state.editText
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      this.setState({
+        editText: json.content
+      }, () => {this.props.cancel()})
+    })
+  }
+
   render() {
     if (Object.keys(this.props.account).length == 0) {
       return(
@@ -49,7 +87,7 @@ class Comment extends React.Component {
           <ul>
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              <p>{this.props.comment.content}</p>
+              <p>{this.state.editText}</p>
               <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
               {this.nestedComments(this.props.comment, this.props.comments)}
@@ -64,7 +102,7 @@ class Comment extends React.Component {
           <ul>
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              <p>{this.props.comment.content}</p>
+              <p>{this.state.editText}</p>
               <p onClick={() => {this.seeBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
               </div>
             </li>
@@ -77,11 +115,10 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.content}</p>
+                <p>{this.state.editText}</p>
                 <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
                 <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
-                <button onClick={(event) => {this.props.cancel(event)}}>Cancel</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -94,12 +131,11 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-
-                <textarea value={this.props.comment.content} onChange={event => this.handleText(event)}></textarea>
+                <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
                 <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <br/>
-                <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
-                <button onClick={(event) => {this.props.cancel(event)}}>Cancel</button>
+                <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
+                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -113,22 +149,16 @@ class Comment extends React.Component {
             <ul>
               <li>
                   <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                  <p>{this.props.comment.content}</p>
+                  <p>{this.state.editText}</p>
                   <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
-                  <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+                  <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                   <br/>
                   <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
-                  <button onClick={(event) => {this.props.cancel(event)}}>Cancel</button>
+                  <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
                   {this.nestedComments(this.props.comment, this.props.comments)}
                 </div>
               </li>
             </ul>
-          </div>
-        )
-      } else if (this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'edit') {
-        return (
-          <div>
-          aaaaaa
           </div>
         )
       } else {
@@ -137,7 +167,7 @@ class Comment extends React.Component {
             <ul>
               <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.content}</p>
+                <p>{this.state.editText}</p>
                 <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
                 <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
