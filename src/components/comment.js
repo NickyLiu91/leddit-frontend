@@ -82,7 +82,13 @@ class Comment extends React.Component {
 
   deleteComment = (comment) => {
     let currentComment = comment
-    console.log(comment)
+
+    let currentComments = this.props.comments
+
+    let newComments = currentComments.filter(item =>
+      item.id != currentComment.id
+    )
+
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
       method: 'DELETE',
       headers: {
@@ -91,7 +97,7 @@ class Comment extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       }}
     ).then(res => {
-      console.log("SUCCESS")
+      this.props.changeComments(newComments)
     })
   }
 
