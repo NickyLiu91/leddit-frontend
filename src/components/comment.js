@@ -161,6 +161,21 @@ class Comment extends React.Component {
             </ul>
           </div>
         )
+      } else if (this.props.selectedCommentReason == 'reply') {
+        return(
+          <div className="post">
+            <ul>
+              <li>
+                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.state.editText}</p>
+                <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+
+                {this.nestedComments(this.props.comment, this.props.comments)}
+                </div>
+              </li>
+            </ul>
+          </div>
+        )
       } else {
         return(
           <div className="post">
