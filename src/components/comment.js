@@ -80,6 +80,21 @@ class Comment extends React.Component {
     })
   }
 
+  deleteComment = (comment) => {
+    let currentComment = comment
+    console.log(comment)
+    fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      }}
+    ).then(res => {
+      console.log("SUCCESS")
+    })
+  }
+
   render() {
     if (Object.keys(this.props.account).length == 0) {
       return(
@@ -119,6 +134,7 @@ class Comment extends React.Component {
                 <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
                 <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
+                <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
