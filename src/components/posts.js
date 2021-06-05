@@ -16,7 +16,7 @@ class Posts extends React.Component {
 
   selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
-    localStorage.setItem('selectedPost', JSON.stringify(post))
+    // localStorage.setItem('selectedPost', JSON.stringify(post))
     this.props.history.push("bigpost")
   }
 

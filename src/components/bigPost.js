@@ -16,6 +16,12 @@ class BigPost extends React.Component {
     selectedCommentReason: ''
   }
 
+  componentDidMount() {
+    if (Object.keys(this.props.selectedPost).length == 0) {
+      this.props.history.push("/")
+    }
+  }
+
   replyComment = (comment) => {
     this.setState({
       selectedComment: comment,
@@ -119,7 +125,7 @@ class BigPost extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      localStorage.setItem('selectedPost', JSON.stringify(json))
+      // localStorage.setItem('selectedPost', JSON.stringify(json))
       this.props.changeSelectedPost(json)
       this.setState({
         edit: !this.state.edit
