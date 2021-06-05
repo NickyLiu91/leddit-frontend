@@ -31,7 +31,6 @@ class Account extends React.Component {
   }
 
   seeOtherAccount = (account) => {
-    console.log(account)
     this.props.changeSelectedAccount(account)
     this.props.history.push("otheraccount")
   }
@@ -44,7 +43,6 @@ class Account extends React.Component {
 
   selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
-    localStorage.setItem('selectedPost', JSON.stringify(post))
     this.props.history.push("bigpost")
   }
 

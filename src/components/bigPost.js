@@ -125,7 +125,6 @@ class BigPost extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      // localStorage.setItem('selectedPost', JSON.stringify(json))
       this.props.changeSelectedPost(json)
       this.setState({
         edit: !this.state.edit

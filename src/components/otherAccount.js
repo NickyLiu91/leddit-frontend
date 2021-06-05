@@ -7,6 +7,12 @@ import Comment from './comment.js'
 
 class OtherAccount extends React.Component {
 
+  componentDidMount() {
+    if (Object.keys(this.props.selectedAccount).length == 0) {
+      this.props.history.push("/")
+    }
+  }
+
   generateOtherAccountPosts = () => {
     let accountId = this.props.selectedAccount.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
