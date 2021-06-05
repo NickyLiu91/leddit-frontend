@@ -7,6 +7,12 @@ import Comment from './comment.js'
 
 class Account extends React.Component {
 
+  componentDidMount() {
+    if (Object.keys(this.props.account).length == 0) {
+      this.props.history.push("/login")
+    }
+  }
+
   generateMyPosts = () => {
     let accountId = this.props.account.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
