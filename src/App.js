@@ -61,7 +61,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={LogInPage} />
           <Route path="/posts" component={Posts} />
-          <Route path="/bigpost" component={BigPost} />
+          <Route path="/bigpost/:id" component={BigPost} />
           <Route path="/createpost" component={CreatePost} />
           <Route path="/account" component={Account} />
           <Route path="/otheraccount" component={OtherAccount} />

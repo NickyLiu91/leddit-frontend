@@ -20,6 +20,8 @@ class BigPost extends React.Component {
     if (Object.keys(this.props.selectedPost).length == 0) {
       this.props.history.push("/")
     }
+    console.log(this.props)
+    console.log(this.props.selectedPost.account.name)
   }
 
   replyComment = (comment) => {
@@ -139,7 +141,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>this.props.selectedPost.account.name</p>
+            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
