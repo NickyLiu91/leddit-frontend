@@ -17,11 +17,14 @@ class BigPost extends React.Component {
   }
 
   componentDidMount() {
-    if (Object.keys(this.props.selectedPost).length == 0) {
-      this.props.history.push("/")
-    }
-    console.log(this.props)
-    console.log(this.props.selectedPost.account.name)
+    console.log('???')
+    let postId = this.props.match.url.slice(9)
+
+    fetch(`http://localhost:3000/api/v1/posts/${postId}`)
+    .then(res => res.json())
+    .then(json => {
+      this.props.changeSelectedPost(json)
+    })
   }
 
   replyComment = (comment) => {
@@ -135,7 +138,14 @@ class BigPost extends React.Component {
   }
 
   render() {
-    if (Object.keys(this.props.account).length == 0) {
+    if (!this.props.selectedPost.account) {
+      return(
+        <div>
+        Loading
+        </div>
+      )
+    } else if (Object.keys(this.props.account).length == 0) {
+      console.log(this.props)
       return (
         <div>
           <div>

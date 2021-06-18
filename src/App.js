@@ -16,27 +16,40 @@ import CreatePost from './components/createPost.js';
 
 class App extends React.Component {
 
+  state = {
+    posts: false,
+    comments: false,
+    user: false
+  }
+
   componentDidMount() {
     fetch(`http://localhost:3000/api/v1/posts`)
     .then(res => res.json())
     .then(json => {
       this.props.changePosts(json)
     })
+    .then(res => {
+      this.setState({
+        posts: !this.state.posts
+      })
+    })
 
     fetch(`http://localhost:3000/api/v1/comments`)
     .then(res => res.json())
     .then(json => {this.props.changeComments(json)})
+    .then(res => {
+      this.setState({
+        comments: !this.state.commentst
+      })
+    })
 
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
+    } else {
+      this.setState({
+        user: !this.state.user
+      })
     }
-
-    let otherAccount = JSON.parse(localStorage.getItem('otherAccount'))
-    this.props.changeSelectedAccount(otherAccount)
-
-    // let selectedPost = JSON.parse(localStorage.getItem('selectedPost'))
-    // console.log(selectedPost)
-    // this.props.changeSelectedPost(selectedPost)
   }
 
   fetchCurrentUser = () => {
@@ -50,24 +63,37 @@ class App extends React.Component {
     .then(json => {
       this.props.changeAccount(json.account)
     })
+    .then(res => {
+      this.setState({
+        user: !this.state.user
+      })
+    })
   }
 
   render() {
-    return(
-      <div>
-        <Nav />
-        <br/>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={LogInPage} />
-          <Route path="/posts" component={Posts} />
-          <Route path="/bigpost/:id" component={BigPost} />
-          <Route path="/createpost" component={CreatePost} />
-          <Route path="/account" component={Account} />
-          <Route path="/otheraccount" component={OtherAccount} />
-        </Switch>
-      </div>
-    )
+    if (this.state.posts && this.state.comments && this.state.user) {
+      return(
+        <div>
+          <Nav />
+          <br/>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={LogInPage} />
+            <Route path="/posts" component={Posts} />
+            <Route path="/bigpost/:id" component={BigPost} />
+            <Route path="/createpost" component={CreatePost} />
+            <Route path="/account" component={Account} />
+            <Route path="/otheraccount" component={OtherAccount} />
+          </Switch>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+        Loading
+        </div>
+      )
+    }
   }
 }
 
