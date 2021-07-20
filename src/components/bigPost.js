@@ -17,7 +17,6 @@ class BigPost extends React.Component {
   }
 
   componentDidMount() {
-    console.log('???')
     let postId = this.props.match.url.slice(9)
 
     fetch(`http://localhost:3000/api/v1/posts/${postId}`)
