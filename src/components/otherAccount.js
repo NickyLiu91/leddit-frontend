@@ -9,9 +9,8 @@ class OtherAccount extends React.Component {
 
   componentDidMount() {
     let accountId = this.props.match.url.slice(14)
-    console.log(accountId)
 
-    fetch(`http://localhost:3000/api/v1/posts/${accountId}`)
+    fetch(`http://localhost:3000/api/v1/accounts/${accountId}`)
     .then(res => res.json())
     .then(json => {
       this.props.changeSelectedAccount(json)
