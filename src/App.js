@@ -75,22 +75,23 @@ class App extends React.Component {
       return(
         <div>
           <Nav />
-          <br/>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={LogInPage} />
-            <Route path="/posts" component={Posts} />
-            <Route path="/bigpost/:id" component={BigPost} />
-            <Route path="/createpost" component={CreatePost} />
-            <Route path="/account" component={Account} />
-            <Route path="/otheraccount/:id" component={OtherAccount} />
-          </Switch>
+          <div id="body">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/login" component={LogInPage} />
+              <Route path="/posts" component={Posts} />
+              <Route path="/bigpost/:id" component={BigPost} />
+              <Route path="/createpost" component={CreatePost} />
+              <Route path="/account" component={Account} />
+              <Route path="/otheraccount/:id" component={OtherAccount} />
+            </Switch>
+          </div>
         </div>
       )
     } else {
       return(
         <div>
-        Loading
+          Loading
         </div>
       )
     }

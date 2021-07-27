@@ -56,19 +56,16 @@ class Account extends React.Component {
     return(
       <div>
         <div>
-          Name: {this.props.account.name}
+          <p> Welcome {this.props.account.name}! </p>
         </div>
-        <br />
-        <h1>Posts</h1>
+        <h1 className="accountSection">Posts</h1>
         <div>
           {this.generateMyPosts()}
         </div>
-        <br />
-        <h1>Comments</h1>
+        <h1 className="accountSection">Comments</h1>
         <div>
           {this.displayComments()}
         </div>
-        <br />
         <button onClick={this.logOut}>Log Out</button>
       </div>
     )

@@ -6,15 +6,25 @@ ul {
   list-style-type: none
 }
 
+#body {
+  border-top: 5px solid black
+}
+
 .post {
   border: 5px solid black;
   margin: -5px
 }
 
+.accountSection {
+  border: 5px solid red;
+  background-color: skyblue;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
 #nav {
-  margin-right: 1vw;
-  margin-left: 1vw;
-  margin-bottom: -3vh;
+  padding-right: 1vw;
+  padding-left: 1vw;
   display: flex;
   justify-content: space-between;
 }
