@@ -8,21 +8,25 @@ class Nav extends React.Component {
   render() {
     if (!localStorage.getItem('jwt')) {
       return(
-        <nav>
-          <ul>
-          <li onClick={() => {this.props.history.push("/")}}>Home</li>
-          <li onClick={() => {this.props.history.push("/login")}}>LogIn</li>
-          </ul>
+        <nav id="nav">
+          <div>
+            <p onClick={() => {this.props.history.push("/")}}>Home</p>
+          </div>
+          <div>
+            <p onClick={() => {this.props.history.push("/login")}}>LogIn</p>
+          </div>
         </nav>
       )
     } else {
       return(
-        <nav>
-          <ul>
-          <li onClick={() => {this.props.history.push("/")}}>Home</li>
-          <li onClick={() => {this.props.history.push("/account")}}>Account</li>
-          <li onClick={() => {this.props.history.push("/createPost")}}>Create</li>
-          </ul>
+        <nav id="nav">
+          <div>
+            <p onClick={() => {this.props.history.push("/")}}>Home</p>
+          </div>
+          <div>
+            <p onClick={() => {this.props.history.push("/account")}}>Account</p>
+            <p onClick={() => {this.props.history.push("/createPost")}}>Create</p>
+          </div>
         </nav>
       )
     }
