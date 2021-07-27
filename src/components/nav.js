@@ -9,10 +9,10 @@ class Nav extends React.Component {
     if (!localStorage.getItem('jwt')) {
       return(
         <nav id="nav">
-          <div>
+          <div id="nav1">
             <p onClick={() => {this.props.history.push("/")}}>Home</p>
           </div>
-          <div>
+          <div id="nav2">
             <p onClick={() => {this.props.history.push("/login")}}>LogIn</p>
           </div>
         </nav>
@@ -20,10 +20,10 @@ class Nav extends React.Component {
     } else {
       return(
         <nav id="nav">
-          <div>
+          <div id="nav1">
             <p onClick={() => {this.props.history.push("/")}}>Home</p>
           </div>
-          <div>
+          <div id="nav2">
             <p onClick={() => {this.props.history.push("/account")}}>Account</p>
             <p onClick={() => {this.props.history.push("/createPost")}}>Create</p>
           </div>
