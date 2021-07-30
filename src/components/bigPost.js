@@ -144,7 +144,6 @@ class BigPost extends React.Component {
         </div>
       )
     } else if (Object.keys(this.props.account).length == 0) {
-      console.log(this.props)
       return (
         <div>
           <div>
