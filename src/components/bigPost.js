@@ -129,7 +129,15 @@ class BigPost extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
+
+      let allPosts = this.props.posts
+
+      let oldPostPosition = allPosts.findIndex(post => post.id == json.id)
+      allPosts[oldPostPosition] = json
+
       this.props.changeSelectedPost(json)
+      this.props.changePosts(allPosts)
+
       this.setState({
         edit: !this.state.edit
       })
@@ -300,6 +308,7 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     selectedPost: state.selectedPostChanger.selectedPost,
+    posts: state.postsChanger.posts,
     comments: state.commentsChanger.comments
   }
 }
@@ -307,6 +316,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
+    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
     changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
     changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }

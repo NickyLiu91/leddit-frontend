@@ -29,9 +29,23 @@ class BigComment extends React.Component {
     } else {
       return (
         <div>
-          <h1>{this.props.selectedComment.post.title}</h1>
-          <h1>{this.props.selectedComment.post.content}</h1>
-          <p onClick={() => {this.seeAccount(this.props.selectedComment.post.account)}}>{this.props.selectedComment.post.account.name}</p>
+          <div>
+            <h1>{this.props.selectedComment.post.title}</h1>
+            <h1>{this.props.selectedComment.post.content}</h1>
+            <p onClick={() => {this.seeAccount(this.props.selectedComment.post.account)}}>{this.props.selectedComment.post.account.name}</p>
+          </div>
+          <br/>
+          <div>
+            {
+              this.props.selectedComment.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                if (!comment.parent) {
+                  return(
+                    <Comment key={comment.id} comment={comment} type="child" selectedComment={this.state.selectedComment} />
+                  )
+                }
+              })
+            }
+          </div>
         </div>
       )
     }
