@@ -14,8 +14,13 @@ class BigComment extends React.Component {
     fetch(`http://localhost:3000/api/v1/comments/${commentId}`)
     .then(res => res.json())
     .then(json => {
-      console.log(json)
+      let allComments = this.props.comments
+
+      let oldCommentPosition = allComments.findIndex(comment => comment.id == json.id)
+      allComments[oldCommentPosition] = json
+
       this.props.changeSelectedComment(json)
+      this.props.changeComments(allComments)
     })
   }
 
