@@ -8,6 +8,7 @@ import Comment from './comment.js'
 class OtherAccount extends React.Component {
 
   componentDidMount() {
+    console.log(this.props)
     let accountId = this.props.match.url.slice(14)
 
     fetch(`http://localhost:3000/api/v1/accounts/${accountId}`)

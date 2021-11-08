@@ -27,6 +27,7 @@ class BigPost extends React.Component {
   }
 
   replyComment = (comment) => {
+    console.log(comment)
     this.setState({
       selectedComment: comment,
       selectedCommentReason: 'reply'
@@ -86,8 +87,9 @@ class BigPost extends React.Component {
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
+      console.log(account)
       this.props.changeSelectedAccount(account)
-      this.props.history.push("otheraccount")
+      this.props.history.push(`/otheraccount/${account.id}`)
     }
   }
 

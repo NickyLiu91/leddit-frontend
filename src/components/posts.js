@@ -16,12 +16,12 @@ class Posts extends React.Component {
 
   selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
-    this.props.history.push(`bigpost/${post.id}`)
+    this.props.history.push(`/bigpost/${post.id}`)
   }
 
   seeOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
-    this.props.history.push("otheraccount")
+    this.props.history.push(`/otheraccount/${account.id}`)
   }
 
   render() {
