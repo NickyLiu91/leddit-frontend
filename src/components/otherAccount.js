@@ -36,14 +36,9 @@ class OtherAccount extends React.Component {
     )
   }
 
-  seeBigPost = (post) => {
-    this.props.changeSelectedPost(post)
-    this.props.history.push("bigpost")
-  }
-
   seeOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
-    this.props.history.push("otheraccount")
+    this.props.history.push(`/otheraccount/${account.id}`)
   }
 
   selectBigPost = (post) => {

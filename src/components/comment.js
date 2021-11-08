@@ -48,7 +48,7 @@ class Comment extends React.Component {
       this.props.history.push("/account")
     } else {
       this.props.changeSelectedAccount(account)
-      this.props.history.push("otheraccount")
+      this.props.history.push(`/otheraccount/${account.id}`)
     }
   }
 
