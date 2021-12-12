@@ -23,7 +23,7 @@ class OtherAccount extends React.Component {
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      post => <Post key={post.id} post={post} seBigPost={this.seBigPost} seeOtherAccount={this.seeOtherAccount} selectBigPost={this.selectBigPost}/>
+      post => <Post key={post.id} post={post} seBigPost={this.seBigPost} selectOtherAccount={this.selectOtherAccount} selectBigPost={this.selectBigPost}/>
     )
   }
 
@@ -36,7 +36,7 @@ class OtherAccount extends React.Component {
     )
   }
 
-  seeOtherAccount = (account) => {
+  selectOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
     this.props.history.push(`/otheraccount/${account.id}`)
   }

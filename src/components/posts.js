@@ -10,7 +10,7 @@ class Posts extends React.Component {
     let list = this.props.posts
 
     return list.map(
-      post => <Post post={post} key={post.id} selectBigPost={this.selectBigPost} seeOtherAccount={this.seeOtherAccount}/>
+      post => <Post post={post} key={post.id} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount}/>
     )
   }
 
@@ -19,7 +19,7 @@ class Posts extends React.Component {
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
-  seeOtherAccount = (account) => {
+  selectOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
     this.props.history.push(`/otheraccount/${account.id}`)
   }

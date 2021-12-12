@@ -18,7 +18,7 @@ class Account extends React.Component {
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      post => <Post key={post.id} post={post} seeBigPost={this.seeBigPost} selectBigPost={this.selectBigPost} seeOtherAccount={this.seeOtherAccount} />
+      post => <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
     )
   }
 
@@ -31,25 +31,20 @@ class Account extends React.Component {
     )
   }
 
-  seeBigPost = (post) => {
+  selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
-    this.props.history.push("bigpost")
+    this.props.history.push(`/bigpost/${post.id}`)
   }
 
-  seeOtherAccount = (account) => {
+  selectOtherAccount = (account) => {
     this.props.changeSelectedAccount(account)
-    this.props.history.push("otheraccount")
+    this.props.history.push(`/otheraccount/${account.id}`)
   }
 
   logOut = () => {
     localStorage.removeItem('jwt');
     this.props.changeAccount({})
     this.props.history.push("/login")
-  }
-
-  selectBigPost = (post) => {
-    this.props.changeSelectedPost(post)
-    this.props.history.push("bigpost")
   }
 
   render() {

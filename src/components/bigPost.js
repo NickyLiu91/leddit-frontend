@@ -83,7 +83,7 @@ class BigPost extends React.Component {
     })
   }
 
-  seeAccount = (account) => {
+  selectAccount = (account) => {
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
@@ -159,7 +159,7 @@ class BigPost extends React.Component {
           <div>
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
           </div>
           <br/>
           <div>
@@ -182,7 +182,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
               <br/>
               <button onClick={(event) => {this.edit(event)}}>Edit</button>
@@ -235,7 +235,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
             </div>
             <br/>
@@ -258,7 +258,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
             </div>
             <br/>
@@ -281,7 +281,7 @@ class BigPost extends React.Component {
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
               <br/>
               <button onClick={(event) => {this.postComment(event)}}>Comment</button>
