@@ -23,18 +23,10 @@ class Comment extends React.Component {
       })
     }
 
-    cancel = (newText) => {
-      console.log(newText)
-      // if (newText) {
+    cancel = () => {
         this.setState({
-          editText: newText
+          editText: this.props.comment.content
         }, () => {this.props.cancel()})
-      // } else {
-      //   this.setState({
-      //     replyText: '',
-      //     editText: newText
-      //   }, () => {this.props.cancel()})
-      // }
     }
 
   nestedComments = (comment, comments, source="comments") => {
@@ -94,9 +86,8 @@ class Comment extends React.Component {
           return item
         }
       })
-      // currentPost.comments.push(json)
       this.props.changeComments(newArray)
-      this.cancel(newText)
+      this.props.cancel()
     })
   }
 
