@@ -44,7 +44,6 @@ class Comment extends React.Component {
   }
 
   selectAccount = (account) => {
-    console.log("1111")
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
@@ -79,6 +78,36 @@ class Comment extends React.Component {
         editText: json.content
       }, () => {this.props.cancel()})
     })
+  }
+
+  submitCommentReply = (event) => {
+
+    let currentComments = this.props.comments
+    let currentPost = this.props.selectedPost
+
+    fetch('http://localhost:3000/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+          content: this.state.text,
+          account_id: this.props.account.id,
+          post_id: this.props.selectedPost.id,
+          parent_id: this.props.comment.id
+      })
+    })
+    .then(r => r.json())
+    // .then(json => {
+    //   currentPost.comments.push(json)
+    //   this.props.changeComments([...currentComments, json])
+    //   this.setState({
+    //     comment: !this.state.comment,
+    //     text: ''
+    //   })
+    // })
   }
 
   deleteComment = (comment) => {
@@ -175,7 +204,7 @@ class Comment extends React.Component {
                 <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
-                <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
+                <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
