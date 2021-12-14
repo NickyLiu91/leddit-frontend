@@ -23,11 +23,18 @@ class Comment extends React.Component {
       })
     }
 
-    cancel = () => {
-      this.setState({
-        replyText: '',
-        editText: this.props.comment.content
-      }, () => {this.props.cancel()})
+    cancel = (newText) => {
+      console.log(newText)
+      // if (newText) {
+        this.setState({
+          editText: newText
+        }, () => {this.props.cancel()})
+      // } else {
+      //   this.setState({
+      //     replyText: '',
+      //     editText: newText
+      //   }, () => {this.props.cancel()})
+      // }
     }
 
   nestedComments = (comment, comments, source="comments") => {
@@ -60,6 +67,10 @@ class Comment extends React.Component {
   submitCommentEdit = (comment) => {
 
     let currentComment = comment
+    let currentComments = this.props.comments
+    console.log(currentComments)
+    let currentPost = this.props.selectedPost
+    console.log(comment)
 
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
       method: 'PUT',
@@ -74,9 +85,18 @@ class Comment extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      this.setState({
-        editText: json.content
-      }, () => {this.props.cancel()})
+      let newText = json.content
+      let newArray = currentComments.map(function(item){
+        if (item.id == comment.id) {
+          item.content = newText
+          return item
+        } else {
+          return item
+        }
+      })
+      // currentPost.comments.push(json)
+      this.props.changeComments(newArray)
+      this.cancel(newText)
     })
   }
 
