@@ -87,7 +87,6 @@ class BigPost extends React.Component {
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
-      console.log(account)
       this.props.changeSelectedAccount(account)
       this.props.history.push(`/otheraccount/${account.id}`)
     }

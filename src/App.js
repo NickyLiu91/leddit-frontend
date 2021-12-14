@@ -84,7 +84,7 @@ class App extends React.Component {
               <Route path="/bigpost/:id" component={BigPost} />
               <Route path="/createpost" component={CreatePost} />
               <Route path="/account" component={Account} />
-              <Route path="/bigcomment/:id" component={BigComment} />
+              // <Route path="/bigcomment/:id" component={BigComment} />
               <Route path="/otheraccount/:id" component={OtherAccount} />
             </Switch>
           </div>

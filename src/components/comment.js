@@ -37,13 +37,14 @@ class Comment extends React.Component {
       return childComments.map(comment2 => {
         return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account} type="child"
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
-        cancel={this.cancel} seeAccount={this.seeAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
+        cancel={this.cancel} selectAccount={this.selectAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
         submitCommentEdit={this.submitCommentEdit}/>
       })
     // }
   }
 
-  seeAccount = (account) => {
+  selectAccount = (account) => {
+    console.log("1111")
     if (account.id == this.props.account.id) {
       this.props.history.push("/account")
     } else {
@@ -52,9 +53,9 @@ class Comment extends React.Component {
     }
   }
 
-  seeBigPost = (post) => {
+  selectBigPost = (post) => {
     this.props.changeSelectedPost(post)
-    this.props.history.push("bigpost")
+    this.props.history.push(`/bigpost/${post.id}`)
   }
 
   submitCommentEdit = (comment) => {
@@ -109,7 +110,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
               {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
@@ -124,7 +125,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.seeBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
+              <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
               </div>
             </li>
           </ul>
@@ -137,7 +138,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
                 <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
@@ -154,7 +155,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
-                <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
@@ -171,7 +172,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.seeAccount(this.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
@@ -189,7 +190,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
               {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
@@ -204,7 +205,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.seeAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
 
               <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
               {this.nestedComments(this.props.comment, this.props.comments)}
