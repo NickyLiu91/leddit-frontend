@@ -93,21 +93,18 @@ class Comment extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
-          content: this.state.text,
+          content: this.state.replyText,
           account_id: this.props.account.id,
           post_id: this.props.selectedPost.id,
           parent_id: this.props.comment.id
       })
     })
     .then(r => r.json())
-    // .then(json => {
-    //   currentPost.comments.push(json)
-    //   this.props.changeComments([...currentComments, json])
-    //   this.setState({
-    //     comment: !this.state.comment,
-    //     text: ''
-    //   })
-    // })
+    .then(json => {
+      currentPost.comments.push(json)
+      this.props.changeComments([...currentComments, json])
+      this.props.cancel()
+    })
   }
 
   deleteComment = (comment) => {
