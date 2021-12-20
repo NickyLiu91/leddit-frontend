@@ -6,14 +6,15 @@ import { Route, Link, withRouter } from 'react-router-dom'
 class Post extends React.Component {
 
   render() {
-    if (this.props.post.account.id == this.props.account.id) {
+    console.log(this.props)
+    if (!this.props.account || this.props.post.account.id != this.props.account.id) {
       return(
         <div className="post">
           <ul>
             <li>
               <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
               <p>{this.props.post.content}</p>
-              <p onClick={() => {this.props.history.push("/account")}}> - {this.props.post.account.name}</p>
+              <p onClick={() => {this.props.selectOtherAccount(this.props.post.account)}}> - {this.props.post.account.name}</p>
             </li>
           </ul>
         </div>
@@ -25,7 +26,7 @@ class Post extends React.Component {
             <li>
               <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
               <p>{this.props.post.content}</p>
-              <p onClick={() => {this.props.selectOtherAccount(this.props.post.account)}}> - {this.props.post.account.name}</p>
+              <p onClick={() => {this.props.history.push("/account")}}> - {this.props.post.account.name}</p>
             </li>
           </ul>
         </div>
