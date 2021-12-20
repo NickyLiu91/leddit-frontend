@@ -152,7 +152,7 @@ class BigPost extends React.Component {
         Loading
         </div>
       )
-    } else if (Object.keys(this.props.account).length == 0) {
+    } else if (!this.props.account) {
       return (
         <div>
           <div>

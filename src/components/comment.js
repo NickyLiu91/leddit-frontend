@@ -140,7 +140,7 @@ class Comment extends React.Component {
   }
 
   render() {
-    if (Object.keys(this.props.account).length == 0) {
+    if (!this.props.account) {
       return(
         <div className="post">
           <ul>
