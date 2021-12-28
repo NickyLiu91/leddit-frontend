@@ -175,7 +175,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
                 <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
@@ -192,7 +192,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
-                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
@@ -209,7 +209,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
