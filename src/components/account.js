@@ -8,7 +8,7 @@ import Comment from './comment.js'
 class Account extends React.Component {
 
   componentDidMount() {
-    if (Object.keys(this.props.account).length == 0) {
+    if (!this.props.account) {
       this.props.history.push("/login")
     }
   }
@@ -48,22 +48,30 @@ class Account extends React.Component {
   }
 
   render() {
-    return(
-      <div>
+    if (!this.props.account) {
+      return(
         <div>
-          <p> Welcome {this.props.account.name}! </p>
+        Loading
+        </div>
+      )
+    } else {
+      return(
+        <div>
+        <div>
+        <p> Welcome {this.props.account.name}! </p>
         </div>
         <h1 className="accountSection">Posts</h1>
         <div>
-          {this.generateMyPosts()}
+        {this.generateMyPosts()}
         </div>
         <h1 className="accountSection">Comments</h1>
         <div>
-          {this.displayComments()}
+        {this.displayComments()}
         </div>
         <button onClick={this.logOut}>Log Out</button>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
 
