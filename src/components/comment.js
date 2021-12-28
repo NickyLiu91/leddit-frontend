@@ -160,11 +160,10 @@ class Comment extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      let newText = json.content
+
       let newArray = currentComments.map(function(item){
         if (item.id == comment.id) {
-          item.content = newText
-          return item
+          return json
         } else {
           return item
         }
