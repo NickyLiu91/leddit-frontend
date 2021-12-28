@@ -118,29 +118,76 @@ class Comment extends React.Component {
     })
   }
 
+  // deleteComment = (comment) => {
+  //   let currentComment = comment
+  //
+  //   let currentComments = this.props.comments
+  //
+  //   let newComments = currentComments.filter(item =>
+  //     item.id != currentComment.id
+  //   )
+  //
+  //   fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+  //     }}
+  //   ).then(res => {
+  //     this.props.changeComments(newComments)
+  //   })
+  // }
+
   deleteComment = (comment) => {
     let currentComment = comment
-
     let currentComments = this.props.comments
 
-    let newComments = currentComments.filter(item =>
-      item.id != currentComment.id
-    )
+    let currentPost = this.props.selectedPost
+
 
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
-      method: 'DELETE',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-      }}
-    ).then(res => {
-      this.props.changeComments(newComments)
+      },
+      body: JSON.stringify({
+        content: 'deleted',
+        deleted: true
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      let newText = json.content
+      let newArray = currentComments.map(function(item){
+        if (item.id == comment.id) {
+          item.content = newText
+          return item
+        } else {
+          return item
+        }
+      })
+      this.props.changeComments(newArray)
     })
   }
 
   render() {
-    if (!this.props.account) {
+    if (this.props.comment.deleted == true) {
+      return(
+        <div className="post">
+          <ul>
+            <li>
+              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+              <p>Deleted</p>
+              {this.nestedComments(this.props.comment, this.props.comments)}
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
+    } else if (!this.props.account) {
       return(
         <div className="post">
           <ul>
