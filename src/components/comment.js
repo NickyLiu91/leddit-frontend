@@ -173,6 +173,7 @@ class Comment extends React.Component {
   }
 
   render() {
+          console.log(this.props)
     if (this.props.comment.deleted == true) {
       return(
         <div className="post">
@@ -199,7 +200,7 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if (this.props.account.id == this.props.comment.account.id && this.props.selectedCommentReason == '' ) {
+    } else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit)) {
       return(
         <div className="post">
           <ul>
@@ -207,9 +208,6 @@ class Comment extends React.Component {
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
                 <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-                <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
-                <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
-                <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -233,7 +231,8 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if (this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') {
+    } else if ((this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') ) {
+
       return(
         <div className="post">
           <ul>
@@ -245,6 +244,23 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                {this.nestedComments(this.props.comment, this.props.comments)}
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
+    } else if (this.props.account.id == this.props.comment.account.id) {
+      return(
+        <div className="post">
+          <ul>
+            <li>
+                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.state.editText}</p>
+                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
+                <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
+                <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
