@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 import Post from './post.js'
-import Reply from './reply.js'
 
 class Comment extends React.Component {
 
@@ -187,21 +186,6 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if (!this.props.account) {
-      return(
-        <div className="post">
-          <ul>
-            <li>
-              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              <p>{this.state.editText}</p>
-              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-
-              {this.nestedComments(this.props.comment, this.props.comments)}
-              </div>
-            </li>
-          </ul>
-        </div>
-      )
     } else if (this.props.source == "account") {
       return(
         <div className="post">
@@ -250,20 +234,18 @@ class Comment extends React.Component {
         </div>
       )
     } else if (this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') {
-      return (
-        <Reply editText={this.state.editText} selectAccount={this.selectAccount} comment={this.props.comment} comments={this.props.comments} replyText={this.state.replyText}
-        handleReplyText={this.handleReplyText} submitCommentReply={this.submitCommentReply} cancel={this.cancel} nestedComments={this.nestedComments}/>
-      )
-    } else if (this.props.selectedCommentReason != '') {
       return(
         <div className="post">
           <ul>
             <li>
-              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              <p>{this.state.editText}</p>
-              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-
-              {this.nestedComments(this.props.comment, this.props.comments)}
+                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.state.editText}</p>
+                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
+                <br/>
+                <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
+                <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
           </ul>
