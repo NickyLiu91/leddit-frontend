@@ -173,8 +173,8 @@ class Comment extends React.Component {
   }
 
   render() {
-          console.log(this.props)
     if (this.props.comment.deleted == true) {
+      {/*Display if comment is deleted*/}
       return(
         <div className="post">
           <ul>
@@ -188,6 +188,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if (this.props.source == "account") {
+      {/*Display all in a list without indents if being displayed from the account page*/}
       return(
         <div className="post">
           <ul>
@@ -201,6 +202,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit)) {
+      {/*Display without any options if either a different comment is currently selected for a reason or if the main post is being edited or commented on*/}
       return(
         <div className="post">
           <ul>
@@ -215,6 +217,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if (this.props.account.id == this.props.comment.account.id && this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'edit') {
+      {/*Display if this is this comment is being edited by the comment's account*/}
       return(
         <div className="post">
           <ul>
@@ -232,7 +235,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if ((this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') ) {
-
+      {/*Display is this comment is being replied to*/}
       return(
         <div className="post">
           <ul>
@@ -251,6 +254,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if (this.props.account.id == this.props.comment.account.id) {
+      {/*Display option to edit or reply if this is the comment's account*/}
       return(
         <div className="post">
           <ul>
@@ -268,6 +272,7 @@ class Comment extends React.Component {
         </div>
       )
     } else {
+      {/*Display option to comment if unrelated account and nothing else is selected*/}
       return(
         <div className="post">
           <ul>
