@@ -37,7 +37,7 @@ class Comment extends React.Component {
         return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account} type="child"
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
         cancel={this.cancel} selectAccount={this.selectAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
-        submitCommentEdit={this.submitCommentEdit}/>
+        submitCommentEdit={this.submitCommentEdit} stateComment={this.props.stateComment} stateEdit={this.props.stateEdit}/>
       })
     // }
   }

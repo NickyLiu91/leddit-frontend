@@ -289,6 +289,7 @@ class BigPost extends React.Component {
         {/*Display if commenting on a post*/}
         return (
           <div>
+          ccc
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
