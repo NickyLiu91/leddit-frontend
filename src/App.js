@@ -43,7 +43,7 @@ class App extends React.Component {
         comments: !this.state.commentst
       })
     })
-
+    
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
     } else {

@@ -154,7 +154,7 @@ class BigPost extends React.Component {
         </div>
       )
     } else if (Object.keys(this.props.account).length == 0) {
-      {/*Display without interacvtion options if not loggedin*/}
+      {/*Display without interaction options if not loggedin*/}
       return (
         <div>
           <div>
@@ -168,7 +168,7 @@ class BigPost extends React.Component {
               this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
                 if (!comment.parent) {
                   return(
-                    <Comment key={comment.id} comment={comment} type="child" selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit}/>
+                    <Comment key={comment.id} comment={comment} type="child" selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit} selectedCommentReason={this.state.selectedCommentReason}/>
                   )
                 }
               })

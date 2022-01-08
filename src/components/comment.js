@@ -154,7 +154,7 @@ class Comment extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
-        content: 'deleted',
+        content: null,
         deleted: true
       })
     })
@@ -201,8 +201,8 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit)) {
-      {/*Display without any options if either a different comment is currently selected for a reason or if the main post is being edited or commented on*/}
+    } else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit || Object.keys(this.props.account).length == 0)) {
+      {/*Display without any options if either a different comment is currently selected for a reason or if the main post is being edited or commented on or if not loggedin*/}
       return(
         <div className="post">
           <ul>
@@ -235,7 +235,7 @@ class Comment extends React.Component {
         </div>
       )
     } else if ((this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') ) {
-      {/*Display is this comment is being replied to*/}
+      {/*Display if this comment is being replied to*/}
       return(
         <div className="post">
           <ul>
@@ -273,6 +273,7 @@ class Comment extends React.Component {
       )
     } else {
       {/*Display option to comment if unrelated account and nothing else is selected*/}
+      {console.log(this.props.comment)}
       return(
         <div className="post">
           <ul>
@@ -280,6 +281,8 @@ class Comment extends React.Component {
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
               <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+              <p>Created at:{this.props.comment.created_at}</p>
+              <p>Updated at:{this.props.comment.updated_at}</p>
 
               <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
               {this.nestedComments(this.props.comment, this.props.comments)}
