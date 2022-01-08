@@ -146,16 +146,20 @@ class BigPost extends React.Component {
   }
 
   render() {
+    console.log(this.props.account)
     if (!this.props.selectedPost.account) {
+      {/*Display loading screen if post's account not gotten yet*/}
       return(
         <div>
         Loading
         </div>
       )
-    } else if (!this.props.account) {
+    } else if (Object.keys(this.props.account).length == 0) {
+      {/*Display without interacvtion options if not loggedin*/}
       return (
         <div>
           <div>
+          aaaa
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
