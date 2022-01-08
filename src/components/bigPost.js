@@ -146,7 +146,6 @@ class BigPost extends React.Component {
   }
 
   render() {
-    console.log(this.props.account)
     if (!this.props.selectedPost.account) {
       {/*Display loading screen if post's account not gotten yet*/}
       return(
@@ -159,7 +158,6 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-          aaaa
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
@@ -178,8 +176,34 @@ class BigPost extends React.Component {
           </div>
         </div>
       )
+    } else if (Object.keys(this.state.selectedComment).length != 0) {
+      {/*If a comment is selected for any reason do not show ability to interact with main post*/}
+      return (
+        <div>
+          <div>
+            <h1>{this.props.selectedPost.title}</h1>
+            <p>{this.props.selectedPost.content}</p>
+            <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+          </div>
+          <br/>
+          <div>
+            {
+              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                if (!comment.parent) {
+                  return(
+                    <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
+                    stateComment={this.state.comment} stateEdit={this.state.edit}/>
+                  )
+                }
+              })
+            }
+          </div>
+        </div>
+      )
     } else if (this.props.selectedPost.account.id == this.props.account.id && this.state.comment == false) {
+      {/*Display if loggedin to post's account*/}
       if (!this.state.edit) {
+        {/*Display all options if not currently editing main post and using same account*/}
         return (
           <div>
             <div>
@@ -206,9 +230,9 @@ class BigPost extends React.Component {
           </div>
         )
       } else {
+        {/*Display fields to edit if editing main post using same account*/}
         return (
           <div>
-          aaa
             <div>
               <input type="text" value={this.state.editTitle} onChange={event => this.handleEditTitle(event)}/>
               <br/>
@@ -235,7 +259,9 @@ class BigPost extends React.Component {
         )
       }
     } else {
+      {/*Display in all other situation*/}
       if (Object.keys(this.state.selectedComment).length == 0 && this.state.comment == false) {
+        {/*If not post's account, no comment is selected, and not commenting on main post show ability to comment on main post*/}
         return (
           <div>
             <div>
@@ -259,35 +285,10 @@ class BigPost extends React.Component {
             </div>
           </div>
         )
-      } else if (Object.keys(this.state.selectedComment).length != 0) {
-        return (
-          <div>
-            <div>
-            aaa
-              <h1>{this.props.selectedPost.title}</h1>
-              <p>{this.props.selectedPost.content}</p>
-              <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
-              <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
-            </div>
-            <br/>
-            <div>
-              {
-                this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
-                  if (!comment.parent) {
-                    return(
-                      <Comment key={comment.id} comment={comment} type="child" cancel={this.cancel} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
-                      stateComment={this.state.comment} stateEdit={this.state.edit}/>
-                    )
-                  }
-                })
-              }
-            </div>
-          </div>
-        )
       } else {
+        {/*Display if commenting on a post*/}
         return (
           <div>
-          bbb
             <div>
               <h1>{this.props.selectedPost.title}</h1>
               <p>{this.props.selectedPost.content}</p>
