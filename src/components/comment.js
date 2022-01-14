@@ -72,7 +72,8 @@ class Comment extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
-        content: this.state.editText
+        content: this.state.editText,
+        edited: true
       })
     })
     .then(r => r.json())
@@ -196,6 +197,8 @@ class Comment extends React.Component {
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
               <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
+              <p>Created at: {this.props.comment.created_at}</p>
+              {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
               </div>
             </li>
           </ul>
@@ -210,6 +213,8 @@ class Comment extends React.Component {
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
                 <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <p>Created at: {this.props.comment.created_at}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -228,6 +233,8 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                <p>Created at: {this.props.comment.created_at}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -247,6 +254,8 @@ class Comment extends React.Component {
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+                <p>Created at: {this.props.comment.created_at}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -265,6 +274,8 @@ class Comment extends React.Component {
                 <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
                 <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
+                <p>Created at: {this.props.comment.created_at}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -273,7 +284,6 @@ class Comment extends React.Component {
       )
     } else {
       {/*Display option to comment if unrelated account and nothing else is selected*/}
-      {console.log(this.props.comment)}
       return(
         <div className="post">
           <ul>
@@ -281,10 +291,10 @@ class Comment extends React.Component {
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
               <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-              <p>Created at:{this.props.comment.created_at}</p>
-              <p>Updated at:{this.props.comment.updated_at}</p>
 
               <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
+              <p>Created at: {this.props.comment.created_at}</p>
+              {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at}</p> : null}
               {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
