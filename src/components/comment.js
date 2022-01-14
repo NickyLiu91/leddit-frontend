@@ -82,6 +82,7 @@ class Comment extends React.Component {
       let newArray = currentComments.map(function(item){
         if (item.id == comment.id) {
           item.content = newText
+          item.edited = true
           return item
         } else {
           return item
