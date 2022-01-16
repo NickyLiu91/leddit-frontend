@@ -145,12 +145,63 @@ class BigPost extends React.Component {
     })
   }
 
+  deleteBigPost = (event) => {
+
+    let currentPost = this.props.selectedPost
+
+    fetch(`http://localhost:3000/api/v1/posts/${currentPost.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+        title: this.state.editTitle,
+        content: this.state.editText,
+        deleted: true
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+
+      let allPosts = this.props.posts
+
+      let oldPostPosition = allPosts.findIndex(post => post.id == json.id)
+      allPosts[oldPostPosition] = json
+
+      this.props.changeSelectedPost(json)
+      this.props.changePosts(allPosts)
+    })
+  }
+
   render() {
-    if (!this.props.selectedPost.account) {
+   if (!this.props.selectedPost.account) {
       {/*Display loading screen if post's account not gotten yet*/}
       return(
         <div>
         Loading
+        </div>
+      )
+    } else if (this.props.selectedPost.deleted) {
+      return (
+        <div>
+          <div>
+            <h1>Deleted</h1>
+            <p>Deleted</p>
+          </div>
+          <br/>
+          <div>
+            {
+              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+                if (!comment.parent) {
+                  return(
+                    <Comment key={comment.id} comment={comment} type="child" selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit}/>
+                  )
+                }
+              })
+            }
+          </div>
         </div>
       )
     } else if (Object.keys(this.props.account).length == 0) {
@@ -213,6 +264,8 @@ class BigPost extends React.Component {
               <button onClick={() => {this.setState({comment: !this.state.comment})}}>Comment</button>
               <br/>
               <button onClick={(event) => {this.edit(event)}}>Edit</button>
+              <br/>
+              <button onClick={(event) => {this.deleteBigPost(event)}}>Delete</button>
             </div>
             <br/>
             <div>
