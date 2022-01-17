@@ -311,7 +311,7 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     selectedPost: state.selectedPostChanger.selectedPost,
-    comments: state.commentsChanger.comments,
+    comments: state.commentsChanger.comments
   }
 }
 

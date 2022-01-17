@@ -125,7 +125,8 @@ class BigPost extends React.Component {
       },
       body: JSON.stringify({
         title: this.state.editTitle,
-        content: this.state.editText
+        content: this.state.editText,
+        edited: true
       })
     })
     .then(r => r.json())
@@ -170,8 +171,22 @@ class BigPost extends React.Component {
       let oldPostPosition = allPosts.findIndex(post => post.id == json.id)
       allPosts[oldPostPosition] = json
 
+      let allOldComments = this.props.comments
+      let newComments = allOldComments.map(comment => {
+        if (comment.post.id == json.id) {
+          let newComment = comment
+          newComment.post = json
+          return newComment
+        } else {
+          return comment
+        }
+      })
+      console.log(allOldComments)
+      console.log(newComments)
+
       this.props.changeSelectedPost(json)
       this.props.changePosts(allPosts)
+      this.props.changeComments(newComments)
     })
   }
 
@@ -190,6 +205,7 @@ class BigPost extends React.Component {
             <h1>Deleted</h1>
             <p>Deleted</p>
             <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+            <p>Deleted at: {this.props.selectedPost.updated_at.slice(0, -14)}</p>
           </div>
           <br/>
           <div>
@@ -214,6 +230,7 @@ class BigPost extends React.Component {
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
             <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+            {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <br/>
           <div>
@@ -238,6 +255,7 @@ class BigPost extends React.Component {
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
             <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+            {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <br/>
           <div>
@@ -270,6 +288,7 @@ class BigPost extends React.Component {
               <br/>
               <button onClick={(event) => {this.deleteBigPost(event)}}>Delete</button>
               <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+              {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             </div>
             <br/>
             <div>
@@ -299,6 +318,7 @@ class BigPost extends React.Component {
               <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
               <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.props.selectedPost.content})}}>Cancel</button>
               <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+              {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             </div>
             <br/>
             <div>
@@ -328,6 +348,7 @@ class BigPost extends React.Component {
               <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button>
               <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+              {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             </div>
             <br/>
             <div>
@@ -358,6 +379,7 @@ class BigPost extends React.Component {
               <button onClick={(event) => {this.postComment(event)}}>Comment</button>
               <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>
               <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
+              {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             </div>
             <br/>
             <div>
