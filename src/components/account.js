@@ -18,7 +18,11 @@ class Account extends React.Component {
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      post => <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
+      post => {
+        if (!post.deleted){
+          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
+        }
+      }
     )
   }
 
@@ -27,7 +31,11 @@ class Account extends React.Component {
     let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(
-      comment => <Comment key={comment.id} comment={comment} selectedComment={{}} source="account"/>
+      comment => {
+        if (!comment.deleted){
+          return <Comment key={comment.id} comment={comment} selectedComment={{}} source="account"/>
+        }
+      }
     )
   }
 
