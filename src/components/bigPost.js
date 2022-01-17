@@ -213,6 +213,7 @@ class BigPost extends React.Component {
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
           </div>
           <br/>
           <div>
@@ -236,6 +237,7 @@ class BigPost extends React.Component {
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
           </div>
           <br/>
           <div>
@@ -267,6 +269,7 @@ class BigPost extends React.Component {
               <button onClick={(event) => {this.edit(event)}}>Edit</button>
               <br/>
               <button onClick={(event) => {this.deleteBigPost(event)}}>Delete</button>
+              <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
             </div>
             <br/>
             <div>
@@ -295,6 +298,7 @@ class BigPost extends React.Component {
               <br/>
               <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
               <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.props.selectedPost.content})}}>Cancel</button>
+              <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
             </div>
             <br/>
             <div>
@@ -323,6 +327,7 @@ class BigPost extends React.Component {
               <p>{this.props.selectedPost.content}</p>
               <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
               <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button>
+              <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
             </div>
             <br/>
             <div>
@@ -352,6 +357,7 @@ class BigPost extends React.Component {
               <br/>
               <button onClick={(event) => {this.postComment(event)}}>Comment</button>
               <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>
+              <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
             </div>
             <br/>
             <div>
