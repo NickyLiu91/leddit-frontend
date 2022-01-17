@@ -197,7 +197,8 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {this.props.comment.post.title}</p>
+              <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {!this.props.comment.post.deleted ? this.props.comment.post.title : 'Deleted'}</p>
+              {console.log(this.props.comment.post)}
               <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
               {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
               </div>

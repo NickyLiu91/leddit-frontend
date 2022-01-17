@@ -157,8 +157,8 @@ class BigPost extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
-        title: this.state.editTitle,
-        content: this.state.editText,
+        title: null,
+        content: null,
         deleted: true
       })
     })
@@ -189,6 +189,7 @@ class BigPost extends React.Component {
           <div>
             <h1>Deleted</h1>
             <p>Deleted</p>
+            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
           </div>
           <br/>
           <div>
