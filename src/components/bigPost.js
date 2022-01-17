@@ -137,8 +137,20 @@ class BigPost extends React.Component {
       let oldPostPosition = allPosts.findIndex(post => post.id == json.id)
       allPosts[oldPostPosition] = json
 
+      let allOldComments = this.props.comments
+      let newComments = allOldComments.map(comment => {
+        if (comment.post.id == json.id) {
+          let newComment = comment
+          newComment.post = json
+          return newComment
+        } else {
+          return comment
+        }
+      })
+
       this.props.changeSelectedPost(json)
       this.props.changePosts(allPosts)
+      this.props.changeComments(newComments)
 
       this.setState({
         edit: !this.state.edit
@@ -181,8 +193,6 @@ class BigPost extends React.Component {
           return comment
         }
       })
-      console.log(allOldComments)
-      console.log(newComments)
 
       this.props.changeSelectedPost(json)
       this.props.changePosts(allPosts)
