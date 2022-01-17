@@ -10,7 +10,11 @@ class Posts extends React.Component {
     let list = this.props.posts
 
     return list.map(
-      post => <Post post={post} key={post.id} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount}/>
+      post => {
+        if (!post.deleted){
+          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
+        }
+      }
     )
   }
 
