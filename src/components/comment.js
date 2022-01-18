@@ -206,25 +206,7 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit || Object.keys(this.props.account).length == 0)) {
-      {/*Display without any options if either a different comment is currently selected for a reason or if the main post is being edited or commented on or if not loggedin*/}
-      return(
-        <div className="post">
-          <ul>
-            <li>
-                <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.state.editText}</p>
-                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-                <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
-                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
-                {this.nestedComments(this.props.comment, this.props.comments)}
-              </div>
-            </li>
-          </ul>
-        </div>
-      )
-    } else if (this.props.account.id == this.props.comment.account.id && this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'edit') {
-      {/*Display if this is this comment is being edited by the comment's account*/}
+    } else if (this.props.selectedCommentReason == 'edit' && this.props.comment.id == this.props.selectedComment.id) {
       return(
         <div className="post">
           <ul>
@@ -243,8 +225,7 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if ((this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') ) {
-      {/*Display if this comment is being replied to*/}
+    } else if (this.props.selectedCommentReason == 'reply') {
       return(
         <div className="post">
           <ul>
@@ -264,8 +245,7 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if (this.props.account.id == this.props.comment.account.id) {
-      {/*Display option to edit or reply if this is the comment's account*/}
+    } else {
       return(
         <div className="post">
           <ul>
@@ -273,31 +253,18 @@ class Comment extends React.Component {
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
                 <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-                <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
-                <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
-                <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                 <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+                {this.props.account.id == this.props.comment.account.id ?
+                   <div>
+                     <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
+                     <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
+                   </div> : null
+                 }
+                 {/*if same account display edit and delete buttons*/}
+                 {Object.keys(this.props.account).length != 0 ? <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button> : null}
+                 {/*if logged in show reply button*/}
                 {this.nestedComments(this.props.comment, this.props.comments)}
-              </div>
-            </li>
-          </ul>
-        </div>
-      )
-    } else {
-      {/*Display option to comment if unrelated account and nothing else is selected*/}
-      return(
-        <div className="post">
-          <ul>
-            <li>
-              <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              <p>{this.state.editText}</p>
-              <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
-
-              <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
-              <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
-              {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
-              {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
           </ul>
@@ -306,6 +273,106 @@ class Comment extends React.Component {
     }
   }
 }
+
+
+// else if ((this.props.comment.id != this.props.selectedComment.id && this.props.selectedCommentReason != '') || (this.props.stateComment || this.props.stateEdit || Object.keys(this.props.account).length == 0)) {
+//   {/*Display without any options if either a different comment is currently selected for a reason or if the main post is being edited or commented on or if not loggedin*/}
+//   return(
+//     <div className="post">
+//       <ul>
+//         <li>
+//             <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+//             <p>{this.state.editText}</p>
+//             <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+//             <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
+//             {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+//             {this.nestedComments(this.props.comment, this.props.comments)}
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// } else if (this.props.account.id == this.props.comment.account.id && this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'edit') {
+//   {/*Display if this is this comment is being edited by the comment's account*/}
+//   return(
+//     <div className="post">
+//       <ul>
+//         <li>
+//             <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+//             <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
+//             <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+//             <br/>
+//             <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
+//             <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+//             <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
+//             {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+//             {this.nestedComments(this.props.comment, this.props.comments)}
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// } else if ((this.props.comment.id == this.props.selectedComment.id && this.props.selectedCommentReason == 'reply') ) {
+//   {/*Display if this comment is being replied to*/}
+//   return(
+//     <div className="post">
+//       <ul>
+//         <li>
+//             <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+//             <p>{this.state.editText}</p>
+//             <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+//             <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
+//             <br/>
+//             <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
+//             <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
+//             <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
+//             {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+//             {this.nestedComments(this.props.comment, this.props.comments)}
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// } else if (this.props.account.id == this.props.comment.account.id) {
+//   {/*Display option to edit or reply if this is the comment's account*/}
+//   return(
+//     <div className="post">
+//       <ul>
+//         <li>
+//             <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+//             <p>{this.state.editText}</p>
+//             <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+//             <button onClick={(event) => {this.props.replyComment(this.props.comment)}}>Reply</button>
+//             <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
+//             <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
+//             <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
+//             {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+//             {this.nestedComments(this.props.comment, this.props.comments)}
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// } else {
+//   {/*Display option to comment if unrelated account and nothing else is selected*/}
+//   return(
+//     <div className="post">
+//       <ul>
+//         <li>
+//           <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+//           <p>{this.state.editText}</p>
+//           <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+//
+//           <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button>
+//           <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
+//           {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+//           {this.nestedComments(this.props.comment, this.props.comments)}
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// }
 
 const mapStateToProps = state => {
   return {
