@@ -298,6 +298,8 @@ class BigPost extends React.Component {
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            {Object.keys(this.props.account).length != 0 ? <button onClick={(event) => {this.postComment(event)}}>Comment</button> : null}
+            {/*display comment button if loggedin*/}
             {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
             {this.props.selectedPost.account.id == this.props.account.id && this.state.comment == false ?
@@ -326,6 +328,7 @@ class BigPost extends React.Component {
       )
     }
   }
+}
 
     // else if (Object.keys(this.props.account).length == 0) {
     //   {/*Display without interaction options if not loggedin*/}
