@@ -34,7 +34,7 @@ class Comment extends React.Component {
   let childComments = comments.filter(comment2 => {return comment2.parent && comment2.parent.id == comment.id})
     // if (comment.children) {
       return childComments.map(comment2 => {
-        return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account} type="child"
+        return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account}
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
         cancel={this.cancel} selectAccount={this.selectAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
         submitCommentEdit={this.submitCommentEdit} stateComment={this.props.stateComment} stateEdit={this.props.stateEdit}/>
@@ -225,7 +225,7 @@ class Comment extends React.Component {
           </ul>
         </div>
       )
-    } else if (this.props.selectedCommentReason == 'reply') {
+    } else if (this.props.selectedCommentReason == 'reply' && this.props.comment.id == this.props.selectedComment.id) {
       return(
         <div className="post">
           <ul>
