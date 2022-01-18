@@ -297,11 +297,11 @@ class BigPost extends React.Component {
             <h1>{this.props.selectedPost.title}</h1>
             <p>{this.props.selectedPost.content}</p>
             <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
-            {Object.keys(this.props.account).length != 0 ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
+            {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
             {/*display comment button if loggedin*/}
             {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
             <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
-            {this.props.selectedPost.account.id == this.props.account.id && this.state.comment == false ?
+            {this.props.selectedPost.account.id == this.props.account.id && this.state.comment == false && this.state.selectedCommentReason == '' ?
               <div>
               <br/>
               <button onClick={(event) => {this.edit(event)}}>Edit</button>
