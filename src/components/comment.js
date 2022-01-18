@@ -60,9 +60,7 @@ class Comment extends React.Component {
 
     let currentComment = comment
     let currentComments = this.props.comments
-    console.log(currentComments)
     let currentPost = this.props.selectedPost
-    console.log(comment)
 
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
       method: 'PUT',
@@ -255,15 +253,15 @@ class Comment extends React.Component {
                 <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
                 <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
-                {this.props.account.id == this.props.comment.account.id ?
+                {this.props.account.id == this.props.comment.account.id && this.props.stateEdit && this.props.stateComment ?
                    <div>
                      <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
                      <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                    </div> : null
                  }
-                 {/*if same account display edit and delete buttons*/}
-                 {Object.keys(this.props.account).length != 0 ? <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button> : null}
-                 {/*if logged in show reply button*/}
+                 {/*if same account and not editing or commenting on main post display edit and delete buttons*/}
+                 {Object.keys(this.props.account).length != 0 && this.props.stateEdit && this.props.stateComment ? <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button> : null}
+                 {/*if logged and not editing or commenting on main post in show reply button*/}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
