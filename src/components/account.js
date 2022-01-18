@@ -49,12 +49,6 @@ class Account extends React.Component {
     this.props.history.push(`/otheraccount/${account.id}`)
   }
 
-  logOut = () => {
-    localStorage.removeItem('jwt');
-    this.props.changeAccount({})
-    this.props.history.push("/login")
-  }
-
   render() {
     if (!this.props.account) {
       return(
@@ -65,18 +59,17 @@ class Account extends React.Component {
     } else {
       return(
         <div>
-        <div>
-        <p> Welcome {this.props.account.name}! </p>
-        </div>
-        <h1 className="accountSection">Posts</h1>
-        <div>
-        {this.generateMyPosts()}
-        </div>
-        <h1 className="accountSection">Comments</h1>
-        <div>
-        {this.displayComments()}
-        </div>
-        <button onClick={this.logOut}>Log Out</button>
+          <div>
+          <p> Welcome {this.props.account.name}! </p>
+          </div>
+          <h1 className="accountSection">Posts</h1>
+          <div>
+          {this.generateMyPosts()}
+          </div>
+          <h1 className="accountSection">Comments</h1>
+          <div>
+          {this.displayComments()}
+          </div>
         </div>
       )
     }

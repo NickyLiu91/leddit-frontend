@@ -5,6 +5,12 @@ import {Route, Link, withRouter, NavLink} from 'react-router-dom';
 
 class Nav extends React.Component {
 
+  logOut = () => {
+    localStorage.removeItem('jwt');
+    this.props.changeAccount({})
+    this.props.history.push("/login")
+  }
+
   render() {
     if (!localStorage.getItem('jwt')) {
       return(
@@ -26,6 +32,7 @@ class Nav extends React.Component {
           <div id="nav2">
             <p onClick={() => {this.props.history.push("/account")}}>Account</p>
             <p onClick={() => {this.props.history.push("/createPost")}}>Create</p>
+            <p onClick={this.logOut}>LogOut</p>
           </div>
         </nav>
       )
@@ -33,4 +40,22 @@ class Nav extends React.Component {
   }
 }
 
-export default withRouter(Nav)
+const mapStateToProps = state => {
+  return {
+    account: state.accountChanger.account
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event})
+  }
+}
+
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps)
+)(Nav);
