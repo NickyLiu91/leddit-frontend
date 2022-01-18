@@ -252,7 +252,7 @@ class BigPost extends React.Component {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
-                    stateComment={this.state.comment} cancel={this.cancel}/>
+                    stateComment={this.state.comment} stateEdit={this.state.edit} cancel={this.cancel}/>
                   )
                 }
               })

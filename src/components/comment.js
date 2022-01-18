@@ -196,7 +196,6 @@ class Comment extends React.Component {
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
               <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {!this.props.comment.post.deleted ? this.props.comment.post.title : 'Deleted'}</p>
-              {console.log(this.props.comment.post)}
               <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
               {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
               </div>
@@ -253,14 +252,14 @@ class Comment extends React.Component {
                 <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
                 <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
-                {this.props.account.id == this.props.comment.account.id && this.props.stateEdit && this.props.stateComment ?
+                {this.props.account.id == this.props.comment.account.id && !this.props.stateEdit && !this.props.stateComment ?
                    <div>
                      <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
                      <button onClick={(event) => {this.deleteComment(this.props.comment)}}>Delete</button>
                    </div> : null
                  }
                  {/*if same account and not editing or commenting on main post display edit and delete buttons*/}
-                 {Object.keys(this.props.account).length != 0 && this.props.stateEdit && this.props.stateComment ? <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button> : null}
+                 {Object.keys(this.props.account).length != 0 && !this.props.stateEdit && !this.props.stateComment ? <button onClick={() => {this.props.replyComment(this.props.comment)}}>Reply</button> : null}
                  {/*if logged and not editing or commenting on main post in show reply button*/}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
