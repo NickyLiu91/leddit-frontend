@@ -12,7 +12,7 @@ class Posts extends React.Component {
     return list.map(
       post => {
         if (!post.deleted){
-          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
+          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectAccount={this.selectAccount} />
         }
       }
     )
@@ -23,9 +23,9 @@ class Posts extends React.Component {
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
-  selectOtherAccount = (account) => {
+  selectAccount = (account) => {
     this.props.changeSelectedAccount(account)
-    this.props.history.push(`/otheraccount/${account.id}`)
+    this.props.history.push(`/account/${account.id}`)
   }
 
   render() {
