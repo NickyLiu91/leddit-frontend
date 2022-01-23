@@ -7,20 +7,36 @@ import Comment from './comment.js'
 
 class Account extends React.Component {
 
-  componentDidMount() {
-    if (!this.props.account) {
-      this.props.history.push("/login")
-    }
+  state = {
+    myAccount: false
   }
 
-  generateMyPosts = () => {
+  componentDidMount() {
+
+    let accountId = this.props.match.url.slice(9)
+
+    fetch(`http://localhost:3000/api/v1/accounts/${accountId}`)
+    .then(res => res.json())
+    .then(json => {
+      this.props.changeSelectedAccount(json)
+    })
+
+    // if (accountId == this.props.account.id) {
+    //   this.setState({
+    //     myAccount: true
+    //   })
+    // }
+
+  }
+
+  generatePosts = () => {
     let accountId = this.props.account.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
       post => {
         if (!post.deleted){
-          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectOtherAccount={this.selectOtherAccount} />
+          return <Post key={post.id} post={post} selectBigPost={this.selectBigPost} selectAccount={this.selectAccount} />
         }
       }
     )
@@ -44,13 +60,14 @@ class Account extends React.Component {
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
-  selectOtherAccount = (account) => {
-    this.props.changeSelectedAccount(account)
-    this.props.history.push(`/otheraccount/${account.id}`)
+  selectAccount = (account) => {
+    // this.props.changeSelectedAccount(account)
+    this.props.history.push(`/account/${account.id}`)
   }
 
   render() {
-    if (!this.props.account) {
+    if (Object.keys(this.props.selectedAccount).length == 0) {
+      {/*if retrieving account*/}
       return(
         <div>
         Loading
@@ -60,11 +77,11 @@ class Account extends React.Component {
       return(
         <div>
           <div>
-          <p> Welcome {this.props.account.name}! </p>
+            {this.state.myAccount ? <p>Welcome {this.props.account.name}!</p> : <p>Name {this.props.selectedAccount.name}</p>}
           </div>
           <h1 className="accountSection">Posts</h1>
           <div>
-          {this.generateMyPosts()}
+          {this.generatePosts()}
           </div>
           <h1 className="accountSection">Comments</h1>
           <div>
@@ -82,6 +99,7 @@ const mapStateToProps = state => {
     posts: state.postsChanger.posts,
     comments: state.commentsChanger.comments,
     selectedPost: state.selectedPostChanger.selectedPost,
+    selectedAccount: state.selectedAccountChanger.selectedAccount
   }
 }
 
@@ -90,7 +108,7 @@ const mapDispatchToProps = dispatch => {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
     changeComment: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
     changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
+    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
   }
 }
 
