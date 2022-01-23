@@ -21,16 +21,16 @@ class Account extends React.Component {
       this.props.changeSelectedAccount(json)
     })
 
-    // if (accountId == this.props.account.id) {
-    //   this.setState({
-    //     myAccount: true
-    //   })
-    // }
+    if (accountId == this.props.account.id) {
+      this.setState({
+        myAccount: true
+      })
+    }
 
   }
 
   generatePosts = () => {
-    let accountId = this.props.account.id
+    let accountId = this.props.selectedAccount.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
@@ -43,7 +43,7 @@ class Account extends React.Component {
   }
 
   displayComments = () => {
-    let accountId = this.props.account.id
+    let accountId = this.props.selectedAccount.id
     let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(
