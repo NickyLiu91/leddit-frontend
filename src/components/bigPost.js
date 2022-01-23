@@ -83,12 +83,13 @@ class BigPost extends React.Component {
   }
 
   selectAccount = (account) => {
-    if (account.id == this.props.account.id) {
-      this.props.history.push("/account")
-    } else {
-      this.props.changeSelectedAccount(account)
-      this.props.history.push(`/otheraccount/${account.id}`)
-    }
+    this.props.history.push(`/account/${account.id}`)
+    // if (account.id == this.props.account.id) {
+    //   this.props.history.push("/account")
+    // } else {
+    //   this.props.changeSelectedAccount(account)
+    //   this.props.history.push(`/otheraccount/${account.id}`)
+    // }
   }
 
   edit = () => {

@@ -30,7 +30,7 @@ class Nav extends React.Component {
             <p onClick={() => {this.props.history.push("/")}}>Home</p>
           </div>
           <div id="nav2">
-            <p onClick={() => {this.props.history.push("/account")}}>Account</p>
+            <p onClick={() => {this.props.history.push(`/account/${this.props.account.id}`)}}>Account</p>
             <p onClick={() => {this.props.history.push("/createPost")}}>Create</p>
             <p onClick={this.logOut}>LogOut</p>
           </div>

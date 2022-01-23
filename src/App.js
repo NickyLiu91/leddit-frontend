@@ -43,7 +43,7 @@ class App extends React.Component {
         comments: !this.state.commentst
       })
     })
-    
+
     if (localStorage.getItem('jwt')) {
       this.fetchCurrentUser()
     } else {
@@ -83,9 +83,11 @@ class App extends React.Component {
               <Route path="/posts" component={Posts} />
               <Route path="/bigpost/:id" component={BigPost} />
               <Route path="/createpost" component={CreatePost} />
-              <Route path="/account" component={Account} />
+              <Route path="/account/:id" component={Account} />
+              {/*
               // <Route path="/bigcomment/:id" component={BigComment} />
-              <Route path="/otheraccount/:id" component={OtherAccount} />
+              // <Route path="/otheraccount/:id" component={OtherAccount} />
+              */}
             </Switch>
           </div>
         </div>
