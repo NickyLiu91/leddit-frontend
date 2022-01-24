@@ -149,7 +149,8 @@ class BigPost extends React.Component {
       this.props.changeComments(newComments)
 
       this.setState({
-        edit: !this.state.edit
+        edit: !this.state.edit,
+        pagePost: json
       })
     })
   }
@@ -192,6 +193,10 @@ class BigPost extends React.Component {
 
       this.props.changePosts(allPosts)
       this.props.changeComments(newComments)
+
+      this.setState({
+        pagePost: json
+      })
     })
   }
 
