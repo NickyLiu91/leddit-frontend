@@ -1,35 +1,20 @@
 import React from "react";
-import { connect } from 'react-redux'
-import {compose} from 'redux';
 import { Route, Link, withRouter } from 'react-router-dom'
 
-class Post extends React.Component {
+const Post = (props) => {
 
-  render() {
     return(
       <div className="post">
         <ul>
           <li>
-            <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
-            <p>{this.props.post.content}</p>
-            <p onClick={() => {this.props.history.push(`/account/${this.props.post.account.id}`)}}> - {this.props.post.account.name}</p>
-            <p>Created at: {this.props.post.created_at.slice(0, -14)}</p>
+            <h1 onClick={() => {props.history.push(`/bigpost/${props.post.id}`)}}>{props.post.title}</h1>
+            <p>{props.post.content}</p>
+            <p onClick={() => {props.history.push(`/account/${props.post.account.id}`)}}> - {props.post.account.name}</p>
+            <p>Created at: {props.post.created_at.slice(0, -14)}</p>
           </li>
         </ul>
       </div>
     )
-  }
 }
 
-const mapStateToProps = state => {
-  return {
-    account: state.accountChanger.account,
-  }
-}
-
-
-export default compose(
-  withRouter,
-  connect(
-    mapStateToProps)
-)(Post);
+export default withRouter(Post);

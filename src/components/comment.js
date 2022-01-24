@@ -36,19 +36,10 @@ class Comment extends React.Component {
       return childComments.map(comment2 => {
         return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account}
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
-        cancel={this.cancel} selectAccount={this.selectAccount} source={source} selectedCommentReason={this.props.selectedCommentReason}
+        cancel={this.cancel} source={source} selectedCommentReason={this.props.selectedCommentReason}
         submitCommentEdit={this.submitCommentEdit} stateComment={this.props.stateComment} stateEdit={this.props.stateEdit}/>
       })
     // }
-  }
-
-  selectAccount = (account) => {
-    this.props.history.push(`/account/${account.id}`)
-  }
-
-  selectBigPost = (post) => {
-
-    this.props.history.push(`/bigpost/${post.id}`)
   }
 
   submitCommentEdit = (comment) => {
@@ -168,6 +159,7 @@ class Comment extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     if (this.props.comment.deleted == true) {
       {/*Display if comment is deleted*/}
       return(
@@ -190,7 +182,7 @@ class Comment extends React.Component {
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
               <p>{this.state.editText}</p>
-              <p onClick={() => {this.selectBigPost(this.props.comment.post)}}>Posted in: {!this.props.comment.post.deleted ? this.props.comment.post.title : 'Deleted'}</p>
+              <p onClick={() => {this.props.history.push(`/bigpost/${this.props.comment.id}`)}}>Posted in: {!this.props.comment.post.deleted ? this.props.comment.post.title : 'Deleted'}</p>
               <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
               {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
               </div>
@@ -205,7 +197,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
-                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
@@ -224,7 +216,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
@@ -244,7 +236,7 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name}</p>
+                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
                 <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.props.account.id == this.props.comment.account.id && !this.props.stateEdit && !this.props.stateComment && this.props.selectedCommentReason == '' ?
