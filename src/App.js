@@ -116,8 +116,7 @@ const mapDispatchToProps = dispatch => {
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }
 

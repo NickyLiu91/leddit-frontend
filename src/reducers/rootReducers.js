@@ -39,15 +39,6 @@ import {combineReducers} from 'redux'
     }
   }
 
-  function selectedAccountChanger(state = {selectedAccount: {}}, action) {
-    switch (action.type) {
-      case 'CHANGE_SELECTEDACCOUNT':
-        return {selectedAccount: action.selectedAccount}
-      default:
-        return state;
-    }
-  }
-
   function selectedCommentChanger(state = {selectedComment: {}}, action) {
     switch (action.type) {
       case 'CHANGE_SELECTEDCOMMENT':
@@ -63,6 +54,5 @@ export default combineReducers({
   postsChanger,
   commentsChanger,
   selectedPostChanger,
-  selectedAccountChanger,
   selectedCommentChanger
 })

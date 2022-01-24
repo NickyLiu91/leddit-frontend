@@ -8,7 +8,8 @@ import Comment from './comment.js'
 class Account extends React.Component {
 
   state = {
-    myAccount: false
+    myAccount: false,
+    pageAccount: {}
   }
 
   componentDidMount() {
@@ -18,7 +19,9 @@ class Account extends React.Component {
     fetch(`http://localhost:3000/api/v1/accounts/${accountId}`)
     .then(res => res.json())
     .then(json => {
-      this.props.changeSelectedAccount(json)
+      this.setState({
+        pageAccount: json
+      })
     })
 
     if (accountId == this.props.account.id) {
@@ -30,7 +33,7 @@ class Account extends React.Component {
   }
 
   generatePosts = () => {
-    let accountId = this.props.selectedAccount.id
+    let accountId = this.state.pageAccount.id
     let list = this.props.posts.filter(obj => obj.account.id == accountId)
 
     return list.map(
@@ -43,7 +46,7 @@ class Account extends React.Component {
   }
 
   displayComments = () => {
-    let accountId = this.props.selectedAccount.id
+    let accountId = this.state.pageAccount.id
     let list = this.props.comments.filter(obj => obj.account.id == accountId)
 
     return list.map(
@@ -61,12 +64,11 @@ class Account extends React.Component {
   }
 
   selectAccount = (account) => {
-    // this.props.changeSelectedAccount(account)
     this.props.history.push(`/account/${account.id}`)
   }
 
   render() {
-    if (Object.keys(this.props.selectedAccount).length == 0) {
+    if (Object.keys(this.state.pageAccount).length == 0) {
       {/*if retrieving account*/}
       return(
         <div>
@@ -77,7 +79,7 @@ class Account extends React.Component {
       return(
         <div>
           <div>
-            {this.state.myAccount ? <p>Welcome {this.props.account.name}!</p> : <p>Name {this.props.selectedAccount.name}</p>}
+            {this.state.myAccount ? <p>Welcome {this.props.account.name}!</p> : <p>Name {this.state.pageAccount.name}</p>}
           </div>
           <h1 className="accountSection">Posts</h1>
           <div>
@@ -98,8 +100,7 @@ const mapStateToProps = state => {
     account: state.accountChanger.account,
     posts: state.postsChanger.posts,
     comments: state.commentsChanger.comments,
-    selectedPost: state.selectedPostChanger.selectedPost,
-    selectedAccount: state.selectedAccountChanger.selectedAccount
+    selectedPost: state.selectedPostChanger.selectedPost
   }
 }
 
@@ -107,8 +108,7 @@ const mapDispatchToProps = dispatch => {
   return {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
     changeComment: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }
 

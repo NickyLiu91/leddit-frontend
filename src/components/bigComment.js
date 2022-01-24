@@ -57,22 +57,6 @@ class BigComment extends React.Component {
   }
 }
 
-// <div>
-//   <p onClick={() => {this.seeAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
-// </div>
-// <br/>
-// <div>
-//   {
-//     this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
-//       if (!comment.parent) {
-//         return(
-//           <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} />
-//         )
-//       }
-//     })
-//   }
-// </div>
-
 const mapStateToProps = state => {
   return {
     selectedComment: state.selectedCommentChanger.selectedComment,
@@ -83,7 +67,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
     changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
     changeSelectedComment: (event) => dispatch({type: 'CHANGE_SELECTEDCOMMENT', selectedComment: event})
   }

@@ -84,12 +84,6 @@ class BigPost extends React.Component {
 
   selectAccount = (account) => {
     this.props.history.push(`/account/${account.id}`)
-    // if (account.id == this.props.account.id) {
-    //   this.props.history.push("/account")
-    // } else {
-    //   this.props.changeSelectedAccount(account)
-    //   this.props.history.push(`/otheraccount/${account.id}`)
-    // }
   }
 
   edit = () => {
@@ -344,7 +338,6 @@ const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
     changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }

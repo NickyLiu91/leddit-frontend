@@ -44,12 +44,6 @@ class Comment extends React.Component {
 
   selectAccount = (account) => {
     this.props.history.push(`/account/${account.id}`)
-    // if (account.id == this.props.account.id) {
-    //   this.props.history.push("/account")
-    // } else {
-    //   this.props.changeSelectedAccount(account)
-    //   this.props.history.push(`/otheraccount/${account.id}`)
-    // }
   }
 
   selectBigPost = (post) => {
@@ -283,8 +277,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event})
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }
 

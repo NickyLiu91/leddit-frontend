@@ -24,7 +24,6 @@ class Posts extends React.Component {
   }
 
   selectAccount = (account) => {
-    this.props.changeSelectedAccount(account)
     this.props.history.push(`/account/${account.id}`)
   }
 
@@ -46,8 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event}),
-    changeSelectedAccount: (event) => dispatch({type: 'CHANGE_SELECTEDACCOUNT', selectedAccount: event}),
+    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
   }
 }
 
