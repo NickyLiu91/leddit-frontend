@@ -47,7 +47,7 @@ class Comment extends React.Component {
   }
 
   selectBigPost = (post) => {
-    this.props.changeSelectedPost(post)
+
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
@@ -55,7 +55,7 @@ class Comment extends React.Component {
 
     let currentComment = comment
     let currentComments = this.props.comments
-    let currentPost = this.props.selectedPost
+    let currentPost = this.props.comment.account
 
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
       method: 'PUT',
@@ -89,7 +89,7 @@ class Comment extends React.Component {
   submitCommentReply = (event) => {
 
     let currentComments = this.props.comments
-    let currentPost = this.props.selectedPost
+    let currentPost = this.props.comment.account
 
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
@@ -101,7 +101,7 @@ class Comment extends React.Component {
       body: JSON.stringify({
           content: this.state.replyText,
           account_id: this.props.account.id,
-          post_id: this.props.selectedPost.id,
+          post_id: currentPost.id,
           parent_id: this.props.comment.id
       })
     })
@@ -138,7 +138,7 @@ class Comment extends React.Component {
     let currentComment = comment
     let currentComments = this.props.comments
 
-    let currentPost = this.props.selectedPost
+    let currentPost = this.props.comment.account
 
 
     fetch(`http://localhost:3000/api/v1/comments/${currentComment.id}`, {
@@ -269,15 +269,13 @@ class Comment extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
-    selectedPost: state.selectedPostChanger.selectedPost,
     comments: state.commentsChanger.comments
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 

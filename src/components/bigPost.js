@@ -13,7 +13,8 @@ class BigPost extends React.Component {
     edit: false,
     editText: '',
     editTitle: '',
-    selectedCommentReason: ''
+    selectedCommentReason: '',
+    pagePost: {}
   }
 
   componentDidMount() {
@@ -22,7 +23,9 @@ class BigPost extends React.Component {
     fetch(`http://localhost:3000/api/v1/posts/${postId}`)
     .then(res => res.json())
     .then(json => {
-      this.props.changeSelectedPost(json)
+      this.setState({
+        pagePost: json
+      })
     })
   }
 
@@ -56,7 +59,7 @@ class BigPost extends React.Component {
   postComment = (event) => {
 
     let currentComments = this.props.comments
-    let currentPost = this.props.selectedPost
+    let currentPost = this.state.pagePost
 
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
@@ -68,7 +71,7 @@ class BigPost extends React.Component {
       body: JSON.stringify({
           content: this.state.text,
           account_id: this.props.account.id,
-          post_id: this.props.selectedPost.id
+          post_id: this.state.pagePost.id
       })
     })
     .then(r => r.json())
@@ -89,8 +92,8 @@ class BigPost extends React.Component {
   edit = () => {
     this.setState({
       edit: !this.state.edit,
-      editText: this.props.selectedPost.content,
-      editTitle: this.props.selectedPost.title
+      editText: this.state.pagePost.content,
+      editTitle: this.state.pagePost.title
     })
   }
 
@@ -108,7 +111,7 @@ class BigPost extends React.Component {
 
   submitBigPostEdit = (event) => {
 
-    let currentPost = this.props.selectedPost
+    let currentPost = this.state.pagePost
 
     fetch(`http://localhost:3000/api/v1/posts/${currentPost.id}`, {
       method: 'PUT',
@@ -142,7 +145,6 @@ class BigPost extends React.Component {
         }
       })
 
-      this.props.changeSelectedPost(json)
       this.props.changePosts(allPosts)
       this.props.changeComments(newComments)
 
@@ -154,7 +156,7 @@ class BigPost extends React.Component {
 
   deleteBigPost = (event) => {
 
-    let currentPost = this.props.selectedPost
+    let currentPost = this.state.pagePost
 
     fetch(`http://localhost:3000/api/v1/posts/${currentPost.id}`, {
       method: 'PUT',
@@ -188,34 +190,33 @@ class BigPost extends React.Component {
         }
       })
 
-      this.props.changeSelectedPost(json)
       this.props.changePosts(allPosts)
       this.props.changeComments(newComments)
     })
   }
 
   render() {
-   if (!this.props.selectedPost.account) {
+   if (!this.state.pagePost.account) {
       {/*Display loading screen if post's account not gotten yet*/}
       return(
         <div>
         Loading
         </div>
       )
-    } else if (this.props.selectedPost.deleted) {
+    } else if (this.state.pagePost.deleted) {
       {/*Display loading screen if post was deleted*/}
       return (
         <div>
           <div>
             <h1>Deleted</h1>
             <p>Deleted</p>
-            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
-            <p>Deleted at: {this.props.selectedPost.updated_at.slice(0, -14)}</p>
+            <p>Created at: {this.state.pagePost.created_at.slice(0, -14)}</p>
+            <p>Deleted at: {this.state.pagePost.updated_at.slice(0, -14)}</p>
           </div>
           <br/>
           <div>
             {
-              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+              this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit}/>
@@ -233,17 +234,17 @@ class BigPost extends React.Component {
             <input type="text" value={this.state.editTitle} onChange={event => this.handleEditTitle(event)}/>
             <br/>
             <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}>{this.state.editText}</textarea>
-            <p>{this.props.selectedPost.account.name}</p>
+            <p>{this.state.pagePost.account.name}</p>
             <br/>
             <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
-            <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.props.selectedPost.content})}}>Cancel</button>
-            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
-            {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
+            <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.state.pagePost.content})}}>Cancel</button>
+            <p>Created at: {this.state.pagePost.created_at.slice(0, -14)}</p>
+            {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <br/>
           <div>
             {
-              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+              this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
@@ -260,20 +261,20 @@ class BigPost extends React.Component {
         <div>
         ccc
           <div>
-            <h1>{this.props.selectedPost.title}</h1>
-            <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <h1>{this.state.pagePost.title}</h1>
+            <p>{this.state.pagePost.content}</p>
+            <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>{this.state.pagePost.account.name}</p>
             <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
             <button onClick={(event) => {this.postComment(event)}}>Comment</button>
             <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>
-            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
-            {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
+            <p>Created at: {this.state.pagePost.created_at.slice(0, -14)}</p>
+            {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <br/>
           <div>
             {
-              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+              this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} cancel={this.cancel} selectedCommentReason={this.state.selectedCommentReason}
@@ -289,14 +290,14 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-            <h1>{this.props.selectedPost.title}</h1>
-            <p>{this.props.selectedPost.content}</p>
-            <p onClick={() => {this.selectAccount(this.props.selectedPost.account)}}>{this.props.selectedPost.account.name}</p>
+            <h1>{this.state.pagePost.title}</h1>
+            <p>{this.state.pagePost.content}</p>
+            <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>{this.state.pagePost.account.name}</p>
             {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
             {/*display comment button if loggedin*/}
-            {this.props.selectedPost.edited ? <p>Updated at: {this.props.selectedPost.updated_at.slice(0, -14)}</p> : null}
-            <p>Created at: {this.props.selectedPost.created_at.slice(0, -14)}</p>
-            {this.props.selectedPost.account.id == this.props.account.id && this.state.comment == false && this.state.selectedCommentReason == '' ?
+            {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
+            <p>Created at: {this.state.pagePost.created_at.slice(0, -14)}</p>
+            {this.state.pagePost.account.id == this.props.account.id && this.state.comment == false && this.state.selectedCommentReason == '' ?
               <div>
               <br/>
               <button onClick={(event) => {this.edit(event)}}>Edit</button>
@@ -309,7 +310,7 @@ class BigPost extends React.Component {
           <br/>
           <div>
             {
-              this.props.comments.filter(comment => comment.post.id == this.props.selectedPost.id).map(comment => {
+              this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
@@ -328,7 +329,6 @@ class BigPost extends React.Component {
 const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
-    selectedPost: state.selectedPostChanger.selectedPost,
     posts: state.postsChanger.posts,
     comments: state.commentsChanger.comments
   }
@@ -337,8 +337,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
+    changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event})
   }
 }
 

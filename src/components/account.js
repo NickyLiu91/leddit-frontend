@@ -59,7 +59,6 @@ class Account extends React.Component {
   }
 
   selectBigPost = (post) => {
-    this.props.changeSelectedPost(post)
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
@@ -99,16 +98,14 @@ const mapStateToProps = state => {
   return {
     account: state.accountChanger.account,
     posts: state.postsChanger.posts,
-    comments: state.commentsChanger.comments,
-    selectedPost: state.selectedPostChanger.selectedPost
+    comments: state.commentsChanger.comments
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeComment: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
+    changeComment: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 

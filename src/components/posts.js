@@ -19,7 +19,6 @@ class Posts extends React.Component {
   }
 
   selectBigPost = (post) => {
-    this.props.changeSelectedPost(post)
     this.props.history.push(`/bigpost/${post.id}`)
   }
 
@@ -38,20 +37,12 @@ class Posts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state.postsChanger.posts,
-    selectedPost: state.selectedPostChanger.selectedPost
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
+    posts: state.postsChanger.posts
   }
 }
 
 export default compose(
   withRouter,
   connect(
-    mapStateToProps,
-    mapDispatchToProps)
+    mapStateToProps)
 )(Posts);

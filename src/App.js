@@ -11,7 +11,6 @@ import Posts from './components/posts.js';
 import BigPost from './components/bigPost.js';
 import BigComment from './components/bigComment.js';
 import Account from './components/account.js';
-import OtherAccount from './components/otherAccount.js';
 import CreatePost from './components/createPost.js';
 // import NotFound from './components/notFound.js';
 
@@ -84,10 +83,6 @@ class App extends React.Component {
               <Route path="/bigpost/:id" component={BigPost} />
               <Route path="/createpost" component={CreatePost} />
               <Route path="/account/:id" component={Account} />
-              {/*
-              // <Route path="/bigcomment/:id" component={BigComment} />
-              // <Route path="/otheraccount/:id" component={OtherAccount} />
-              */}
             </Switch>
           </div>
         </div>
@@ -106,8 +101,7 @@ const mapStateToProps = state => {
   return {
     posts: state.postsChanger.posts,
     account: state.accountChanger.account,
-    comments: state.commentsChanger.comments,
-    selectedPost: state.selectedPostChanger.selectedPost,
+    comments: state.commentsChanger.comments
   }
 }
 
@@ -115,8 +109,7 @@ const mapDispatchToProps = dispatch => {
   return {
     changePosts: (event) => dispatch({type: 'CHANGE_POSTS', newPosts: event}),
     changeAccount: (event) => dispatch({type: 'CHANGE_ACCOUNT', newAccount: event}),
-    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event}),
-    changeSelectedPost: (event) => dispatch({type: 'CHANGE_SELECTEDPOST', selectedPost: event})
+    changeComments: (event) => dispatch({type: 'CHANGE_COMMENTS', newComments: event})
   }
 }
 

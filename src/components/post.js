@@ -12,9 +12,6 @@ class Post extends React.Component {
           <li>
             <h1 onClick={() => {this.props.selectBigPost(this.props.post)}}>{this.props.post.title}</h1>
             <p>{this.props.post.content}</p>
-            {/*}
-            <p onClick={() => {this.props.selectAccount(this.props.post.account)}}> - {this.props.post.account.name}</p>
-            */}
             <p onClick={() => {this.props.history.push(`/account/${this.props.post.account.id}`)}}> - {this.props.post.account.name}</p>
             <p>Created at: {this.props.post.created_at.slice(0, -14)}</p>
           </li>
