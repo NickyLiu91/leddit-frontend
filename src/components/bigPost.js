@@ -268,13 +268,14 @@ class BigPost extends React.Component {
             <h1>{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
-            <textarea value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+            {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
+          </div>
+          <div id='postComment'>
+            <textarea id='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
             <button onClick={(event) => {this.postComment(event)}}>Comment</button>
             <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>
-            {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
-          <br/>
           <div>
             {
               this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {

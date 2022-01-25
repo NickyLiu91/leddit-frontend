@@ -40,3 +40,14 @@ ul {
 .postTitle {
   color: blue
 }
+
+#postComment {
+  border-top: 5px solid black;
+  margin: -5px,auto;
+  padding: 10px;
+}
+
+#postCommentTextArea {
+  height: 15vh;
+  width: 40vw
+}
