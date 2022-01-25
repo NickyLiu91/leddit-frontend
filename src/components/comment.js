@@ -196,12 +196,11 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
-                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
@@ -215,13 +214,12 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
@@ -235,9 +233,8 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
+                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
-                <p onClick={() => {this.props.history.push(`/account/${this.props.comment.account.id}`)}}>{this.props.comment.account.name}</p>
-                <p>Created at: {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.props.account.id == this.props.comment.account.id && !this.props.stateEdit && !this.props.stateComment && this.props.selectedCommentReason == '' ?
                    <div>
