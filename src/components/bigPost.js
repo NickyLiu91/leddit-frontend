@@ -270,8 +270,8 @@ class BigPost extends React.Component {
             <p>{this.state.pagePost.content}</p>
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
-          <div id='postComment'>
-            <textarea id='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+          <div class='postComment'>
+            <textarea class='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
             <button onClick={(event) => {this.postComment(event)}}>Comment</button>
             <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>

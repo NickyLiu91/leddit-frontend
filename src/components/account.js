@@ -9,7 +9,8 @@ class Account extends React.Component {
 
   state = {
     myAccount: false,
-    pageAccount: {}
+    pageAccount: {},
+    displayTab: 'All'
   }
 
   componentDidMount() {
@@ -58,6 +59,12 @@ class Account extends React.Component {
     )
   }
 
+  changeDisplayTab = (event) => {
+    this.setState({
+      displayTab: event
+    })
+  }
+
   render() {
     if (Object.keys(this.state.pageAccount).length == 0) {
       {/*if retrieving account*/}
@@ -72,14 +79,39 @@ class Account extends React.Component {
           <div>
             {this.state.myAccount ? <p>Welcome {this.props.account.name}!</p> : <p>Name {this.state.pageAccount.name}</p>}
           </div>
-          <h1 className="accountSection">Posts</h1>
           <div>
-          {this.generatePosts()}
+            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>All</p>
+            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>Posts</p>
+            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>Comments</p>
           </div>
-          <h1 className="accountSection">Comments</h1>
-          <div>
-          {this.displayComments()}
-          </div>
+
+          {this.state.displayTab == 'All' ?
+            <div>
+              <h1 className="accountSection">Posts</h1>
+                <div>
+                  {this.generatePosts()}
+                </div>
+              <h1 className="accountSection">Comments</h1>
+                <div>
+                  {this.displayComments()}
+                </div>
+            </div> : this.state.displayTab == 'Posts' ?
+                  <div>
+                    <h1 className="accountSection">Posts</h1>
+                      <div>
+                        {this.generatePosts()}
+                      </div>
+                  </div> :
+                  <div>
+                    <div>
+                      <h1 className="accountSection">Comments</h1>
+                        <div>
+                          {this.displayComments()}
+                        </div>
+                    </div>
+                  </div>
+
+          }
         </div>
       )
     }
