@@ -159,7 +159,6 @@ class Comment extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.comment.deleted == true) {
       {/*Display if comment is deleted*/}
       return(

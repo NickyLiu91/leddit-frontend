@@ -63,3 +63,8 @@ ul {
   border-right: 3px solid black;
   margin: 5px
 }
+
+#selectedTab{
+  color: white;
+  background: black
+}
