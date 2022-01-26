@@ -61,7 +61,9 @@ class Account extends React.Component {
 
   changeDisplayTab = (event) => {
     this.setState({
-      displayTab: event
+      displayTab: event.innerText
+    }, () => {
+      event.id = 'selectedTab'
     })
   }
 
@@ -79,10 +81,10 @@ class Account extends React.Component {
           <div>
             {this.state.myAccount ? <p>Welcome {this.props.account.name}!</p> : <p>Name {this.state.pageAccount.name}</p>}
           </div>
-          <div>
-            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>All</p>
-            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>Posts</p>
-            <p onClick={(event) => {this.changeDisplayTab(event.target.innerText)}}>Comments</p>
+          <div id="accountDisplayTabs">
+            <p onClick={(event) => {this.changeDisplayTab(event.target)}}>All</p>
+            <p onClick={(event) => {this.changeDisplayTab(event.target)}}>Posts</p>
+            <p onClick={(event) => {this.changeDisplayTab(event.target)}}>Comments</p>
           </div>
 
           {this.state.displayTab == 'All' ?
@@ -110,7 +112,6 @@ class Account extends React.Component {
                         </div>
                     </div>
                   </div>
-
           }
         </div>
       )

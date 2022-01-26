@@ -51,3 +51,15 @@ ul {
   height: 15vh;
   width: 40vw
 }
+
+#accountDisplayTabs{
+  display: flex;
+  margin-bottom: -10px
+}
+
+#accountDisplayTabs p {
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  margin: 5px
+}
