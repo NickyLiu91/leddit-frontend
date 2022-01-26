@@ -64,7 +64,11 @@ ul {
   margin: 5px
 }
 
-#selectedTab{
+#selectedTab {
   color: white;
   background: black
+}
+
+.postTitle {
+  color: blue
 }

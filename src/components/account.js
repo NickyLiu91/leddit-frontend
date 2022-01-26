@@ -63,9 +63,9 @@ class Account extends React.Component {
     this.setState({
       displayTab: event.innerText
     }, () => {
-      let oldSelected = document.getElementById('selectedTab')
-      if (oldSelected){oldSelected.removeAttribute('id')}
-      event.id = 'selectedTab'
+      let oldSelected = document.getElementById("selectedTab")
+      if (oldSelected){oldSelected.removeAttribute("id")}
+      event.id = "selectedTab"
     })
   }
 

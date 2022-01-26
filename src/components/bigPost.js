@@ -265,7 +265,7 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-            <h1>{this.state.pagePost.title}</h1>
+            <h1 class="postTitle">{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
@@ -294,7 +294,7 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-            <h1>{this.state.pagePost.title}</h1>
+            <h1 class="postTitle">{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
             {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
