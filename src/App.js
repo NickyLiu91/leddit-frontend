@@ -50,6 +50,10 @@ class App extends React.Component {
         user: !this.state.user
       })
     }
+
+    // fetch(`http://localhost:3000/api/v1/commentvotes`)
+    // .then(res => res.json())
+    // .then(json => {console.log(json)})
   }
 
   fetchCurrentUser = () => {

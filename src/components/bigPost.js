@@ -265,13 +265,13 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-            <h1 class="postTitle">{this.state.pagePost.title}</h1>
+            <h1 className="postTitle">{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
-          <div class='postComment'>
-            <textarea class='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
+          <div className='postComment'>
+            <textarea className='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
             <button onClick={(event) => {this.postComment(event)}}>Comment</button>
             <button onClick={(event) => {this.setState({comment: !this.state.comment, text: ''})}}>Cancel</button>
@@ -294,7 +294,7 @@ class BigPost extends React.Component {
       return (
         <div>
           <div>
-            <h1 class="postTitle">{this.state.pagePost.title}</h1>
+            <h1 className="postTitle">{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
             {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
