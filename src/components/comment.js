@@ -6,28 +6,28 @@ import Post from './post.js'
 
 class Comment extends React.Component {
 
-    state = {
-      replyText: '',
-      editText: this.props.comment.content
-    }
+  state = {
+    replyText: '',
+    editText: this.props.comment.content
+  }
 
-    handleReplyText = (event) => {
+  handleReplyText = (event) => {
+    this.setState({
+      replyText: event.target.value
+    })
+  }
+
+  handleEditText = (event) => {
+    this.setState({
+      editText: event.target.value
+    })
+  }
+
+  cancel = () => {
       this.setState({
-        replyText: event.target.value
-      })
-    }
-
-    handleEditText = (event) => {
-      this.setState({
-        editText: event.target.value
-      })
-    }
-
-    cancel = () => {
-        this.setState({
-          editText: this.props.comment.content
-        }, () => {this.props.cancel()})
-    }
+        editText: this.props.comment.content
+      }, () => {this.props.cancel()})
+  }
 
   nestedComments = (comment, comments, source="comments") => {
     // let childComments = this.props.comments.filter(comment2 => comment2.parent.id == comment.id)
@@ -37,7 +37,7 @@ class Comment extends React.Component {
         return <ConnectedComment key={comment2.id} comment={comment2} account={this.props.account}
         editComment={this.props.editComment} replyComment={this.props.replyComment} selectedComment={this.props.selectedComment}
         cancel={this.cancel} source={source} selectedCommentReason={this.props.selectedCommentReason}
-        submitCommentEdit={this.submitCommentEdit} stateComment={this.props.stateComment} stateEdit={this.props.stateEdit}/>
+        submitCommentEdit={this.submitCommentEdit} stateComment={this.props.stateComment} stateEdit={this.props.stateEdit} selectAccount={this.props.selectAccount}/>
       })
     // }
   }
@@ -200,7 +200,7 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
+                <p onClick={() => {this.props.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 <div>
                   <p>Like: {this.props.comment.commentvotes.filter(vote => vote.like).length}</p>
@@ -222,7 +222,7 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
+                <p onClick={() => {this.props.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 <div>
@@ -245,7 +245,7 @@ class Comment extends React.Component {
           <ul>
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-                <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
+                <p onClick={() => {this.props.selectAccount(this.props.comment.account)}}>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 <div>

@@ -224,7 +224,7 @@ class BigPost extends React.Component {
               this.props.comments.filter(comment => comment.post.id == this.state.pagePost.id).map(comment => {
                 if (!comment.parent) {
                   return(
-                    <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit}/>
+                    <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} stateComment={this.state.comment} stateEdit={this.state.edit} selectAccount={this.selectAccount}/>
                   )
                 }
               })
@@ -257,7 +257,7 @@ class BigPost extends React.Component {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} replyComment={this.replyComment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
-                    stateComment={this.state.comment} stateEdit={this.state.edit} cancel={this.cancel}/>
+                    stateComment={this.state.comment} stateEdit={this.state.edit} cancel={this.cancel} selectAccount={this.selectAccount}/>
                   )
                 }
               })
@@ -290,7 +290,7 @@ class BigPost extends React.Component {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} cancel={this.cancel} selectedCommentReason={this.state.selectedCommentReason}
-                    stateComment={this.state.comment} stateEdit={this.state.edit} cancel={this.cancel}/>
+                    stateComment={this.state.comment} stateEdit={this.state.edit} cancel={this.cancel} selectAccount={this.selectAccount}/>
                   )
                 }
               })
@@ -329,7 +329,8 @@ class BigPost extends React.Component {
                 if (!comment.parent) {
                   return(
                     <Comment key={comment.id} comment={comment} selectedComment={this.state.selectedComment} selectedCommentReason={this.state.selectedCommentReason}
-                    stateComment={this.state.comment} stateEdit={this.state.edit} replyComment={this.replyComment} editComment={this.editComment} cancel={this.cancel}/>
+                    stateComment={this.state.comment} stateEdit={this.state.edit} replyComment={this.replyComment} editComment={this.editComment} cancel={this.cancel}
+                    selectAccount={this.selectAccount}/>
                   )
                 }
               })
