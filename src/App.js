@@ -9,7 +9,6 @@ import Home from './components/home.js';
 import LogInPage from './components/logInPage.js';
 import Posts from './components/posts.js';
 import BigPost from './components/bigPost.js';
-import BigComment from './components/bigComment.js';
 import Account from './components/account.js';
 import CreatePost from './components/createPost.js';
 // import NotFound from './components/notFound.js';
