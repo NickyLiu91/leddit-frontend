@@ -180,7 +180,8 @@ class Comment extends React.Component {
           <ul>
             <li>
               <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
-              {!this.props.comment.post.deleted ? <p><span class="postTitle">{this.props.comment.post.title}</span> by {this.props.comment.post.account.name}</p> : <p onClick={() => {this.props.history.push(`/bigpost/${this.props.comment.id}`)}}> Posted in: 'Deleted'</p>}
+              {!this.props.comment.post.deleted ? <p><span className="postTitle" onClick={() => {this.props.history.push(`/bigpost/${this.props.comment.post.id}`)}}>{this.props.comment.post.title}</span> by <span onClick={() => {this.props.history.push(`/account/${this.props.comment.post.account.id}`)}} >{this.props.comment.post.account.name}</span></p> :
+              <p onClick={() => {this.props.history.push(`/bigpost/${this.props.comment.post.id}`)}}> Posted in: 'Deleted'</p>}
               <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
               <p>{this.state.editText}</p>
               {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
