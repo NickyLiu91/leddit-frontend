@@ -241,6 +241,10 @@ class BigPost extends React.Component {
             <br/>
             <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}>{this.state.editText}</textarea>
             <p>{this.state.pagePost.account.name}</p>
+            <div>
+              <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+              <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+            </div>
             <br/>
             <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
             <button onClick={(event) => {this.setState({edit: !this.state.edit, editText: this.state.pagePost.content})}}>Cancel</button>
@@ -270,6 +274,10 @@ class BigPost extends React.Component {
             <p>{this.state.pagePost.content}</p>
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
+          <div>
+            <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+            <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+          </div>
           <div className='postComment'>
             <textarea className='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
             <br/>
@@ -291,12 +299,17 @@ class BigPost extends React.Component {
         </div>
       )
     } else {
+      {/*if post belongs to current account and not editing display edit and delete button*/}
       return (
         <div>
           <div>
             <h1 className="postTitle">{this.state.pagePost.title}</h1>
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
+            <div>
+              <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+              <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+            </div>
             {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
             {/*display comment button if loggedin*/}
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
@@ -308,7 +321,6 @@ class BigPost extends React.Component {
               <button onClick={(event) => {this.deleteBigPost(event)}}>Delete</button>
               </div> : null
             }
-            {/*if post belongs to current account and not editing display edit and delete button*/}
           </div>
           <br/>
           <div>
