@@ -184,6 +184,10 @@ class Comment extends React.Component {
               <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
               <p>{this.state.editText}</p>
               {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+              <div>
+                <p>Like: {this.props.comment.commentvotes.filter(vote => vote.like).length}</p>
+                <p>Dislike: {this.props.comment.commentvotes.filter(vote => !vote.like).length}</p>
+              </div>
               </div>
             </li>
           </ul>
@@ -196,11 +200,15 @@ class Comment extends React.Component {
             <li>
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+                <div>
+                  <p>Like: {this.props.comment.commentvotes.filter(vote => vote.like).length}</p>
+                  <p>Dislike: {this.props.comment.commentvotes.filter(vote => !vote.like).length}</p>
+                </div>
                 <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.submitCommentEdit(this.props.comment)}}>Edit</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -215,11 +223,15 @@ class Comment extends React.Component {
                 <div style={{"marginLeft": "25px", "marginTop": "10px"}}>
                 <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
+                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+                <div>
+                  <p>Like: {this.props.comment.commentvotes.filter(vote => vote.like).length}</p>
+                  <p>Dislike: {this.props.comment.commentvotes.filter(vote => !vote.like).length}</p>
+                </div>
                 <textarea value={this.state.replyText} onChange={event => this.handleReplyText(event)}></textarea>
                 <br/>
                 <button onClick={(event) => {this.submitCommentReply(event)}}>Reply</button>
                 <button onClick={(event) => {this.cancel(event)}}>Cancel</button>
-                {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
                 {this.nestedComments(this.props.comment, this.props.comments)}
               </div>
             </li>
@@ -235,6 +247,10 @@ class Comment extends React.Component {
                 <p>{this.props.comment.account.name} on {this.props.comment.created_at.slice(0, -14)}</p>
                 <p>{this.state.editText}</p>
                 {this.props.comment.edited ? <p>Updated at: {this.props.comment.updated_at.slice(0, -14)}</p> : null}
+                <div>
+                  <p>Like: {this.props.comment.commentvotes.filter(vote => vote.like).length}</p>
+                  <p>Dislike: {this.props.comment.commentvotes.filter(vote => !vote.like).length}</p>
+                </div>
                 {this.props.account.id == this.props.comment.account.id && !this.props.stateEdit && !this.props.stateComment && this.props.selectedCommentReason == '' ?
                    <div>
                      <button onClick={(event) => {this.props.editComment(this.props.comment)}}>Edit</button>
