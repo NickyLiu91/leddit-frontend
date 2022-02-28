@@ -201,34 +201,33 @@ class BigPost extends React.Component {
   }
 
   handleVote = (event) => {
-    console.log(event)
-    console.log(this.state.pagePost)
 
     // let currentComments = this.props.comments
     // let currentPost = this.state.pagePost
     //
-    // fetch('http://localhost:3000/api/v1/postvotes', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    //   },
-    //   body: JSON.stringify({
-    //       content: this.state.text,
-    //       account_id: this.props.account.id,
-    //       post_id: this.state.pagePost.id
-    //   })
-    // })
-    // .then(r => r.json())
-    // .then(json => {
-    //   currentPost.comments.push(json)
-    //   this.props.changeComments([...currentComments, json])
-    //   this.setState({
-    //     comment: !this.state.comment,
-    //     text: ''
-    //   })
-    // })
+    fetch('http://localhost:3000/api/v1/postvotes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+          account_id: this.props.account.id,
+          post_id: this.state.pagePost.id,
+          like: event.target.className
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      console.log(json)
+      // currentPost.comments.push(json)
+      // this.props.changeComments([...currentComments, json])
+      // this.setState({
+      //   comment: !this.state.comment,
+      //   text: ''
+      // })
+    })
   }
 
   render() {
@@ -306,7 +305,7 @@ class BigPost extends React.Component {
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <div>
-            <p className="like" onClick={(event) => {this.handleVote(event.target.className)}}>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+            <p className="like" onClick={(event) => {this.handleVote(event)}}>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
             <p className="dislike" onClick={(event) => {this.handleVote(event)}}>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
           </div>
           <div className='postComment'>
