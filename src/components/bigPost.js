@@ -201,16 +201,58 @@ class BigPost extends React.Component {
   }
 
   handleVote = (event) => {
-    let currentVotes = this.state.pagePost.postvotes
-    console.log(currentVotes)
-    if (!currentVotes.some(vote => vote.account_id == this.props.account.id)) {
-      createVote(event)
+    let vote
+    if (event.target.className == "like") {
+      vote = true
     } else {
-      existingVote(event)
+      vote = false
+    }
+
+    let currentVotes = this.state.pagePost.postvotes
+    let myVote = currentVotes.find(vote => vote.account_id == this.props.account.id)
+
+    if (!myVote) {
+      // this.createVote(event)
+      this.createVote(vote)
+    } else {
+      console.log('yes vote')
     }
   }
 
-  createVote = (event) => {
+  createVote = (vote) => {
+
+    fetch('http://localhost:3000/api/v1/postvotes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      },
+      body: JSON.stringify({
+          account_id: this.props.account.id,
+          post_id: this.state.pagePost.id,
+          like: vote
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      let oldPost = this.state.pagePost
+      oldPost.postvotes.push(json)
+
+      let allPosts = this.props.posts
+
+      let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
+      allPosts[oldPostPosition] = oldPost
+
+      this.props.changePosts(allPosts)
+
+      this.setState({
+        pagePost: oldPost
+      })
+    })
+  }
+
+  editVote = (event) => {
     let vote
     if (event.target.className == "like") {
       vote = true
@@ -248,8 +290,6 @@ class BigPost extends React.Component {
       })
     })
   }
-
-  
 
   render() {
    if (!this.state.pagePost.account) {
