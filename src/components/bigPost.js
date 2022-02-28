@@ -201,6 +201,16 @@ class BigPost extends React.Component {
   }
 
   handleVote = (event) => {
+    let currentVotes = this.state.pagePost.postvotes
+    console.log(currentVotes)
+    if (!currentVotes.some(vote => vote.account_id == this.props.account.id)) {
+      createVote(event)
+    } else {
+      existingVote(event)
+    }
+  }
+
+  createVote = (event) => {
     let vote
     if (event.target.className == "like") {
       vote = true
@@ -238,6 +248,8 @@ class BigPost extends React.Component {
       })
     })
   }
+
+  
 
   render() {
    if (!this.state.pagePost.account) {
