@@ -201,7 +201,12 @@ class BigPost extends React.Component {
   }
 
   handleVote = (event) => {
-
+    let vote
+    if (event.target.className == "like") {
+      vote = true
+    } else {
+      vote = false
+    }
     // let currentComments = this.props.comments
     // let currentPost = this.state.pagePost
     //
@@ -215,7 +220,7 @@ class BigPost extends React.Component {
       body: JSON.stringify({
           account_id: this.props.account.id,
           post_id: this.state.pagePost.id,
-          like: event.target.className
+          like: vote
       })
     })
     .then(r => r.json())
