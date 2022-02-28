@@ -207,9 +207,7 @@ class BigPost extends React.Component {
     } else {
       vote = false
     }
-    // let currentComments = this.props.comments
-    // let currentPost = this.state.pagePost
-    //
+
     fetch('http://localhost:3000/api/v1/postvotes', {
       method: 'POST',
       headers: {
@@ -225,13 +223,19 @@ class BigPost extends React.Component {
     })
     .then(r => r.json())
     .then(json => {
-      console.log(json)
-      // currentPost.comments.push(json)
-      // this.props.changeComments([...currentComments, json])
-      // this.setState({
-      //   comment: !this.state.comment,
-      //   text: ''
-      // })
+      let oldPost = this.state.pagePost
+      oldPost.postvotes.push(json)
+
+      let allPosts = this.props.posts
+
+      let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
+      allPosts[oldPostPosition] = oldPost
+
+      this.props.changePosts(allPosts)
+
+      this.setState({
+        pagePost: oldPost
+      })
     })
   }
 
