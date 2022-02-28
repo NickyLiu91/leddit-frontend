@@ -209,14 +209,17 @@ class BigPost extends React.Component {
     }
 
     let currentVotes = this.state.pagePost.postvotes
-    let myVote = currentVotes.find(vote => vote.account_id == this.props.account.id)
+    console.log(currentVotes)
+    let myVote = currentVotes.find(postvote => postvote.account.id == this.props.account.id)
+
+    console.log(myVote)
 
     if (!myVote) {
       this.createVote(vote)
     } else {
       if (vote != myVote.like) {
         this.editVote(vote, myVote)
-      } 
+      }
     }
   }
 
@@ -246,6 +249,8 @@ class BigPost extends React.Component {
       allPosts[oldPostPosition] = oldPost
 
       this.props.changePosts(allPosts)
+
+      console.log(oldPost)
 
       this.setState({
         pagePost: oldPost
@@ -282,6 +287,8 @@ class BigPost extends React.Component {
 
       let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
       allPosts[oldPostPosition] = oldPost
+
+      console.log(oldPost)
 
       this.props.changePosts(allPosts)
 

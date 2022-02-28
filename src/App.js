@@ -52,11 +52,9 @@ class App extends React.Component {
 
     fetch(`http://localhost:3000/api/v1/commentvotes`)
     .then(res => res.json())
-    .then(json => {console.log(json)})
 
     fetch(`http://localhost:3000/api/v1/postvotes`)
     .then(res => res.json())
-    .then(json => {console.log(json)})
   }
 
   fetchCurrentUser = () => {
