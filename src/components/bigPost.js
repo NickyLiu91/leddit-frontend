@@ -200,6 +200,37 @@ class BigPost extends React.Component {
     })
   }
 
+  handleVote = (event) => {
+    console.log(event)
+    console.log(this.state.pagePost)
+
+    // let currentComments = this.props.comments
+    // let currentPost = this.state.pagePost
+    //
+    // fetch('http://localhost:3000/api/v1/postvotes', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //     'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    //   },
+    //   body: JSON.stringify({
+    //       content: this.state.text,
+    //       account_id: this.props.account.id,
+    //       post_id: this.state.pagePost.id
+    //   })
+    // })
+    // .then(r => r.json())
+    // .then(json => {
+    //   currentPost.comments.push(json)
+    //   this.props.changeComments([...currentComments, json])
+    //   this.setState({
+    //     comment: !this.state.comment,
+    //     text: ''
+    //   })
+    // })
+  }
+
   render() {
    if (!this.state.pagePost.account) {
       {/*Display loading screen if post's account not gotten yet*/}
@@ -242,8 +273,8 @@ class BigPost extends React.Component {
             <textarea value={this.state.editText} onChange={event => this.handleEditText(event)}>{this.state.editText}</textarea>
             <p>{this.state.pagePost.account.name}</p>
             <div>
-              <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
-              <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+              <p className="like" onClick={(event) => {this.handleVote(event)}}>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+              <p className="dislike" onClick={(event) => {this.handleVote(event)}}>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
             </div>
             <br/>
             <button onClick={(event) => {this.submitBigPostEdit(event)}}>Submit</button>
@@ -275,8 +306,8 @@ class BigPost extends React.Component {
             {this.state.pagePost.edited ? <p>Updated at: {this.state.pagePost.updated_at.slice(0, -14)}</p> : null}
           </div>
           <div>
-            <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
-            <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+            <p className="like" onClick={(event) => {this.handleVote(event.target.className)}}>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+            <p className="dislike" onClick={(event) => {this.handleVote(event)}}>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
           </div>
           <div className='postComment'>
             <textarea className='postCommentTextArea'value={this.state.text} onChange={event => this.handleText(event)}></textarea>
@@ -307,8 +338,8 @@ class BigPost extends React.Component {
             <p onClick={() => {this.selectAccount(this.state.pagePost.account)}}>Submitted on {this.state.pagePost.created_at.slice(0, -14)} by {this.state.pagePost.account.name}</p>
             <p>{this.state.pagePost.content}</p>
             <div>
-              <p>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
-              <p>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
+              <p className="like" onClick={(event) => {this.handleVote(event)}}>Like: {this.state.pagePost.postvotes.filter(vote => vote.like).length}</p>
+              <p className="dislike" onClick={(event) => {this.handleVote(event)}}>Dislike: {this.state.pagePost.postvotes.filter(vote => !vote.like).length}</p>
             </div>
             {Object.keys(this.props.account).length != 0  && this.state.selectedCommentReason == '' ? <button onClick={() => {this.setState({comment: !this.state.comment, selectedCommentReason: ''})}}>Comment</button> : null}
             {/*display comment button if loggedin*/}
