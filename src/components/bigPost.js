@@ -212,10 +212,11 @@ class BigPost extends React.Component {
     let myVote = currentVotes.find(vote => vote.account_id == this.props.account.id)
 
     if (!myVote) {
-      // this.createVote(event)
       this.createVote(vote)
     } else {
-      console.log('yes vote')
+      if (vote != myVote.like) {
+        this.editVote(vote, myVote)
+      } 
     }
   }
 
@@ -252,16 +253,10 @@ class BigPost extends React.Component {
     })
   }
 
-  editVote = (event) => {
-    let vote
-    if (event.target.className == "like") {
-      vote = true
-    } else {
-      vote = false
-    }
+  editVote = (newVote, oldVote) => {
 
-    fetch('http://localhost:3000/api/v1/postvotes', {
-      method: 'POST',
+    fetch(`http://localhost:3000/api/v1/postvotes/${oldVote.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -270,13 +265,18 @@ class BigPost extends React.Component {
       body: JSON.stringify({
           account_id: this.props.account.id,
           post_id: this.state.pagePost.id,
-          like: vote
+          like: newVote
       })
     })
     .then(r => r.json())
     .then(json => {
       let oldPost = this.state.pagePost
-      oldPost.postvotes.push(json)
+      let postVotes = oldPost.postvotes
+
+      let oldPostVotePosition = postVotes.findIndex(vote => vote.id == json.id)
+      postVotes[oldPostVotePosition] = json
+
+      oldPost.postvotes = postVotes
 
       let allPosts = this.props.posts
 
