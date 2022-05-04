@@ -313,12 +313,14 @@ class BigPost extends React.Component {
       console.log(currentPostVotes)
       let currentPostVoteIndex = currentPostVotes.findIndex(object => object.id == oldVote.id)
       console.log(currentPostVoteIndex)
-      console.log(currentPostVotes.splice(currentPostVoteIndex, 1))
-      // post.postvotes = currentPostVotes.splice(currentPostVoteIndex, 1)
-      // console.log(post)
-      // this.setState({
-      //   pagePost: post
-      // })
+      currentPostVotes.splice(currentPostVoteIndex, 1)
+      console.log(currentPostVotes)
+
+      post.postvotes = currentPostVotes
+      console.log(post)
+      this.setState({
+        pagePost: post
+      })
 
     })
     // .then(json => {
