@@ -209,13 +209,18 @@ class BigPost extends React.Component {
     }
 
     let currentVotes = this.state.pagePost.postvotes
+    console.log(this.state.pagePost)
     let myVote = currentVotes.find(postvote => postvote.account_id == this.props.account.id)
 
     if (!myVote) {
       this.createVote(vote)
     } else {
       if (vote != myVote.like) {
+        /*if you clicked a different like or dislike than your previous one, change it*/
         this.editVote(vote, myVote)
+      } else {
+        /*if you clicked the same like or dislike than your previous one, remove it*/
+        this.removeVote(vote, myVote)
       }
     }
   }
@@ -282,13 +287,46 @@ class BigPost extends React.Component {
 
       let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
       allPosts[oldPostPosition] = oldPost
-      
+
       this.props.changePosts(allPosts)
 
       this.setState({
         pagePost: oldPost
       })
     })
+  }
+
+  removeVote = (newVote, oldVote) => {
+
+    fetch(`http://localhost:3000/api/v1/postvotes/${oldVote.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+    .then(r => r.json())
+    // .then(json => {
+    //   let oldPost = this.state.pagePost
+    //   let postVotes = oldPost.postvotes
+    //
+    //   let oldPostVotePosition = postVotes.findIndex(vote => vote.id == json.id)
+    //   postVotes[oldPostVotePosition] = json
+    //
+    //   oldPost.postvotes = postVotes
+    //
+    //   let allPosts = this.props.posts
+    //
+    //   let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
+    //   allPosts[oldPostPosition] = oldPost
+    //
+    //   this.props.changePosts(allPosts)
+    //
+    //   this.setState({
+    //     pagePost: oldPost
+    //   })
+    // })
   }
 
   render() {
