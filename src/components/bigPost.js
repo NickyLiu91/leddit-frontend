@@ -318,7 +318,12 @@ class BigPost extends React.Component {
         pagePost: oldPost
       })
 
+      let allPosts = this.props.posts
 
+      let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
+      allPosts[oldPostPosition] = oldPost
+
+      this.props.changePosts(allPosts)
     })
   }
 
