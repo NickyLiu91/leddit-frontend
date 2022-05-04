@@ -306,7 +306,21 @@ class BigPost extends React.Component {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       }
     })
-    .then(r => r.json())
+    .then(r => {
+      let post = this.state.pagePost
+      console.log(post)
+      let currentPostVotes = post.postvotes
+      console.log(currentPostVotes)
+      let currentPostVoteIndex = currentPostVotes.findIndex(object => object.id == oldVote.id)
+      console.log(currentPostVoteIndex)
+      console.log(currentPostVotes.splice(currentPostVoteIndex, 1))
+      // post.postvotes = currentPostVotes.splice(currentPostVoteIndex, 1)
+      // console.log(post)
+      // this.setState({
+      //   pagePost: post
+      // })
+
+    })
     // .then(json => {
     //   let oldPost = this.state.pagePost
     //   let postVotes = oldPost.postvotes
