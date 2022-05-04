@@ -307,42 +307,19 @@ class BigPost extends React.Component {
       }
     })
     .then(r => {
-      let post = this.state.pagePost
-      console.log(post)
-      let currentPostVotes = post.postvotes
-      console.log(currentPostVotes)
-      let currentPostVoteIndex = currentPostVotes.findIndex(object => object.id == oldVote.id)
-      console.log(currentPostVoteIndex)
-      currentPostVotes.splice(currentPostVoteIndex, 1)
-      console.log(currentPostVotes)
+      let oldPost = this.state.pagePost
+      let postVotes = oldPost.postvotes
+      let postVoteIndex = postVotes.findIndex(object => object.id == oldVote.id)
 
-      post.postvotes = currentPostVotes
-      console.log(post)
+      postVotes.splice(postVoteIndex, 1)
+      oldPost.postvotes = postVotes
+
       this.setState({
-        pagePost: post
+        pagePost: oldPost
       })
 
+
     })
-    // .then(json => {
-    //   let oldPost = this.state.pagePost
-    //   let postVotes = oldPost.postvotes
-    //
-    //   let oldPostVotePosition = postVotes.findIndex(vote => vote.id == json.id)
-    //   postVotes[oldPostVotePosition] = json
-    //
-    //   oldPost.postvotes = postVotes
-    //
-    //   let allPosts = this.props.posts
-    //
-    //   let oldPostPosition = allPosts.findIndex(post => post.id == oldPost.id)
-    //   allPosts[oldPostPosition] = oldPost
-    //
-    //   this.props.changePosts(allPosts)
-    //
-    //   this.setState({
-    //     pagePost: oldPost
-    //   })
-    // })
   }
 
   render() {
